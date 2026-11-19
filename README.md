@@ -1,12 +1,14 @@
-# Site da Sueli Ribeiro, Nutricionista
+# Site — Sueli Ribeiro, Nutricionista (CRN7/RO 17285)
 
-Site estático (HTML, CSS e JS puros) publicado na Vercel: https://site-sueli-v2.vercel.app
+Site estático (HTML, CSS e JavaScript), publicado na Vercel a partir deste repositório.
 
-- `index.html`: página única
-- `css/style.css`: estilos
-- `js/main.js`: configuração editável no topo (`CONFIG`: WhatsApp, cidade, endereço, horários, depoimentos, receitas, dicas, dúvidas) e animações
-- `js/vendor/`: GSAP, ScrollTrigger, SplitText e Lenis (sem CDN)
-- `fotos/`: imagens em WebP e JPG
-- `fonts/`: Schibsted Grotesk (auto-hospedada)
+## Onde editar
+- **WhatsApp, cidade, endereço, horários, mapa:** no topo de `js/main.js` (objeto `CONFIG`). Com o WhatsApp preenchido, todos os botões de agendamento passam a abrir o WhatsApp com mensagem pronta. Vazio, eles abrem o direct do Instagram.
+- **Textos, receitas, dicas e dúvidas:** escritos direto no `index.html`.
+- **Depoimentos:** não há seção de depoimentos porque ainda não existem avaliações reais autorizadas. Só adicione depoimentos verdadeiros, enviados por escrito e com autorização.
 
-Não há build: a Vercel serve a pasta como está.
+## Animações
+GSAP + ScrollTrigger + SplitText + Lenis (em `js/vendor`). Respeita `prefers-reduced-motion`. Se qualquer animação falhar, o site aparece normalmente sem ela.
+
+## Cache
+Ao trocar CSS ou JS, aumente o número `?v=` nos links do `index.html`.

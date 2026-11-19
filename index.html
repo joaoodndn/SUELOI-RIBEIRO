@@ -26,7 +26,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/fr-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/sg-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=4.1">
+<link rel="stylesheet" href="css/style.css?v=5.0">
 <script>
   (function () {
     var d = document.documentElement;
@@ -34,7 +34,7 @@
     d.classList.add("anim");
     var seen = false; try { seen = sessionStorage.getItem("sr-loader") === "1"; } catch (e) {}
     if (!seen) d.classList.add("has-loader");
-    setTimeout(function () { if (!window.__animReady) { d.classList.remove("anim", "has-loader"); d.classList.add("no-anim"); } }, 3000);
+    setTimeout(function () { if (!window.__animReady) { d.classList.remove("anim", "has-loader"); d.classList.add("no-anim"); } }, 2500);
   })();
 </script>
 <script type="application/ld+json">
@@ -61,16 +61,15 @@
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.2A11.8 11.8 0 0 0 1.9 17.8L.2 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4A11.8 11.8 0 0 0 20.4 3.6z"/></symbol>
   <symbol id="i-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".9" fill="currentColor" stroke="none"/></g></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
-  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 6l-6 6 6 6"/></symbol>
-  <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 40 40"><path fill="currentColor" d="M20 3c9 6 13 14 9 24-2 5-6 8-9 10-3-2-7-5-9-10C7 17 11 9 20 3zm0 5c-1 9-1 18 0 27 1-9 1-18 0-27z"/></symbol>
 </svg>
 
-<!-- Abertura -->
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader__imgs">
     <img src="fotos/receita-cafe-manga-pitaya-sm.webp" alt="">
@@ -80,7 +79,7 @@
     <img src="fotos/receita-omelete-tomate-cafe-na-mesa-sm.webp" alt="">
     <img src="fotos/sobre-sueli-camisa-bege-sorrindo-c-sm.webp" alt="" style="object-position:50% 20%">
   </div>
-  <div class="loader__name"><h2><span>Sueli</span> <span><em>Ribeiro</em></span></h2><span class="loader__count" id="loaderCount">0</span></div>
+  <div class="loader__name"><p class="loader__h"><span>Sueli</span> <span><em>Ribeiro</em></span></p><span class="loader__count" id="loaderCount">0</span></div>
   <div class="loader__bar"></div>
 </div>
 
@@ -90,142 +89,384 @@
 <header class="header" id="header">
   <div class="header__bg"></div>
   <div class="wrap header__in">
-    <a class="brand" href="#inicio" aria-label="Sueli Ribeiro, nutricionista. Ir para o início"><span><b>Sueli Ribeiro</b><small>Nutricionista · CRN7/RO 17285</small></span></a>
-    <nav class="nav" aria-label="Seções do site">
-      <ul>
-        <li><a href="#especialidades"><span data-t="Especialidades">Especialidades</span></a></li>
-        <li><a href="#sobre"><span data-t="Sobre">Sobre</span></a></li>
-        <li><a href="#como-funciona"><span data-t="Como funciona">Como funciona</span></a></li>
-        <li><a href="#receitas"><span data-t="Receitas">Receitas</span></a></li>
-        <li><a href="#dicas"><span data-t="Dicas">Dicas</span></a></li>
-        <li><a href="#duvidas"><span data-t="Dúvidas">Dúvidas</span></a></li>
-      </ul>
-    </nav>
-    <a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span></a>
+    <a class="brand" href="#inicio" aria-label="Sueli Ribeiro, nutricionista. Ir para o início">
+      <svg class="brand__leaf" aria-hidden="true"><use href="#i-leaf"/></svg>
+      <span><b>Sueli Ribeiro</b><small>Nutricionista · CRN7/RO 17285</small></span>
+    </a>
+    <nav class="nav" aria-label="Seções do site"><ul>
+      <li><a href="#especialidades"><span data-t="Especialidades">Especialidades</span></a></li>
+      <li><a href="#sobre"><span data-t="Sobre">Sobre</span></a></li>
+      <li><a href="#como-funciona"><span data-t="Como funciona">Como funciona</span></a></li>
+      <li><a href="#receitas"><span data-t="Receitas">Receitas</span></a></li>
+      <li><a href="#dicas"><span data-t="Dicas">Dicas</span></a></li>
+      <li><a href="#duvidas"><span data-t="Dúvidas">Dúvidas</span></a></li>
+    </ul></nav>
+    <a class="btn btn--pista btn--sm" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav"><i></i><span class="menu-txt">Menu</span></button>
   </div>
 </header>
 
 <nav class="mnav" id="mnav" aria-label="Menu" aria-hidden="true">
   <ul>
-    <li><a href="#especialidades" style="--i:0">Especialidades <small>01</small></a></li>
-    <li><a href="#sobre" style="--i:1">Sobre a Sueli <small>02</small></a></li>
-    <li><a href="#como-funciona" style="--i:2">Como funciona <small>03</small></a></li>
-    <li><a href="#receitas" style="--i:3">Receitas <small>04</small></a></li>
-    <li><a href="#dicas" style="--i:4">Dicas <small>05</small></a></li>
-    <li><a href="#duvidas" style="--i:5">Dúvidas <small>06</small></a></li>
-    <li><a href="#contato" style="--i:6">Contato <small>07</small></a></li>
+    <li><a href="#especialidades" style="--i:0">Especialidades</a></li>
+    <li><a href="#sobre" style="--i:1">Sobre a Sueli</a></li>
+    <li><a href="#como-funciona" style="--i:2">Como funciona</a></li>
+    <li><a href="#receitas" style="--i:3">Receitas</a></li>
+    <li><a href="#dicas" style="--i:4">Dicas</a></li>
+    <li><a href="#duvidas" style="--i:5">Dúvidas</a></li>
+    <li><a href="#contato" style="--i:6">Contato</a></li>
   </ul>
-  <a class="btn btn--pista" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-agendar-label>Agendar consulta</span></a>
+  <div class="mnav__foot"><a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig" data-agendar-icon/></svg><span data-agendar-label>Agendar consulta</span></a><a class="link-u" data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">@nutri.sueliribeiro</a></div>
 </nav>
 
 <main id="conteudo">
 
-<!-- ============ HERO ============ -->
+<!-- ================= HERO ================= -->
 <section class="hero" id="inicio" aria-labelledby="hero-title">
   <div class="hero__glow" aria-hidden="true"></div>
-  <div class="trail" id="trail" aria-hidden="true"></div>
-  <div class="hero__portrait" data-cursor="Oi!">
-    <picture><source type="image/webp" srcset="fotos/sobre-sueli-camisa-bege-sorrindo-c-sm.webp 600w, fotos/sobre-sueli-camisa-bege-sorrindo-c.webp 720w" sizes="340px"><img src="fotos/sobre-sueli-camisa-bege-sorrindo-c.jpg" width="720" height="896" alt="Sueli Ribeiro sorrindo no consultório, de camisa bege e óculos" fetchpriority="high" style="object-position:50% 20%"></picture>
-  </div>
-  <div class="wrap hero__title">
-    <h1 id="hero-title"><span class="w1">Sueli</span> <span class="w2">Ribeiro</span><span class="sr-only"> · nutricionista clínica em Rondônia</span></h1>
-    <div class="hero__foot">
-      <p>Nutricionista clínica em Rondônia. Comida de verdade, cuidado de perto: emagrecimento, diabetes, tireoide, intestino, fígado e intolerâncias.</p>
-      <div class="hero__ctas" style="pointer-events:auto">
-        <a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-agendar-label>Agendar consulta</span></a>
-        <a class="btn btn--ghost" data-magnetic href="#especialidades">Especialidades</a>
+  <div class="trail" id="trail" aria-hidden="true" data-imgs="receita-cafe-manga-pitaya,receita-bolo-rubi-beterraba-cacau-c,receita-empanada-assada,receita-cafe-mingau-omelete-kiwi-c,receita-iogurte-uvas-proteina,receita-cafe-omelete-mamao,receita-bolo-amendoa-c,receita-omelete-tomate-cafe-na-mesa,receita-lanche-banana-tapioca,esp-intolerancias-pao,receita-tapioca-invertida-c"></div>
+  <div class="wrap hero__grid">
+    <p class="hero__kicker"><span>Nutricionista clínica</span><span>Rondônia</span><span>CRN7/RO 17285</span></p>
+    <h1 class="hero__title" id="hero-title"><span class="hero__l1"><span class="w">Sueli</span></span><span class="hero__l2"><span class="w"><em>Ribeiro</em></span></span></h1>
+    <figure class="hero__photo" data-cursor="Prazer!">
+      <div class="hero__mask"><picture><source type="image/webp" srcset="fotos/sobre-sueli-camisa-bege-sorrindo-c-sm.webp 600w, fotos/sobre-sueli-camisa-bege-sorrindo-c.webp 720w" sizes="(min-width: 1000px) 36vw, 80vw"><img src="fotos/sobre-sueli-camisa-bege-sorrindo-c.jpg" width="720" height="896" alt="Sueli Ribeiro sorrindo no consultório, de camisa bege e óculos" fetchpriority="high" decoding="async" style="object-position:50% 20%"></picture></div>
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><defs><path id="sealc" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs><text><textPath href="#sealc">comida de verdade ✦ cuidado de perto ✦ </textPath></text></svg>
+        <svg class="seal__leaf"><use href="#i-leaf"/></svg>
       </div>
-      <span class="hero__hint">Mexa o mouse por aqui ✦</span>
+      <span class="hero__food"><picture><source type="image/webp" srcset="fotos/receita-cafe-manga-pitaya-sm.webp 600w, fotos/receita-cafe-manga-pitaya.webp 720w" sizes="160px"><img src="fotos/receita-cafe-manga-pitaya.jpg" width="720" height="1280" alt="" fetchpriority="high" decoding="async" style="object-position:50% 62%"></picture></span>
+    </figure>
+    <div class="hero__intro">
+      <p>Comida de verdade, cuidado de perto. Acompanhamento individual para emagrecimento, diabetes, tireoide, intestino, fígado e intolerâncias alimentares.</p>
+      <div class="hero__ctas"><a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig" data-agendar-icon/></svg><span data-agendar-label>Agendar consulta</span></a><a class="btn btn--line" data-magnetic href="#especialidades">Ver especialidades</a></div>
     </div>
+    <a class="hero__scroll" href="#manifesto-sec" aria-label="Rolar para o conteúdo"><span>Role</span><i></i></a>
   </div>
 </section>
 
-<!-- ============ MANIFESTO ============ -->
-<section class="manifesto" aria-label="Como a Sueli trabalha">
-  <div class="manifesto__float" data-speed="-0.25"><img src="fotos/receita-cafe-omelete-mamao-sm.webp" alt="" style="object-position:50% 64%" loading="lazy"></div>
-  <div class="manifesto__float b" data-speed="0.3"><img src="fotos/receita-cafe-manga-pitaya-sm.webp" alt="" style="object-position:50% 62%" loading="lazy"></div>
-  <div class="wrap">
-    <span class="eyebrow" style="margin-bottom:34px;display:inline-flex">Como eu trabalho</span>
+<!-- ================= MANIFESTO ================= -->
+<section class="manifesto" id="manifesto-sec" aria-label="Como a Sueli trabalha">
+  <div class="wrap manifesto__in">
+    <p class="label">Como eu trabalho</p>
     <p class="big" id="manifesto">Cada plano começa pela <em>sua história</em>, pelos seus exames e pela rotina que você tem de verdade. Sem dieta da moda e sem culpa: comida de verdade, ciência e acompanhamento de perto.</p>
-    <div class="manifesto__meta"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="54" height="54" loading="lazy"><span><b>Sueli Ribeiro</b>, nutricionista</span><span>CRN7/RO 17285</span></div>
+    <p class="manifesto__sign"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="56" height="56" loading="lazy"><span><b>Sueli Ribeiro</b><br>nutricionista · CRN7/RO 17285</span></p>
   </div>
+  <span class="manifesto__f f1" data-speed="-0.3"><picture><source type="image/webp" srcset="fotos/receita-cafe-omelete-mamao-sm.webp 600w, fotos/receita-cafe-omelete-mamao.webp 1200w" sizes="220px"><img src="fotos/receita-cafe-omelete-mamao.jpg" width="1200" height="2133" alt="" loading="lazy" decoding="async" style="object-position:50% 62%"></picture></span>
+  <span class="manifesto__f f2" data-speed="0.25"><picture><source type="image/webp" srcset="fotos/receita-iogurte-uvas-proteina-sm.webp 600w, fotos/receita-iogurte-uvas-proteina.webp 720w" sizes="180px"><img src="fotos/receita-iogurte-uvas-proteina.jpg" width="720" height="1280" alt="" loading="lazy" decoding="async" style="object-position:50% 45%"></picture></span>
 </section>
 
-<!-- ============ ESPECIALIDADES ============ -->
+<!-- ================= ESPECIALIDADES ================= -->
 <section class="esp" id="especialidades" aria-labelledby="esp-title">
-  <div class="wrap esp__intro">
-    <div><span class="eyebrow">Especialidades</span><h2 id="esp-title" style="margin-top:18px">Onde eu posso <em>te ajudar</em></h2></div>
-    <p>Seis frentes de cuidado clínico, sempre ajustadas aos seus exames e à sua rotina.</p>
+  <div class="wrap esp__head">
+    <p class="label">Especialidades</p>
+    <h2 id="esp-title">Seis frentes de cuidado, <em>um plano só seu</em></h2>
+    <p class="esp__lead">O atendimento é clínico e individual. Toque em cada frente para ver o que é trabalhado na consulta.</p>
   </div>
-  <div class="wrap esp__pin">
-    <ul class="esp__list" id="espList"></ul>
-    <div class="esp__stage" id="espStage" aria-hidden="true"><span class="count" id="espCount">01 / 06</span></div>
+  <div class="wrap esp__grid">
+    <div class="stage" aria-hidden="true">
+      <div class="stage__frame"><figure class="stage__fig is-on" data-i="0"><picture><source type="image/webp" srcset="fotos/prato-sua-parte-pitaya-sm.webp 600w, fotos/prato-sua-parte-pitaya.webp 720w" sizes="(min-width: 1000px) 34vw, 1px"><img src="fotos/prato-sua-parte-pitaya.jpg" width="720" height="1280" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></figure>
+<figure class="stage__fig" data-i="1"><picture><source type="image/webp" srcset="fotos/esp-diabetes-card-campanha-sm.webp 600w, fotos/esp-diabetes-card-campanha.webp 1122w" sizes="(min-width: 1000px) 34vw, 1px"><img src="fotos/esp-diabetes-card-campanha.jpg" width="1122" height="1402" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></figure>
+<figure class="stage__fig" data-i="2"><picture><source type="image/webp" srcset="fotos/card-tsh-alto-hipotireoidismo-sm.webp 600w, fotos/card-tsh-alto-hipotireoidismo.webp 941w" sizes="(min-width: 1000px) 34vw, 1px"><img src="fotos/card-tsh-alto-hipotireoidismo.jpg" width="941" height="1672" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></figure>
+<figure class="stage__fig" data-i="3"><picture><source type="image/webp" srcset="fotos/card-mel-iogurte-probioticos-sm.webp 600w, fotos/card-mel-iogurte-probioticos.webp 1200w" sizes="(min-width: 1000px) 34vw, 1px"><img src="fotos/card-mel-iogurte-probioticos.jpg" width="1200" height="1474" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></figure>
+<figure class="stage__fig" data-i="4"><picture><source type="image/webp" srcset="fotos/vegetais-coloridos.webp 512w" sizes="(min-width: 1000px) 34vw, 1px"><img src="fotos/vegetais-coloridos.jpg" width="512" height="910" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></figure>
+<figure class="stage__fig" data-i="5"><picture><source type="image/webp" srcset="fotos/esp-intolerancias-pao-sm.webp 600w, fotos/esp-intolerancias-pao.webp 720w" sizes="(min-width: 1000px) 34vw, 1px"><img src="fotos/esp-intolerancias-pao.jpg" width="720" height="1280" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></figure></div>
+      <p class="stage__cap"><span id="stageNum">1</span>/6 · Do Instagram da Sueli</p>
+    </div>
+    <ol class="esp__list" id="espList">
+      <li class="esp__item" data-i="0" id="esp-emagrecimento">
+        <button class="esp__btn" type="button" aria-expanded="true" aria-controls="espd-0">
+          <span class="esp__t">Emagrecimento e GLP‑1</span><span class="esp__plus" aria-hidden="true"></span>
+        </button>
+        <div class="esp__body" id="espd-0">
+          <div>
+            <p class="esp__d">Emagrecer com saúde e sem radicalismo, inclusive para quem usa análogos de GLP‑1 e precisa cuidar da alimentação durante o tratamento.</p>
+            <p class="esp__c">Na consulta: proteína bem distribuída, fome e saciedade, e um plano que cabe na rotina, em conjunto com o médico quando há medicação.</p>
+            <figure class="esp__post"><picture><source type="image/webp" srcset="fotos/prato-sua-parte-pitaya-sm.webp 600w, fotos/prato-sua-parte-pitaya.webp 720w" sizes="(min-width: 1000px) 1px, 80vw"><img src="fotos/prato-sua-parte-pitaya.jpg" width="720" height="1280" alt="Post da Sueli: existe uma coisa chamada sua parte e essa ninguém pode fazer por você" loading="lazy" decoding="async" style="object-position:50% 50%"></picture><figcaption>Do Instagram da Sueli</figcaption></figure>
+          </div>
+        </div>
+      </li>
+
+      <li class="esp__item" data-i="1" id="esp-diabetes">
+        <button class="esp__btn" type="button" aria-expanded="false" aria-controls="espd-1">
+          <span class="esp__t">Diabetes e metabolismo</span><span class="esp__plus" aria-hidden="true"></span>
+        </button>
+        <div class="esp__body" id="espd-1">
+          <div>
+            <p class="esp__d">Orientação alimentar para o controle da glicemia e da saúde metabólica, ajustada aos seus exames.</p>
+            <p class="esp__c">Na consulta: leitura dos exames, combinação dos alimentos nas refeições e escolhas práticas para o dia a dia.</p>
+            <figure class="esp__post"><picture><source type="image/webp" srcset="fotos/esp-diabetes-card-campanha-sm.webp 600w, fotos/esp-diabetes-card-campanha.webp 1122w" sizes="(min-width: 1000px) 1px, 80vw"><img src="fotos/esp-diabetes-card-campanha.jpg" width="1122" height="1402" alt="Post da Semana de Conscientização sobre o Diabetes" loading="lazy" decoding="async" style="object-position:50% 50%"></picture><figcaption>Do Instagram da Sueli</figcaption></figure>
+          </div>
+        </div>
+      </li>
+
+      <li class="esp__item" data-i="2" id="esp-tireoide">
+        <button class="esp__btn" type="button" aria-expanded="false" aria-controls="espd-2">
+          <span class="esp__t">Tireoide e hormônios</span><span class="esp__plus" aria-hidden="true"></span>
+        </button>
+        <div class="esp__body" id="espd-2">
+          <div>
+            <p class="esp__d">Alimentação para quem convive com alterações hormonais e da tireoide, em conjunto com o acompanhamento médico.</p>
+            <p class="esp__c">Na consulta: seus exames e sintomas são o ponto de partida, sempre alinhados ao tratamento que o médico indicou.</p>
+            <figure class="esp__post"><picture><source type="image/webp" srcset="fotos/card-tsh-alto-hipotireoidismo-sm.webp 600w, fotos/card-tsh-alto-hipotireoidismo.webp 941w" sizes="(min-width: 1000px) 1px, 80vw"><img src="fotos/card-tsh-alto-hipotireoidismo.jpg" width="941" height="1672" alt="Post da Sueli: TSH alto, isso já é hipotireoidismo?" loading="lazy" decoding="async" style="object-position:50% 50%"></picture><figcaption>Do Instagram da Sueli</figcaption></figure>
+          </div>
+        </div>
+      </li>
+
+      <li class="esp__item" data-i="3" id="esp-intestino">
+        <button class="esp__btn" type="button" aria-expanded="false" aria-controls="espd-3">
+          <span class="esp__t">Saúde intestinal</span><span class="esp__plus" aria-hidden="true"></span>
+        </button>
+        <div class="esp__body" id="espd-3">
+          <div>
+            <p class="esp__d">Estratégias para um intestino mais equilibrado, com mais conforto e bem-estar na rotina.</p>
+            <p class="esp__c">Na consulta: fibras, água, alimentos fermentados e o ritmo das refeições, ajustados ao que o seu intestino tolera.</p>
+            <figure class="esp__post"><picture><source type="image/webp" srcset="fotos/card-mel-iogurte-probioticos-sm.webp 600w, fotos/card-mel-iogurte-probioticos.webp 1200w" sizes="(min-width: 1000px) 1px, 80vw"><img src="fotos/card-mel-iogurte-probioticos.jpg" width="1200" height="1474" alt="Post da Sueli sobre um estudo de mel no iogurte e probióticos" loading="lazy" decoding="async" style="object-position:50% 50%"></picture><figcaption>Do Instagram da Sueli</figcaption></figure>
+          </div>
+        </div>
+      </li>
+
+      <li class="esp__item" data-i="4" id="esp-figado">
+        <button class="esp__btn" type="button" aria-expanded="false" aria-controls="espd-4">
+          <span class="esp__t">Saúde do fígado</span><span class="esp__plus" aria-hidden="true"></span>
+        </button>
+        <div class="esp__body" id="espd-4">
+          <div>
+            <p class="esp__d">Cuidado nutricional voltado à saúde hepática, com mais vegetais e ajustes graduais.</p>
+            <p class="esp__c">Na consulta: mudanças possíveis, uma de cada vez, com mais frutas, verduras e legumes no prato.</p>
+            <figure class="esp__post"><picture><source type="image/webp" srcset="fotos/vegetais-coloridos.webp 512w" sizes="(min-width: 1000px) 1px, 80vw"><img src="fotos/vegetais-coloridos.jpg" width="512" height="910" alt="Post da Sueli com frutas e vegetais coloridos" loading="lazy" decoding="async" style="object-position:50% 50%"></picture><figcaption>Do Instagram da Sueli</figcaption></figure>
+          </div>
+        </div>
+      </li>
+
+      <li class="esp__item" data-i="5" id="esp-intolerancias">
+        <button class="esp__btn" type="button" aria-expanded="false" aria-controls="espd-5">
+          <span class="esp__t">Intolerâncias alimentares</span><span class="esp__plus" aria-hidden="true"></span>
+        </button>
+        <div class="esp__body" id="espd-5">
+          <div>
+            <p class="esp__d">Substituições inteligentes e receitas gostosas para quem precisa evitar glúten, lactose ou outros alimentos.</p>
+            <p class="esp__c">Na consulta: o que trocar sem perder sabor, com receitas sem glúten e sem lactose como as que ela mostra no Instagram.</p>
+            <figure class="esp__post"><picture><source type="image/webp" srcset="fotos/esp-intolerancias-pao-sm.webp 600w, fotos/esp-intolerancias-pao.webp 720w" sizes="(min-width: 1000px) 1px, 80vw"><img src="fotos/esp-intolerancias-pao.jpg" width="720" height="1280" alt="Pão caseiro sem glúten fatiado" loading="lazy" decoding="async" style="object-position:50% 50%"></picture><figcaption>Do Instagram da Sueli</figcaption></figure>
+          </div>
+        </div>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- ============ SOBRE ============ -->
+<!-- ================= SOBRE ================= -->
 <section class="about" id="sobre" aria-labelledby="sobre-title">
   <div class="about__zoom">
     <div class="about__img"><picture><source type="image/webp" srcset="fotos/sobre-sueli-pre-treino-suco-c-sm.webp 600w, fotos/sobre-sueli-pre-treino-suco-c.webp 1200w" sizes="100vw"><img src="fotos/sobre-sueli-pre-treino-suco-c.jpg" width="1200" height="1644" alt="Sueli Ribeiro sorrindo com um copo de suco no consultório" loading="lazy" decoding="async" style="object-position:50% 6%"></picture></div>
-    <div class="about__over"><span class="eyebrow">Sobre a Sueli</span><h2 id="sobre-title" style="margin-top:20px">Prazer, <em>Sueli.</em></h2></div>
+    <div class="about__over"><p class="label label--light">Sobre a Sueli</p><h2 id="sobre-title">Prazer, <em>Sueli.</em></h2></div>
   </div>
-  <div class="wrap about__body">
-    <div>
-      <p class="lead">Nutricionista clínica, com atendimento individual e um jeito simples, gostoso e possível de olhar para a comida.</p>
-      <p class="txt">No consultório, o plano é construído com você: o que você gosta de comer, o que cabe no seu bolso e na sua semana. No Instagram, ela mostra isso na prática, com pratos coloridos, receitas possíveis e informação com base científica.</p>
-      <ul class="facts" id="facts" style="margin-top:40px">
-        <li><span>Registro</span><b>CRN7/RO 17285</b></li>
-        <li><span>Atuação</span><b>Nutrição clínica</b></li>
-        <li><span>Região</span><b>Rondônia</b></li>
-        <li><a data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener"><span>Instagram</span><b>@nutri.sueliribeiro</b></a></li>
-      </ul>
-    </div>
-    <div class="about__duo">
-      <figure data-cursor="Sueli"><picture><source type="image/webp" srcset="fotos/hero-alt-sueli-camisa-jeans-c-sm.webp 600w, fotos/hero-alt-sueli-camisa-jeans-c.webp 720w" sizes="(min-width: 1000px) 20vw, 45vw"><img src="fotos/hero-alt-sueli-camisa-jeans-c.jpg" width="720" height="742" alt="Sueli Ribeiro de camisa jeans no consultório" loading="lazy" decoding="async" style="object-position:50% 30%"></picture></figure>
-      <figure data-cursor="Sueli"><picture><source type="image/webp" srcset="fotos/sobre-sueli-regata-proteina-c-sm.webp 600w, fotos/sobre-sueli-regata-proteina-c.webp 1200w" sizes="(min-width: 1000px) 20vw, 45vw"><img src="fotos/sobre-sueli-regata-proteina-c.jpg" width="1200" height="1388" alt="Sueli Ribeiro falando sobre proteína nas refeições" loading="lazy" decoding="async" style="object-position:50% 25%"></picture></figure>
-    </div>
+
+  <div class="wrap chapters">
+    <article class="chapter chapter--a">
+      <figure class="chapter__img arch"><picture><source type="image/webp" srcset="fotos/sobre-sueli-regata-proteina-c-sm.webp 600w, fotos/sobre-sueli-regata-proteina-c.webp 1200w" sizes="(min-width: 1000px) 34vw, 86vw"><img src="fotos/sobre-sueli-regata-proteina-c.jpg" width="1200" height="1388" alt="Sueli Ribeiro no consultório falando sobre proteína nas refeições" loading="lazy" decoding="async" style="object-position:50% 25%"></picture></figure>
+      <div class="chapter__txt">
+        <p class="chapter__k">No consultório</p>
+        <h3>Um plano construído <em>com</em> você, não para você.</h3>
+        <p>Nutricionista clínica em Rondônia, a Sueli atende de forma individual. A conversa começa pela sua rotina, pelos seus exames e pelo que você gosta de comer. O plano sai daí, com o que cabe no seu bolso e na sua semana.</p>
+      </div>
+    </article>
+
+    <blockquote class="pull">
+      <p>“Existe uma coisa chamada <em>sua parte</em>, e essa ninguém pode fazer por você.”</p>
+      <footer>Sueli Ribeiro, em um post do Instagram</footer>
+    </blockquote>
+
+    <article class="chapter chapter--b">
+      <div class="chapter__txt">
+        <p class="chapter__k">Na cozinha</p>
+        <h3>Comida que cabe na <em>vida real.</em></h3>
+        <p>No Instagram, ela mostra o plano na prática: cafés da manhã coloridos, bolo de beterraba sem glúten e sem lactose, tapioca, cuscuz e uma lista de compras inteligente para facilitar a semana.</p>
+        <a class="link-u" href="#receitas">Ver as receitas <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="chapter__stack">
+        <figure class="chapter__img"><picture><source type="image/webp" srcset="fotos/hero-alt-sueli-camisa-jeans-c-sm.webp 600w, fotos/hero-alt-sueli-camisa-jeans-c.webp 720w" sizes="(min-width: 1000px) 26vw, 60vw"><img src="fotos/hero-alt-sueli-camisa-jeans-c.jpg" width="720" height="742" alt="Sueli Ribeiro de camisa jeans, sorrindo" loading="lazy" decoding="async" style="object-position:50% 30%"></picture></figure>
+        <figure class="chapter__chip"><picture><source type="image/webp" srcset="fotos/card-lista-de-compras-com-sueli-sm.webp 600w, fotos/card-lista-de-compras-com-sueli.webp 1200w" sizes="(min-width: 1000px) 14vw, 36vw"><img src="fotos/card-lista-de-compras-com-sueli.jpg" width="1200" height="1599" alt="Material da Sueli: guia de lista de compras inteligente" loading="lazy" decoding="async" style="object-position:50% 30%"></picture></figure>
+      </div>
+    </article>
+
+    <article class="chapter chapter--c">
+      <figure class="chapter__img chapter__img--wide"><picture><source type="image/webp" srcset="fotos/sobre-sueli-explicando-pre-load-c-sm.webp 600w, fotos/sobre-sueli-explicando-pre-load-c.webp 1200w" sizes="(min-width: 1000px) 48vw, 92vw"><img src="fotos/sobre-sueli-explicando-pre-load-c.jpg" width="1200" height="608" alt="Sueli Ribeiro explicando um estudo sobre alimentação" loading="lazy" decoding="async" style="object-position:50% 40%"></picture></figure>
+      <div class="chapter__txt">
+        <p class="chapter__k">Com ciência</p>
+        <h3>Informação simples, <em>com base científica.</em></h3>
+        <p>Estudos viram conversa fácil: o que fazer antes de uma festa, como fracionar a proteína ao longo do dia, o que um estudo mostrou sobre mel no iogurte. Informação que ajuda a escolher melhor, sem terrorismo nutricional.</p>
+      </div>
+    </article>
+
+    <blockquote class="pull pull--r">
+      <p>“A informação pode mudar <em>suas escolhas.</em>”</p>
+      <footer>Sueli Ribeiro, em um post do Instagram</footer>
+    </blockquote>
+
+    <ul class="facts" id="facts">
+      <li><span>Registro profissional</span><b>CRN7/RO 17285</b></li>
+      <li><span>Atuação</span><b>Nutrição clínica</b></li>
+      <li><span>Onde</span><b>Rondônia</b></li>
+      <li><a data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener"><span>Instagram</span><b>@nutri.sueliribeiro</b></a></li>
+    </ul>
   </div>
 </section>
 
-<!-- ============ COMO FUNCIONA ============ -->
+<!-- ================= COMO FUNCIONA ================= -->
 <section class="how" id="como-funciona" aria-labelledby="como-title">
-  <div class="how__wrap">
-    <div class="wrap how__head"><span class="eyebrow">Como funciona</span><h2 id="como-title">Do primeiro “oi” <em>ao cuidado contínuo</em></h2></div>
-    <ol class="how__track" id="howTrack" style="list-style:none;margin:0">
-      <li class="card">
-        <div><span class="card__n">01</span><div><h3>Você manda uma mensagem</h3><p>Conta o que está buscando, tira as dúvidas e escolhe o melhor dia para a consulta.</p></div></div>
-        <div class="card__media chat" aria-label="Exemplo de mensagem para agendar">
-          <div class="chat__top"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="32" height="32"><span><b>Sueli Ribeiro</b><small>Nutricionista</small></span></div>
-          <div class="bubble bubble--me">Olá, Sueli! Vim pelo site e gostaria de agendar uma consulta.</div>
-          <div class="bubble bubble--typing" aria-hidden="true"><i></i><i></i><i></i></div>
-        </div>
-      </li>
-      <li class="card">
-        <div><span class="card__n">02</span><div><h3>Avaliação inicial</h3><p>Conversa detalhada sobre saúde, rotina, histórico e exames, com bioimpedância quando indicada.</p></div></div>
-        <div class="card__media"><picture><source type="image/webp" srcset="fotos/sobre-sueli-camiseta-branca-c.webp 640w" sizes="(min-width: 1000px) 30vw, 90vw"><img src="fotos/sobre-sueli-camiseta-branca-c.jpg" width="640" height="784" alt="Sueli Ribeiro no consultório, pronta para a avaliação" loading="lazy" decoding="async" style="object-position:50% 25%"></picture></div>
-      </li>
-      <li class="card">
-        <div><span class="card__n">03</span><div><h3>Plano feito para você</h3><p>Alimentos que cabem no seu gosto, no seu bolso e na sua semana, com materiais como a lista de compras.</p></div></div>
-        <div class="card__media"><picture><source type="image/webp" srcset="fotos/card-lista-de-compras-com-sueli-sm.webp 600w, fotos/card-lista-de-compras-com-sueli.webp 1200w" sizes="(min-width: 1000px) 30vw, 90vw"><img src="fotos/card-lista-de-compras-com-sueli.jpg" width="1200" height="1599" alt="Material da Sueli: guia de lista de compras inteligente" loading="lazy" decoding="async" style="object-position:50% 22%"></picture></div>
-      </li>
-      <li class="card">
-        <div><span class="card__n">04</span><div><h3>Acompanhamento e ajustes</h3><p>Retornos para acompanhar a evolução, responder dúvidas e ajustar o plano com base no que funciona.</p></div></div>
-        <div class="card__media"><picture><source type="image/webp" srcset="fotos/sobre-sueli-explicando-pre-load-c-sm.webp 600w, fotos/sobre-sueli-explicando-pre-load-c.webp 1200w" sizes="(min-width: 1000px) 30vw, 90vw"><img src="fotos/sobre-sueli-explicando-pre-load-c.jpg" width="1200" height="608" alt="Sueli Ribeiro explicando sobre alimentação" loading="lazy" decoding="async" style="object-position:50% 40%"></picture></div>
-      </li>
-    </ol>
-    <div class="how__bar" aria-hidden="true"><i id="howBar"></i></div>
+  <div class="how__pin">
+    <div class="wrap how__head">
+      <p class="label">Como funciona</p>
+      <h2 id="como-title">Do primeiro “oi” <em>ao cuidado contínuo</em></h2>
+    </div>
+    <div class="how__rail">
+      <svg class="how__line" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1000 10"><line x1="0" y1="5" x2="1000" y2="5" /></svg>
+      <ol class="how__track" id="howTrack">
+        <li class="step">
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__n" aria-hidden="true">1</span>
+          <div class="step__media chat">
+            <div class="chat__top"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="32" height="32"><span><b>Sueli Ribeiro</b><small>Nutricionista</small></span></div>
+            <div class="bubble bubble--me">Olá, Sueli! Vim pelo site e gostaria de agendar uma consulta.</div>
+            <div class="bubble bubble--typing" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <h3>Você manda uma mensagem</h3>
+          <p>Conta o que está buscando, tira as dúvidas e escolhe o melhor dia para a consulta.</p>
+        </li>
+        <li class="step">
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__n" aria-hidden="true">2</span>
+          <div class="step__media"><picture><source type="image/webp" srcset="fotos/sobre-sueli-camiseta-branca-c.webp 640w" sizes="(min-width: 1000px) 26vw, 86vw"><img src="fotos/sobre-sueli-camiseta-branca-c.jpg" width="640" height="784" alt="Sueli Ribeiro no consultório" loading="lazy" decoding="async" style="object-position:50% 25%"></picture></div>
+          <h3>Avaliação inicial</h3>
+          <p>Conversa detalhada sobre saúde, rotina, histórico e exames, com bioimpedância quando indicada.</p>
+        </li>
+        <li class="step">
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__n" aria-hidden="true">3</span>
+          <div class="step__media"><picture><source type="image/webp" srcset="fotos/receita-omelete-tomate-cafe-na-mesa-sm.webp 600w, fotos/receita-omelete-tomate-cafe-na-mesa.webp 1200w" sizes="(min-width: 1000px) 26vw, 86vw"><img src="fotos/receita-omelete-tomate-cafe-na-mesa.jpg" width="1200" height="2133" alt="Prato de café da manhã com omelete e tomate" loading="lazy" decoding="async" style="object-position:50% 40%"></picture></div>
+          <h3>Plano feito para você</h3>
+          <p>Alimentos que cabem no seu gosto, no seu bolso e na sua semana, com materiais de apoio como a lista de compras.</p>
+        </li>
+        <li class="step">
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__n" aria-hidden="true">4</span>
+          <div class="step__media"><picture><source type="image/webp" srcset="fotos/esp-intestinal-cafe-da-manha-c.webp 720w" sizes="(min-width: 1000px) 26vw, 86vw"><img src="fotos/esp-intestinal-cafe-da-manha-c.jpg" width="720" height="524" alt="Xícara de café sobre toalha de crochê" loading="lazy" decoding="async" style="object-position:50% 40%"></picture></div>
+          <h3>Acompanhamento e ajustes</h3>
+          <p>Retornos para acompanhar a evolução, responder dúvidas e ajustar o plano com base no que funciona para você.</p>
+        </li>
+      </ol>
+    </div>
   </div>
 </section>
 
-<!-- ============ RECEITAS ============ -->
+<!-- ================= RECEITAS ================= -->
 <section class="recipes" id="receitas" aria-labelledby="rec-title">
   <div class="wrap">
     <div class="rec__head">
-      <div><span class="eyebrow">Receitas</span><h2 id="rec-title" style="margin-top:18px">Prático, gostoso, <em>de verdade</em></h2></div>
-      <div class="filters" id="recFilters" role="group" aria-label="Filtrar receitas"></div>
+      <p class="label label--light">Receitas do Instagram</p>
+      <h2 id="rec-title">Prático, gostoso, <em>de verdade</em></h2>
     </div>
-    <div class="rec-grid" id="recGrid" aria-live="polite"></div>
+    <article class="feat">
+      <figure class="feat__img" data-cursor="Ver no Instagram"><picture><source type="image/webp" srcset="fotos/receita-bolo-rubi-beterraba-cacau-c-sm.webp 600w, fotos/receita-bolo-rubi-beterraba-cacau-c.webp 1200w" sizes="(min-width: 1000px) 46vw, 92vw"><img src="fotos/receita-bolo-rubi-beterraba-cacau-c.jpg" width="1200" height="1493" alt="Bolo rubi de beterraba com cacau, fatiado" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></figure>
+      <div class="feat__txt">
+        <p class="feat__k">Receita em destaque</p>
+        <h3>Bolo rubi</h3>
+        <p>Bolo de beterraba com cacau, amêndoas e mel. Uma das receitas sem glúten e sem lactose que a Sueli compartilhou no Instagram.</p>
+        <p class="tags"><span class="tag">sem glúten</span><span class="tag">sem lactose</span></p>
+        <a class="btn btn--pista" data-magnetic href="https://www.instagram.com/p/DfyIelmMBDR/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg><span>Ver a receita completa</span></a>
+      </div>
+    </article>
+    <div class="rec__bar">
+      <div class="filters" id="recFilters" role="group" aria-label="Filtrar receitas">
+        <button class="chip" type="button" aria-pressed="true" data-cat="Todas">Todas</button><button class="chip" type="button" aria-pressed="false" data-cat="Café da manhã">Café da manhã</button><button class="chip" type="button" aria-pressed="false" data-cat="Doces e bolos">Doces e bolos</button><button class="chip" type="button" aria-pressed="false" data-cat="Lanches e bebidas">Lanches e bebidas</button>
+      </div>
+      <p class="rec__note">Toque numa receita para ver os detalhes. O passo a passo completo está em cada post.</p>
+    </div>
+    <ul class="rec-grid" id="recGrid">
+      <li class="rec" data-cat="Doces e bolos" data-i="0">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Bolo rubi" data-desc="Bolo de beterraba com cacau, amêndoas e mel." data-cat="Doces e bolos" data-img="receita-bolo-rubi-beterraba-cacau-c" data-pos="50% 50%" data-tags="sem glúten|sem lactose" data-post="https://www.instagram.com/p/DfyIelmMBDR/" aria-label="Abrir receita: Bolo rubi">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-bolo-rubi-beterraba-cacau-c-sm.webp 600w, fotos/receita-bolo-rubi-beterraba-cacau-c.webp 1200w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-bolo-rubi-beterraba-cacau-c.jpg" width="1200" height="1493" alt="Bolo rubi" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Bolo rubi</span><span class="rec__c">Doces e bolos</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Lanches e bebidas" data-i="1">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Empanada assada" data-desc="Massa dourada e recheio caprichado, feita no forno." data-cat="Lanches e bebidas" data-img="receita-empanada-assada" data-pos="40% 50%" data-tags="" data-post="https://www.instagram.com/p/DeXmKA9Fib7/" aria-label="Abrir receita: Empanada assada">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-empanada-assada-sm.webp 600w, fotos/receita-empanada-assada.webp 1200w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-empanada-assada.jpg" width="1200" height="1600" alt="Empanada assada" loading="lazy" decoding="async" style="object-position:40% 50%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Empanada assada</span><span class="rec__c">Lanches e bebidas</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Café da manhã" data-i="2">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Café da manhã com manga e pitaya" data-desc="Omelete, pão, manga e pitaya num prato só." data-cat="Café da manhã" data-img="receita-cafe-manga-pitaya" data-pos="50% 62%" data-tags="" data-post="https://www.instagram.com/p/DemVB3zR4yP/" aria-label="Abrir receita: Café da manhã com manga e pitaya">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-cafe-manga-pitaya-sm.webp 600w, fotos/receita-cafe-manga-pitaya.webp 720w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-cafe-manga-pitaya.jpg" width="720" height="1280" alt="Café da manhã com manga e pitaya" loading="lazy" decoding="async" style="object-position:50% 62%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Café da manhã com manga e pitaya</span><span class="rec__c">Café da manhã</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Café da manhã" data-i="3">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Mingau, omelete e kiwi" data-desc="Ideia de café da manhã com variedade no prato." data-cat="Café da manhã" data-img="receita-cafe-mingau-omelete-kiwi-c" data-pos="50% 50%" data-tags="" data-post="https://www.instagram.com/p/Dd8y58jTGTy/" aria-label="Abrir receita: Mingau, omelete e kiwi">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-cafe-mingau-omelete-kiwi-c-sm.webp 600w, fotos/receita-cafe-mingau-omelete-kiwi-c.webp 1200w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-cafe-mingau-omelete-kiwi-c.jpg" width="1200" height="1451" alt="Mingau, omelete e kiwi" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Mingau, omelete e kiwi</span><span class="rec__c">Café da manhã</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Café da manhã" data-i="4">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Pão zero glúten" data-desc="Pão caseiro para quem precisa evitar o glúten." data-cat="Café da manhã" data-img="esp-intolerancias-pao" data-pos="50% 55%" data-tags="sem glúten" data-post="https://www.instagram.com/p/DdDCYhoMzAb/" aria-label="Abrir receita: Pão zero glúten">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/esp-intolerancias-pao-sm.webp 600w, fotos/esp-intolerancias-pao.webp 720w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/esp-intolerancias-pao.jpg" width="720" height="1280" alt="Pão zero glúten" loading="lazy" decoding="async" style="object-position:50% 55%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Pão zero glúten</span><span class="rec__c">Café da manhã</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Lanches e bebidas" data-i="5">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Café gelado" data-desc="Café gelado com cacau, whey e canela." data-cat="Lanches e bebidas" data-img="receita-cafe-gelado" data-pos="50% 70%" data-tags="" data-post="https://www.instagram.com/p/De21DqgskUT/" aria-label="Abrir receita: Café gelado">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-cafe-gelado-sm.webp 600w, fotos/receita-cafe-gelado.webp 720w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-cafe-gelado.jpg" width="720" height="1280" alt="Café gelado" loading="lazy" decoding="async" style="object-position:50% 70%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Café gelado</span><span class="rec__c">Lanches e bebidas</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Doces e bolos" data-i="6">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Bolo de amêndoa" data-desc="Bolo úmido e chocolatudo para o café da tarde." data-cat="Doces e bolos" data-img="receita-bolo-amendoa-c" data-pos="50% 50%" data-tags="" data-post="https://www.instagram.com/p/Dfu7IzZFtW3/" aria-label="Abrir receita: Bolo de amêndoa">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-bolo-amendoa-c-sm.webp 600w, fotos/receita-bolo-amendoa-c.webp 1200w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-bolo-amendoa-c.jpg" width="1200" height="675" alt="Bolo de amêndoa" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Bolo de amêndoa</span><span class="rec__c">Doces e bolos</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Lanches e bebidas" data-i="7">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Iogurte com uvas" data-desc="Lanche rápido com iogurte, uvas e proteína." data-cat="Lanches e bebidas" data-img="receita-iogurte-uvas-proteina" data-pos="50% 45%" data-tags="" data-post="https://www.instagram.com/p/DeKYN_azbpL/" aria-label="Abrir receita: Iogurte com uvas">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-iogurte-uvas-proteina-sm.webp 600w, fotos/receita-iogurte-uvas-proteina.webp 720w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-iogurte-uvas-proteina.jpg" width="720" height="1280" alt="Iogurte com uvas" loading="lazy" decoding="async" style="object-position:50% 45%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Iogurte com uvas</span><span class="rec__c">Lanches e bebidas</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Café da manhã" data-i="8">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Omelete com mamão" data-desc="Café da manhã simples, colorido e completo." data-cat="Café da manhã" data-img="receita-cafe-omelete-mamao" data-pos="50% 62%" data-tags="" data-post="https://www.instagram.com/p/Dd6H4E8zLrd/" aria-label="Abrir receita: Omelete com mamão">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-cafe-omelete-mamao-sm.webp 600w, fotos/receita-cafe-omelete-mamao.webp 1200w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-cafe-omelete-mamao.jpg" width="1200" height="2133" alt="Omelete com mamão" loading="lazy" decoding="async" style="object-position:50% 62%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Omelete com mamão</span><span class="rec__c">Café da manhã</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Lanches e bebidas" data-i="9">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Lanche de banana com tapioca" data-desc="Uma opção prática para o lanche da tarde." data-cat="Lanches e bebidas" data-img="receita-lanche-banana-tapioca" data-pos="50% 60%" data-tags="" data-post="https://www.instagram.com/p/DexBrZwTE-h/" aria-label="Abrir receita: Lanche de banana com tapioca">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-lanche-banana-tapioca-sm.webp 600w, fotos/receita-lanche-banana-tapioca.webp 720w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-lanche-banana-tapioca.jpg" width="720" height="1280" alt="Lanche de banana com tapioca" loading="lazy" decoding="async" style="object-position:50% 60%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Lanche de banana com tapioca</span><span class="rec__c">Lanches e bebidas</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Café da manhã" data-i="10">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Omelete com tomate" data-desc="Um prato rápido para começar o dia bem." data-cat="Café da manhã" data-img="receita-omelete-tomate-cafe-na-mesa" data-pos="50% 38%" data-tags="" data-post="https://www.instagram.com/p/DeB_WsgTGZp/" aria-label="Abrir receita: Omelete com tomate">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-omelete-tomate-cafe-na-mesa-sm.webp 600w, fotos/receita-omelete-tomate-cafe-na-mesa.webp 1200w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-omelete-tomate-cafe-na-mesa.jpg" width="1200" height="2133" alt="Omelete com tomate" loading="lazy" decoding="async" style="object-position:50% 38%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Omelete com tomate</span><span class="rec__c">Café da manhã</span></span>
+        </button>
+      </li>
+
+      <li class="rec" data-cat="Lanches e bebidas" data-i="11">
+        <button class="rec__btn" type="button" data-cursor="Ver receita" data-title="Tapioca invertida" data-desc="Um jeito diferente de preparar a tapioca." data-cat="Lanches e bebidas" data-img="receita-tapioca-invertida-c" data-pos="50% 50%" data-tags="" data-post="https://www.instagram.com/p/Dd_jqz_TUUD/" aria-label="Abrir receita: Tapioca invertida">
+          <span class="rec__img"><picture><source type="image/webp" srcset="fotos/receita-tapioca-invertida-c-sm.webp 600w, fotos/receita-tapioca-invertida-c.webp 640w" sizes="(min-width: 1200px) 22vw, (min-width: 760px) 30vw, 46vw"><img src="fotos/receita-tapioca-invertida-c.jpg" width="640" height="546" alt="Tapioca invertida" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></span>
+          <span class="rec__cap"><span class="rec__t">Tapioca invertida</span><span class="rec__c">Lanches e bebidas</span></span>
+        </button>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -237,87 +478,157 @@
     <button class="lb__ctrl lb__next" type="button" aria-label="Próxima receita"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
     <div class="lb__img"><img id="lbImg" alt="" width="600" height="750"></div>
     <div class="lb__info">
-      <span class="cat" id="lbCat"></span>
+      <span class="lb__cat" id="lbCat"></span>
       <h3 id="lbTitle"></h3>
       <p id="lbDesc"></p>
-      <div class="tags" id="lbTags"></div>
-      <a class="btn btn--wine" id="lbLink" href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg>Ver no Instagram</a>
+      <p class="tags" id="lbTags"></p>
+      <a class="btn btn--wine" id="lbLink" href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg><span>Ver a receita no Instagram</span></a>
       <span class="lb__count" id="lbCount"></span>
     </div>
   </div>
 </div>
 
-<!-- ============ DICAS ============ -->
+<!-- ================= DICAS ================= -->
 <section class="tips" id="dicas" aria-labelledby="dicas-title">
   <div class="wrap tips__head">
-    <div><span class="eyebrow">Dicas de saúde</span><h2 id="dicas-title" style="margin-top:18px">Informação simples, <em>escolhas melhores</em></h2></div>
-    <a class="link-u" data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">Mais dicas no Instagram <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <p class="label">Dicas de saúde</p>
+    <h2 id="dicas-title">Informação simples, <em>escolhas melhores</em></h2>
+    <p class="tips__lead">Posts educativos que a Sueli publica no Instagram. Arraste para o lado e toque para ler o conteúdo completo.</p>
   </div>
-  <div class="fan" id="fan"></div>
-  <p class="tips__note wrap">Conteúdo educativo. Não substitui consulta.</p>
+  <ul class="tips__rail" id="tipsRail">
+      <li class="tip">
+        <a href="https://www.instagram.com/p/DfgP8o-jGrl/" target="_blank" rel="noopener" data-cursor="Ler no Instagram">
+          <span class="tip__img"><picture><source type="image/webp" srcset="fotos/dica-saleiro-ervas-sm.webp 600w, fotos/dica-saleiro-ervas.webp 1122w" sizes="(min-width: 1000px) 24vw, 70vw"><img src="fotos/dica-saleiro-ervas.jpg" width="1122" height="1402" alt="Mais sabor, menos dependência do saleiro" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></span>
+          <span class="tip__t">Mais sabor, menos dependência do saleiro</span><span class="tip__s">Como usar ervas e especiarias na cozinha.</span>
+        </a>
+      </li>
+
+      <li class="tip">
+        <a href="https://www.instagram.com/p/DdxaBvLjBbn/" target="_blank" rel="noopener" data-cursor="Ler no Instagram">
+          <span class="tip__img"><picture><source type="image/webp" srcset="fotos/card-cru-ou-cozido-sm.webp 600w, fotos/card-cru-ou-cozido.webp 1122w" sizes="(min-width: 1000px) 24vw, 70vw"><img src="fotos/card-cru-ou-cozido.jpg" width="1122" height="1401" alt="Cru ou cozido?" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></span>
+          <span class="tip__t">Cru ou cozido?</span><span class="tip__s">Cinco alimentos e o melhor preparo para cada um.</span>
+        </a>
+      </li>
+
+      <li class="tip">
+        <a href="https://www.instagram.com/p/DfCsT9BEUUx/" target="_blank" rel="noopener" data-cursor="Ler no Instagram">
+          <span class="tip__img"><picture><source type="image/webp" srcset="fotos/card-tapioca-cuscuz-ou-pao-sm.webp 600w, fotos/card-tapioca-cuscuz-ou-pao.webp 1122w" sizes="(min-width: 1000px) 24vw, 70vw"><img src="fotos/card-tapioca-cuscuz-ou-pao.jpg" width="1122" height="1402" alt="Tapioca, cuscuz ou pão?" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></span>
+          <span class="tip__t">Tapioca, cuscuz ou pão?</span><span class="tip__s">Qual combina melhor com o seu objetivo.</span>
+        </a>
+      </li>
+
+      <li class="tip">
+        <a href="https://www.instagram.com/p/DfDFixlFhm6/" target="_blank" rel="noopener" data-cursor="Ler no Instagram">
+          <span class="tip__img"><picture><source type="image/webp" srcset="fotos/card-cuscuz-flocao-sm.webp 600w, fotos/card-cuscuz-flocao.webp 1200w" sizes="(min-width: 1000px) 24vw, 70vw"><img src="fotos/card-cuscuz-flocao.jpg" width="1200" height="1495" alt="Quanto rende o flocão?" loading="lazy" decoding="async" style="object-position:50% 50%"></picture></span>
+          <span class="tip__t">Quanto rende o flocão?</span><span class="tip__s">35 g de flocão viram 100 g de cuscuz cozido.</span>
+        </a>
+      </li>
+    <li class="tip tip--ig">
+      <a data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener" data-cursor="Seguir">
+        <span class="tip__ig"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="88" height="88" loading="lazy"><b>@nutri.sueliribeiro</b><span>Receitas, dicas e estudos explicados toda semana no Instagram.</span><span class="btn btn--wine btn--sm"><svg aria-hidden="true"><use href="#i-ig"/></svg><span>Seguir no Instagram</span></span></span>
+      </a>
+    </li>
+  </ul>
+  <p class="wrap tips__note">Conteúdo educativo. Não substitui consulta.</p>
 </section>
 
-<!-- ============ DEPOIMENTOS ============ -->
-<section class="testi" id="depoimentos" aria-labelledby="dep-title" hidden>
-  <div class="wrap"><h2 id="dep-title">Quem já fez <em>o acompanhamento</em></h2><div class="testi-list" id="testiList"></div></div>
-</section>
-
-<!-- ============ DÚVIDAS ============ -->
+<!-- ================= DÚVIDAS ================= -->
 <section class="faq" id="duvidas" aria-labelledby="faq-title">
-  <div class="wrap faq-grid">
-    <div class="faq-aside">
-      <span class="eyebrow">Dúvidas</span>
+  <div class="wrap faq__grid">
+    <div class="faq__aside">
+      <p class="label">Dúvidas</p>
       <h2 id="faq-title">Antes da <em>primeira consulta</em></h2>
-      <p>Não encontrou o que procurava? Mande uma mensagem.</p>
-      <a class="link-u" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <p>Não encontrou o que procurava? Mande uma mensagem e pergunte direto para a Sueli.</p>
+      <a class="link-u" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Mandar uma mensagem</span></a>
     </div>
-    <div id="faqList"></div>
+    <div class="faq__list" id="faqList">
+      <details class="qa" open>
+        <summary><span>Como é a primeira consulta?</span><i aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>É uma conversa detalhada sobre sua saúde, sua rotina, sua alimentação e seus objetivos, com avaliação inicial. A partir dela, o plano é construído junto com você.</p></div>
+      </details>
+
+      <details class="qa">
+        <summary><span>Preciso levar exames?</span><i aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Se você tiver exames recentes, leve. Eles ajudam a individualizar o acompanhamento. Se não tiver, a Sueli orienta na consulta sobre o que pode ser útil.</p></div>
+      </details>
+
+      <details class="qa">
+        <summary><span>Atende diabetes e tireoide?</span><i aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Sim. Doenças metabólicas, diabetes e alterações da tireoide fazem parte das especialidades do atendimento, sempre em conjunto com o acompanhamento médico.</p></div>
+      </details>
+
+      <details class="qa">
+        <summary><span>Quem usa medicamento para emagrecer pode fazer o acompanhamento?</span><i aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Pode. O acompanhamento para quem usa análogos de GLP‑1 é uma das especialidades, sempre em conjunto com o médico que prescreveu o tratamento.</p></div>
+      </details>
+
+      <details class="qa">
+        <summary><span>Quem tem intolerância a glúten ou lactose consegue comer bem?</span><i aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Consegue. Parte do trabalho é encontrar substituições gostosas, como as receitas sem glúten e sem lactose que a Sueli compartilha no Instagram.</p></div>
+      </details>
+
+      <details class="qa">
+        <summary><span>Quanto tempo dura o acompanhamento?</span><i aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Depende de cada caso e dos seus objetivos. O ritmo dos retornos é combinado na consulta.</p></div>
+      </details>
+
+      <details class="qa">
+        <summary><span>Como eu agendo?</span><i aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Pelo botão de agendamento deste site. Você manda uma mensagem e recebe os horários disponíveis.</p></div>
+      </details>
+    </div>
   </div>
 </section>
 
-<!-- ============ CONTATO ============ -->
+<!-- ================= CONTATO ================= -->
 <section class="cta" id="contato" aria-labelledby="contato-title">
-  <h2 class="sr-only" id="contato-title">Agende sua consulta</h2>
-  <div class="cta__marquee" aria-hidden="true" id="ctaMarquee"><span>Vamos <em>conversar?</em> ✦</span><span>Vamos <em>conversar?</em> ✦</span><span>Vamos <em>conversar?</em> ✦</span><span>Vamos <em>conversar?</em> ✦</span></div>
-  <div class="wrap cta__in">
-    <div>
-      <p>Mande uma mensagem contando o que você procura. A Sueli responde com os próximos horários e tudo o que você precisa saber para a primeira consulta.</p>
-      <div class="cta__actions">
-        <a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-agendar-label>Agendar consulta</span></a>
-        <a class="link-u" data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">@nutri.sueliribeiro <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <div class="cta__marquee" aria-hidden="true"><div class="cta__track" id="ctaTrack"><span>Vamos <em>conversar?</em></span><svg><use href="#i-leaf"/></svg><span>Vamos <em>conversar?</em></span><svg><use href="#i-leaf"/></svg><span>Vamos <em>conversar?</em></span><svg><use href="#i-leaf"/></svg><span>Vamos <em>conversar?</em></span><svg><use href="#i-leaf"/></svg></div></div>
+  <div class="wrap cta__grid">
+    <div class="cta__main">
+      <h2 id="contato-title">Agende sua <em>primeira consulta</em></h2>
+      <p class="cta__lead">Mande uma mensagem. A Sueli responde com os próximos horários e tudo o que você precisa saber para a primeira consulta.</p>
+      <div class="cta__send">
+        <p class="cta__sendk">Para agilizar, conte na mensagem:</p>
+        <ol>
+          <li><span><b>Seu objetivo</b> ou o motivo da consulta</span></li>
+          <li><span><b>Seus exames recentes</b>, se tiver</span></li>
+          <li><span><b>Os melhores dias e horários</b> para você</span></li>
+        </ol>
       </div>
-      <ul class="cta__info" id="contactInfo"><li><b>Registro</b>CRN7/RO 17285</li><li><b>Região</b>Rondônia</li></ul>
+      <div class="cta__actions"><a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig" data-agendar-icon/></svg><span data-agendar-label>Agendar consulta</span></a><a class="link-u" data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">@nutri.sueliribeiro <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      <ul class="cta__info" id="contactInfo"><li><span>Registro</span>CRN7/RO 17285</li><li><span>Região</span>Rondônia</li></ul>
       <div id="mapSlot"></div>
     </div>
-    <div class="cta__photo">
-      <div class="ph"><picture><source type="image/webp" srcset="fotos/sobre-sueli-camisa-bege-sorrindo-c-sm.webp 600w, fotos/sobre-sueli-camisa-bege-sorrindo-c.webp 720w" sizes="380px"><img src="fotos/sobre-sueli-camisa-bege-sorrindo-c.jpg" width="720" height="896" alt="Sueli Ribeiro sorrindo no consultório" loading="lazy" decoding="async" style="object-position:50% 20%"></picture></div>
+    <figure class="cta__photo">
+      <div class="arch cta__arch"><picture><source type="image/webp" srcset="fotos/sobre-sueli-camiseta-branca-c.webp 640w" sizes="(min-width: 1000px) 30vw, 80vw"><img src="fotos/sobre-sueli-camiseta-branca-c.jpg" width="640" height="784" alt="Sueli Ribeiro de camiseta branca, sorrindo no consultório" loading="lazy" decoding="async" style="object-position:50% 25%"></picture></div>
       <a class="cta__magnet" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener" aria-label="Agendar consulta">
-        <svg viewBox="0 0 150 150" aria-hidden="true"><defs><path id="circ" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text><textPath href="#circ">AGENDAR CONSULTA · AGENDAR CONSULTA · </textPath></text></svg>
-        <span aria-hidden="true" style="font-size:1.6rem">✦</span>
+        <svg viewBox="0 0 150 150" aria-hidden="true"><defs><path id="circ" d="M75,75 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/></defs><text><textPath href="#circ">agendar consulta ✦ agendar consulta ✦ </textPath></text></svg>
+        <svg class="cta__mleaf" aria-hidden="true"><use href="#i-arrow"/></svg>
       </a>
-    </div>
+    </figure>
   </div>
 </section>
 </main>
 
 <footer class="footer">
   <div class="wrap">
-    <div class="footer__top">
-      <a class="brand" href="#inicio"><span><b>Sueli Ribeiro</b><small>Nutricionista · CRN7/RO 17285</small></span></a>
-      <div><h2>Navegação</h2><ul><li><a href="#especialidades">Especialidades</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#como-funciona">Como funciona</a></li><li><a href="#receitas">Receitas</a></li></ul></div>
-      <div><h2>Contato</h2><ul><li><a data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span></a></li><li><a data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">Instagram</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
+    <p class="footer__big" aria-hidden="true">Sueli <em>Ribeiro</em></p>
+    <div class="footer__grid">
+      <p class="footer__about">Nutricionista clínica em Rondônia.<br>CRN7/RO 17285.</p>
+      <div><h2>Navegação</h2><ul><li><a href="#especialidades">Especialidades</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#como-funciona">Como funciona</a></li><li><a href="#receitas">Receitas</a></li><li><a href="#dicas">Dicas</a></li></ul></div>
+      <div><h2>Contato</h2><ul><li><a class="" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span></a></li><li><a data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">Instagram</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
     </div>
     <div class="footer__legal"><p>Os resultados variam de pessoa para pessoa. Este site tem caráter informativo e não substitui consulta nutricional.</p><p>© <span id="year">2026</span> Sueli Ribeiro</p></div>
   </div>
 </footer>
 
-<a class="float-cta" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener" aria-label="Agendar consulta"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>Agendar</span></a>
+<a class="float-cta" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener" aria-label="Agendar consulta"><svg aria-hidden="true"><use href="#i-ig" data-agendar-icon/></svg><span>Agendar</span></a>
 
-<script src="js/vendor/gsap.min.js?v=4.1" defer></script>
-<script src="js/vendor/ScrollTrigger.min.js?v=4.1" defer></script>
-<script src="js/vendor/SplitText.min.js?v=4.1" defer></script>
-<script src="js/vendor/CustomEase.min.js?v=4.1" defer></script>
-<script src="js/vendor/lenis.min.js?v=4.1" defer></script>
-<script src="js/main.js?v=4.1" defer></script>
+<script src="js/vendor/gsap.min.js?v=5.0" defer></script>
+<script src="js/vendor/ScrollTrigger.min.js?v=5.0" defer></script>
+<script src="js/vendor/SplitText.min.js?v=5.0" defer></script>
+<script src="js/vendor/CustomEase.min.js?v=5.0" defer></script>
+<script src="js/vendor/lenis.min.js?v=5.0" defer></script>
+<script src="js/main.js?v=5.0" defer></script>
 </body>
 </html>
