@@ -9,7 +9,7 @@ import { FAQ, DICAS, AVALIACOES } from '../data/conteudo';
 import Calculadoras from '../components/Calculadoras.astro';
 import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto, nomeFormal } from '../config';
 import retratoHero from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
-import avatarGrande from '../assets/img/sueli-rosto-1-avatar-ampliado.jpg';
+import fotoSobre from '../assets/img/sueli-sobre-barcelona.jpg';
 
 const confianca = [
   CONFIG.crn,
@@ -129,7 +129,7 @@ const etapas = [
     <div class="wrap sobre__grid">
       <div class="sobre__foto-col">
         <div class="foto foto--arco sobre__foto" data-anim="mascara">
-          <Image src={avatarGrande} alt={`${nomeFormal} no consultório, sentada à mesa com um tablet`} width={600} height={600} class="sobre__retrato" />
+          <Image src={fotoSobre} alt={`${nomeFormal} sentada em uma escadaria ao ar livre, com palmeiras ao fundo`} widths={[450, 700, 900]} sizes="(max-width: 900px) 80vw, 400px" class="sobre__retrato" />
         </div>
       </div>
       <div class="sobre__texto">
@@ -552,8 +552,8 @@ const etapas = [
     position: relative;
   }
   .sobre__foto {
-    aspect-ratio: 1;
-    max-width: 340px;
+    aspect-ratio: 3 / 4;
+    max-width: 400px;
   }
   .sobre__avatar {
     position: absolute;
