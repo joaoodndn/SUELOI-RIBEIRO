@@ -284,8 +284,9 @@ function iniciarMovimento() {
   });
 
   // ---------- Scroll horizontal (desktop) ----------
+  ScrollTrigger.config({ ignoreMobileResize: true });
   const mm = gsap.matchMedia();
-  mm.add('(min-width: 900px)', () => {
+  mm.add('all', () => {
     $$('[data-horizontal]').forEach((sec) => {
       const trilho = sec.querySelector<HTMLElement>('.faixa__trilho');
       if (!trilho) return;

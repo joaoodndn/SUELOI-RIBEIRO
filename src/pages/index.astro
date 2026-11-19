@@ -593,9 +593,13 @@ const etapas = [
   }
   .etapa__corpo p { max-width: 40ch; }
   .etapa__foto { aspect-ratio: 3 / 2; }
+  .etapa > * { min-width: 0; }
   @media (max-width: 900px) {
-    .etapa { grid-template-columns: clamp(4.4rem, 14vw, 5rem) 1fr; }
+    .etapa { grid-template-columns: 3.4rem minmax(0, 1fr); gap: 1.25rem; }
     .etapa__foto { grid-column: 2; }
+    .etapa__titulo { font-size: var(--fs-3); }
+    .etapas__linha { left: 1.7rem; }
+    .etapa__n { font-size: 2.3rem; }
   }
 
   /* FAIXA HORIZONTAL */
@@ -644,12 +648,18 @@ const etapas = [
     color: var(--texto);
   }
   @media (max-width: 899px) {
-    .faixa { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-    .faixa__item { scroll-snap-align: start; width: 68vw; }
-    .faixa__item--larga { width: 85vw; }
-    .faixa__item[data-par] { margin: 0; }
-    .faixa__intro { scroll-snap-align: start; }
-    .faixa__foto :global(img) { transform: none; }
+    .faixa { min-height: 100svh; display: flex; align-items: center; padding-block: 0; }
+    .faixa__intro { width: 82vw; }
+    .faixa__item { width: 64vw; }
+    .faixa__item--larga { width: 84vw; }
+    .faixa__item[data-par='impar'] { margin-top: 3rem; }
+    .faixa__item[data-par='par'] { margin-bottom: 3rem; }
+  }
+  /* Sem animação (sistema com movimento reduzido): rolagem lateral nativa */
+  @media (prefers-reduced-motion: reduce) {
+    :global(html:not(.forcar-movimento)) .faixa { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+    :global(html:not(.forcar-movimento)) .faixa__item,
+    :global(html:not(.forcar-movimento)) .faixa__intro { scroll-snap-align: start; }
   }
 
   /* DICAS */
