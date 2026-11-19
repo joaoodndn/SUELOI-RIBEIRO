@@ -630,8 +630,9 @@ const etapas = [
   }
   .etapa.is-ativa .etapa__n { color: var(--marrom); }
   .etapa__titulo {
-    font-size: var(--fs-4);
+    font-size: clamp(1.9rem, 1.2rem + 2vw, 3.2rem);
     margin-bottom: 1rem;
+    overflow-wrap: anywhere;
   }
   .etapa__corpo p { max-width: 40ch; }
   .etapa__foto { aspect-ratio: 3 / 2; }

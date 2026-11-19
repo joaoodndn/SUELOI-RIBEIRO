@@ -196,7 +196,7 @@ function iniciarMovimento() {
         scrub: 0.7,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        onUpdate: (st) => marcarEtapa(Math.min(itens.length - 1, Math.round(st.progress * (itens.length - 1 + 0.4) - 0.2))),
+        onUpdate: (st) => marcarEtapa(Math.min(itens.length - 1, Math.floor(st.progress * itens.length * 0.999))),
       },
     });
     tl.to({}, { duration: 0.3 });
