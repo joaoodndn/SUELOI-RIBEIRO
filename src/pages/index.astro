@@ -6,7 +6,7 @@ import { Image } from 'astro:assets';
 import { AREAS } from '../data/areas';
 import { FOTOS, FAIXA } from '../data/fotos';
 import { FAQ, DICAS, AVALIACOES } from '../data/conteudo';
-import CalculadoraIMC from '../components/CalculadoraIMC.astro';
+import Calculadoras from '../components/Calculadoras.astro';
 import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto } from '../config';
 import retratoHero from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
 import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
@@ -266,7 +266,7 @@ const etapas = [
     </div>
   </section>
 
-  <CalculadoraIMC />
+  <Calculadoras />
 
   <!-- FAQ -->
   <section class="sec sec--bege" id="faq">

@@ -1,0 +1,563 @@
+---
+/**
+ * Calculadoras de saúde: Índice de IMC, água por dia e proteína por dia (com abas).
+ *
+ * ÁGUA: estimativa clínica por peso: 35 ml/kg (18 a 55 anos), 30 ml/kg (56 a 65), 25 ml/kg (66+).
+ * PROTEÍNA: RDA 0,8 g/kg/dia (adultos saudáveis); PROT-AGE 1,0 a 1,2 g/kg/dia (65+);
+ *   ISSN 1,0 a 1,6 g/kg/dia (aeróbico) e 1,6 a 2,0 g/kg/dia (treino de força).
+ *
+ * Calculadora de IMC (Índice de Massa Corporal).
+ * Fórmula: peso (kg) / altura (m)².
+ * Classificação:
+ *  - Adultos (20 a 59 anos): Organização Mundial da Saúde (OMS).
+ *  - Pessoas idosas (60 anos ou mais): pontos de corte do Ministério da Saúde
+ *    (SISVAN / Caderneta da Pessoa Idosa): < 22 baixo peso; 22 a 27 adequado; > 27 sobrepeso.
+ *  - Menores de 20 anos: o IMC é avaliado por curvas de crescimento (IMC para idade),
+ *    então a calculadora não classifica.
+ */
+import { linkAgendamento } from '../config';
+import Icone from './Icone.astro';
+---
+<section class="sec imc" id="imc" aria-labelledby="calc-titulo">
+  <div class="wrap imc__grid">
+    <div class="imc__intro">
+      <span class="rotulo" data-traco>Calcule agora</span>
+      <h2 class="titulo" id="calc-titulo" data-titulo>Calculadoras de saúde</h2>
+      <p class="sub" data-anim="sobe">Escolha o que você quer calcular: seu Índice de IMC, a quantidade de água por dia ou a sua necessidade de proteína.</p>
+      <p class="imc__nota" data-anim="sobe">São estimativas para adultos saudáveis, baseadas em referências científicas. Elas não substituem a avaliação individual feita na consulta.</p>
+    </div>
+
+    <div class="imc__cartao" data-anim="sobe">
+      <div class="calc__abas" role="tablist" aria-label="Escolha a calculadora">
+        <button type="button" role="tab" id="aba-imc" aria-controls="painel-imc" aria-selected="true" class="calc__aba is-ativa">Índice de IMC</button>
+        <button type="button" role="tab" id="aba-agua" aria-controls="painel-agua" aria-selected="false" tabindex="-1" class="calc__aba">Água por dia</button>
+        <button type="button" role="tab" id="aba-proteina" aria-controls="painel-proteina" aria-selected="false" tabindex="-1" class="calc__aba">Proteína por dia</button>
+        <span class="calc__indicador" aria-hidden="true"></span>
+      </div>
+
+      <div class="calc__painel" role="tabpanel" id="painel-imc" aria-labelledby="aba-imc">
+      <form class="imc__form" novalidate>
+        <div class="imc__campo">
+          <label for="imc-altura">Altura</label>
+          <div class="imc__input"><input size="4" id="imc-altura" name="altura" inputmode="decimal" placeholder="165" autocomplete="off" required /><span>cm</span></div>
+        </div>
+        <div class="imc__campo">
+          <label for="imc-peso">Peso</label>
+          <div class="imc__input"><input size="4" id="imc-peso" name="peso" inputmode="decimal" placeholder="68" autocomplete="off" required /><span>kg</span></div>
+        </div>
+        <div class="imc__campo">
+          <label for="imc-idade">Idade</label>
+          <div class="imc__input"><input size="4" id="imc-idade" name="idade" inputmode="numeric" placeholder="35" autocomplete="off" required /><span>anos</span></div>
+        </div>
+        <button class="btn imc__btn" type="submit">Calcular IMC</button>
+        <p class="imc__erro" role="alert" hidden></p>
+      </form>
+
+      <div class="imc__resultado" aria-live="polite" hidden>
+        <p class="imc__valor"><span class="imc__numero">0</span><small>kg/m²</small></p>
+        <p class="imc__classe"></p>
+        <div class="imc__escala" aria-hidden="true">
+          <div class="imc__faixas"></div>
+          <span class="imc__marcador"></span>
+        </div>
+        <p class="imc__texto"></p>
+        <p class="imc__fonte"></p>
+        <a class="btn btn--linha imc__cta" href={linkAgendamento('Olá, Sueli! Calculei meu IMC no site e gostaria de agendar uma avaliação.')} target="_blank" rel="noopener">Agendar avaliação completa <Icone nome="seta" /></a>
+      </div>
+      </div>
+
+      <!-- ÁGUA -->
+      <div class="calc__painel" role="tabpanel" id="painel-agua" aria-labelledby="aba-agua" hidden>
+        <form class="imc__form calc__form--agua" novalidate>
+          <div class="imc__campo">
+            <label for="agua-peso">Peso</label>
+            <div class="imc__input"><input size="4" id="agua-peso" name="peso" inputmode="decimal" placeholder="68" autocomplete="off" required /><span>kg</span></div>
+          </div>
+          <div class="imc__campo">
+            <label for="agua-idade">Idade</label>
+            <div class="imc__input"><input size="4" id="agua-idade" name="idade" inputmode="numeric" placeholder="35" autocomplete="off" required /><span>anos</span></div>
+          </div>
+          <button class="btn imc__btn" type="submit">Calcular água</button>
+          <p class="imc__erro" role="alert" hidden></p>
+        </form>
+        <div class="imc__resultado calc__res-agua" aria-live="polite" hidden>
+          <p class="imc__valor"><span class="calc__num">0</span><small>litros por dia</small></p>
+          <p class="imc__classe calc__sub"></p>
+          <div class="calc__copos" aria-hidden="true"></div>
+          <p class="imc__texto calc__texto"></p>
+          <p class="imc__fonte">Estimativa usada na prática clínica: 35 ml por kg para adultos de 18 a 55 anos, 30 ml/kg de 56 a 65 anos e 25 ml/kg a partir de 66 anos. Inclui a água de outras bebidas e dos alimentos. Calor, febre e exercício aumentam a necessidade. Quem tem doença renal ou cardíaca deve seguir a orientação do médico.</p>
+        </div>
+      </div>
+
+      <!-- PROTEÍNA -->
+      <div class="calc__painel" role="tabpanel" id="painel-proteina" aria-labelledby="aba-proteina" hidden>
+        <form class="imc__form calc__form--prot" novalidate>
+          <div class="imc__campo">
+            <label for="prot-peso">Peso</label>
+            <div class="imc__input"><input size="4" id="prot-peso" name="peso" inputmode="decimal" placeholder="68" autocomplete="off" required /><span>kg</span></div>
+          </div>
+          <div class="imc__campo">
+            <label for="prot-idade">Idade</label>
+            <div class="imc__input"><input size="4" id="prot-idade" name="idade" inputmode="numeric" placeholder="35" autocomplete="off" required /><span>anos</span></div>
+          </div>
+          <div class="imc__campo calc__campo-largo">
+            <label for="prot-rotina">Rotina de exercícios</label>
+            <div class="imc__input calc__select">
+              <select id="prot-rotina" name="rotina">
+                <option value="pouca">Pouca ou nenhuma atividade física</option>
+                <option value="aerobico">Exercício aeróbico regular (corrida, bike, natação)</option>
+                <option value="forca">Treino de força (musculação)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn imc__btn" type="submit">Calcular proteína</button>
+          <p class="imc__erro" role="alert" hidden></p>
+        </form>
+        <div class="imc__resultado calc__res-prot" aria-live="polite" hidden>
+          <p class="imc__valor"><span class="calc__num">0</span><small>gramas por dia</small></p>
+          <p class="imc__classe calc__sub"></p>
+          <p class="imc__texto calc__texto"></p>
+          <p class="imc__fonte calc__fonte"></p>
+          <p class="imc__fonte">Não use esta estimativa se você tem doença renal, está gestante ou amamentando, ou usa medicamentos para emagrecer sem acompanhamento: nesses casos a necessidade de proteína é definida individualmente.</p>
+          <a class="btn btn--linha imc__cta" href={linkAgendamento('Olá, Sueli! Usei a calculadora de proteína do site e gostaria de agendar uma consulta.')} target="_blank" rel="noopener">Montar meu plano com a Sueli <Icone nome="seta" /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Faixa = { ate: number; nome: string; cor: string; texto: string };
+
+  // OMS — adultos de 20 a 59 anos
+  const ADULTO: Faixa[] = [
+    { ate: 18.5, nome: 'Abaixo do peso', cor: '#c9b48f', texto: 'O IMC está abaixo da faixa considerada adequada para adultos (18,5 a 24,9).' },
+    { ate: 25, nome: 'Peso adequado', cor: '#8fa37f', texto: 'O IMC está dentro da faixa considerada adequada para adultos (18,5 a 24,9).' },
+    { ate: 30, nome: 'Sobrepeso', cor: '#d9b46a', texto: 'O IMC está na faixa de sobrepeso (25 a 29,9).' },
+    { ate: 35, nome: 'Obesidade grau I', cor: '#cf9460', texto: 'O IMC está na faixa de obesidade grau I (30 a 34,9).' },
+    { ate: 40, nome: 'Obesidade grau II', cor: '#bf7150', texto: 'O IMC está na faixa de obesidade grau II (35 a 39,9).' },
+    { ate: Infinity, nome: 'Obesidade grau III', cor: '#a2533f', texto: 'O IMC está na faixa de obesidade grau III (40 ou mais).' },
+  ];
+  // Ministério da Saúde — pessoas com 60 anos ou mais
+  const IDOSO: Faixa[] = [
+    { ate: 22, nome: 'Baixo peso', cor: '#c9b48f', texto: 'Para pessoas com 60 anos ou mais, o IMC abaixo de 22 é classificado como baixo peso.' },
+    { ate: 27.0001, nome: 'Peso adequado', cor: '#8fa37f', texto: 'Para pessoas com 60 anos ou mais, o IMC entre 22 e 27 é classificado como peso adequado.' },
+    { ate: Infinity, nome: 'Sobrepeso', cor: '#d9b46a', texto: 'Para pessoas com 60 anos ou mais, o IMC acima de 27 é classificado como sobrepeso.' },
+  ];
+  const FONTE_ADULTO = 'Classificação da Organização Mundial da Saúde (OMS) para adultos de 20 a 59 anos.';
+  const FONTE_IDOSO = 'Classificação do Ministério da Saúde para pessoas com 60 anos ou mais.';
+
+  const raiz = document.querySelector<HTMLElement>('.imc');
+  if (raiz) {
+    const form = raiz.querySelector<HTMLFormElement>('.imc__form')!;
+    const erro = raiz.querySelector<HTMLElement>('.imc__erro')!;
+    const res = raiz.querySelector<HTMLElement>('.imc__resultado')!;
+    const num = raiz.querySelector<HTMLElement>('.imc__numero')!;
+    const classe = raiz.querySelector<HTMLElement>('.imc__classe')!;
+    const texto = raiz.querySelector<HTMLElement>('.imc__texto')!;
+    const fonte = raiz.querySelector<HTMLElement>('.imc__fonte')!;
+    const faixasEl = raiz.querySelector<HTMLElement>('.imc__faixas')!;
+    const marcador = raiz.querySelector<HTMLElement>('.imc__marcador')!;
+    const escala = raiz.querySelector<HTMLElement>('.imc__escala')!;
+
+    const ler = (nome: string) => parseFloat(String(new FormData(form).get(nome) ?? '').replace(',', '.'));
+    const fmt = (n: number) => n.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+    // Escala visual de 14 a 45 kg/m²
+    const MIN = 14, MAX = 45;
+    const pos = (v: number) => `${((Math.min(MAX, Math.max(MIN, v)) - MIN) / (MAX - MIN)) * 100}%`;
+    const desenharEscala = (faixas: Faixa[]) => {
+      let ini = MIN;
+      faixasEl.innerHTML = faixas.map((f) => {
+        const fim = Math.min(f.ate, MAX);
+        const w = ((fim - ini) / (MAX - MIN)) * 100;
+        ini = fim;
+        return `<span style="width:${w}%;background:${f.cor}" title="${f.nome}"></span>`;
+      }).join('');
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      erro.hidden = true;
+      let altura = ler('altura');
+      const peso = ler('peso');
+      const idade = ler('idade');
+      if (altura > 0 && altura < 3) altura = altura * 100; // aceita 1,65 m
+      const problemas: string[] = [];
+      if (!(altura >= 100 && altura <= 230)) problemas.push('altura entre 100 e 230 cm');
+      if (!(peso >= 25 && peso <= 300)) problemas.push('peso entre 25 e 300 kg');
+      if (!(idade >= 2 && idade <= 120)) problemas.push('idade em anos');
+      if (problemas.length) {
+        erro.textContent = `Confira os dados: informe ${problemas.join(', ')}.`;
+        erro.hidden = false;
+        res.hidden = true;
+        return;
+      }
+      const imc = peso / Math.pow(altura / 100, 2);
+      res.hidden = false;
+
+      if (idade < 20) {
+        num.textContent = fmt(imc);
+        classe.textContent = 'Classificação por idade';
+        classe.style.color = '';
+        texto.textContent = 'Para menores de 20 anos, o IMC é interpretado em curvas de crescimento, de acordo com a idade e o sexo. Essa classificação não pode ser feita só com o número. Procure um profissional de saúde.';
+        fonte.textContent = 'Organização Mundial da Saúde: curvas de IMC para idade.';
+        escala.hidden = true;
+        return;
+      }
+      escala.hidden = false;
+      const faixas = idade >= 60 ? IDOSO : ADULTO;
+      const faixa = faixas.find((f) => imc < f.ate)!;
+      desenharEscala(faixas);
+      classe.textContent = faixa.nome;
+      texto.textContent = faixa.texto;
+      fonte.textContent = idade >= 60 ? FONTE_IDOSO : FONTE_ADULTO;
+
+      // anima o número e o marcador
+      const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('forcar-movimento');
+      if (reduz) {
+        num.textContent = fmt(imc);
+        marcador.style.left = pos(imc);
+      } else {
+        const t0 = performance.now();
+        const dur = 900;
+        const passo = (t: number) => {
+          const k = Math.min(1, (t - t0) / dur);
+          const e2 = 1 - Math.pow(1 - k, 3);
+          num.textContent = fmt(imc * e2);
+          marcador.style.left = pos(MIN + (imc - MIN) * e2);
+          if (k < 1) requestAnimationFrame(passo);
+        };
+        requestAnimationFrame(passo);
+      }
+      res.classList.remove('is-novo');
+      void res.offsetWidth;
+      res.classList.add('is-novo');
+    });
+  }
+
+  /* ---------- Abas ---------- */
+  const abas = Array.from(document.querySelectorAll<HTMLButtonElement>('.calc__aba'));
+  const indicador = document.querySelector<HTMLElement>('.calc__indicador');
+  const moverIndicador = (aba: HTMLElement) => {
+    if (!indicador) return;
+    indicador.style.width = `${aba.offsetWidth}px`;
+    indicador.style.transform = `translateX(${aba.offsetLeft}px)`;
+  };
+  const ativar = (aba: HTMLButtonElement, foco = false) => {
+    abas.forEach((a) => {
+      const sel = a === aba;
+      a.classList.toggle('is-ativa', sel);
+      a.setAttribute('aria-selected', String(sel));
+      a.tabIndex = sel ? 0 : -1;
+      const painel = document.getElementById(a.getAttribute('aria-controls')!)!;
+      painel.hidden = !sel;
+      if (sel) { painel.classList.remove('is-entrando'); void painel.offsetWidth; painel.classList.add('is-entrando'); }
+    });
+    moverIndicador(aba);
+    if (foco) aba.focus();
+  };
+  abas.forEach((a, i) => {
+    a.addEventListener('click', () => ativar(a));
+    a.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); ativar(abas[(i + d + abas.length) % abas.length], true); }
+    });
+  });
+  if (abas[0]) {
+    requestAnimationFrame(() => moverIndicador(abas[0]));
+    window.addEventListener('resize', () => moverIndicador(abas.find((a) => a.classList.contains('is-ativa'))!));
+    document.fonts?.ready.then(() => moverIndicador(abas.find((a) => a.classList.contains('is-ativa'))!));
+  }
+
+  const numBR = (n: number, casas = 1) => n.toLocaleString('pt-BR', { minimumFractionDigits: casas, maximumFractionDigits: casas });
+  const lerCampo = (form: HTMLFormElement, nome: string) => parseFloat(String(new FormData(form).get(nome) ?? '').replace(',', '.'));
+  const contar = (el: HTMLElement, alvo: number, casas: number) => {
+    const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('forcar-movimento');
+    if (reduz) { el.textContent = numBR(alvo, casas); return; }
+    const t0 = performance.now();
+    const passo = (t: number) => {
+      const k = Math.min(1, (t - t0) / 900);
+      el.textContent = numBR(alvo * (1 - Math.pow(1 - k, 3)), casas);
+      if (k < 1) requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
+  };
+  const mostrarErro = (form: HTMLFormElement, msg: string, res: HTMLElement) => {
+    const erroEl = form.querySelector<HTMLElement>('.imc__erro')!;
+    erroEl.textContent = msg;
+    erroEl.hidden = !msg;
+    if (msg) res.hidden = true;
+  };
+  const animarRes = (res: HTMLElement) => { res.hidden = false; res.classList.remove('is-novo'); void res.offsetWidth; res.classList.add('is-novo'); };
+
+  /* ---------- Água ---------- */
+  const formAgua = document.querySelector<HTMLFormElement>('.calc__form--agua');
+  const resAgua = document.querySelector<HTMLElement>('.calc__res-agua');
+  formAgua?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const peso = lerCampo(formAgua, 'peso');
+    const idade = lerCampo(formAgua, 'idade');
+    if (!(peso >= 25 && peso <= 300) || !(idade >= 2 && idade <= 120)) return mostrarErro(formAgua, 'Confira os dados: informe peso entre 25 e 300 kg e idade em anos.', resAgua!);
+    mostrarErro(formAgua, '', resAgua!);
+    const sub = resAgua!.querySelector<HTMLElement>('.calc__sub')!;
+    const txt = resAgua!.querySelector<HTMLElement>('.calc__texto')!;
+    const copos = resAgua!.querySelector<HTMLElement>('.calc__copos')!;
+    const num = resAgua!.querySelector<HTMLElement>('.calc__num')!;
+    if (idade < 18) {
+      animarRes(resAgua!);
+      num.textContent = '—';
+      sub.textContent = 'Cálculo para adultos';
+      txt.textContent = 'Para crianças e adolescentes, a necessidade de água muda com a fase de crescimento. Peça a orientação de um profissional de saúde.';
+      copos.innerHTML = '';
+      return;
+    }
+    const mlkg = idade <= 55 ? 35 : idade <= 65 ? 30 : 25;
+    const litros = (peso * mlkg) / 1000;
+    const nCopos = Math.round((litros * 1000) / 250);
+    animarRes(resAgua!);
+    contar(num, litros, 1);
+    sub.textContent = `cerca de ${nCopos} copos de 250 ml`;
+    txt.textContent = `${numBR(peso, 0)} kg × ${mlkg} ml por kg = ${numBR(peso * mlkg, 0)} ml por dia.`;
+    copos.innerHTML = Array.from({ length: Math.min(nCopos, 20) }, (_, i) => `<span style="animation-delay:${i * 45}ms"></span>`).join('');
+  });
+
+  /* ---------- Proteína ---------- */
+  const formProt = document.querySelector<HTMLFormElement>('.calc__form--prot');
+  const resProt = document.querySelector<HTMLElement>('.calc__res-prot');
+  formProt?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const peso = lerCampo(formProt, 'peso');
+    const idade = lerCampo(formProt, 'idade');
+    const rotina = String(new FormData(formProt).get('rotina'));
+    if (!(peso >= 25 && peso <= 300) || !(idade >= 2 && idade <= 120)) return mostrarErro(formProt, 'Confira os dados: informe peso entre 25 e 300 kg e idade em anos.', resProt!);
+    mostrarErro(formProt, '', resProt!);
+    const num = resProt!.querySelector<HTMLElement>('.calc__num')!;
+    const sub = resProt!.querySelector<HTMLElement>('.calc__sub')!;
+    const txt = resProt!.querySelector<HTMLElement>('.calc__texto')!;
+    const fonte = resProt!.querySelector<HTMLElement>('.calc__fonte')!;
+    animarRes(resProt!);
+    if (idade < 19) {
+      num.textContent = '—';
+      sub.textContent = 'Cálculo para adultos';
+      txt.textContent = 'Para crianças e adolescentes, a necessidade de proteína depende da fase de crescimento. Peça a orientação de um profissional de saúde.';
+      fonte.textContent = '';
+      return;
+    }
+    let min: number, max: number, ref: string;
+    if (rotina === 'forca') { min = 1.6; max = 2.0; ref = 'International Society of Sports Nutrition: 1,6 a 2,0 g por kg por dia para treino de força.'; }
+    else if (rotina === 'aerobico') { min = 1.0; max = 1.6; ref = 'International Society of Sports Nutrition: 1,0 a 1,6 g por kg por dia para exercício aeróbico, conforme intensidade e duração.'; }
+    else if (idade >= 65) { min = 1.0; max = 1.2; ref = 'Consenso PROT-AGE: 1,0 a 1,2 g por kg por dia para pessoas com 65 anos ou mais.'; }
+    else { min = 0.8; max = 0.8; ref = 'Ingestão diária recomendada (RDA) para adultos saudáveis: 0,8 g por kg por dia.'; }
+    const gMin = Math.round(peso * min);
+    const gMax = Math.round(peso * max);
+    if (gMin === gMax) { contar(num, gMin, 0); } else { num.textContent = `${gMin} a ${gMax}`; }
+    sub.textContent = min === max ? `${numBR(min, 1)} g por kg de peso` : `${numBR(min, 1)} a ${numBR(max, 1)} g por kg de peso`;
+    txt.textContent = 'O ideal é dividir essa quantidade entre as refeições do dia, e não concentrar tudo no almoço e no jantar.';
+    fonte.textContent = ref;
+  });
+</script>
+
+<style>
+  .imc { background: var(--bege); }
+  .calc__abas {
+    position: relative;
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.3rem;
+    margin-bottom: 1.8rem;
+    background: var(--bege);
+    border-radius: 999px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .calc__aba {
+    position: relative;
+    z-index: 1;
+    flex: 1 0 auto;
+    padding: 0.75rem 1.1rem;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--texto-2);
+    font: 600 0.9rem var(--sans);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.4s;
+  }
+  .calc__aba.is-ativa { color: var(--creme); }
+  .calc__aba:not(.is-ativa):hover { color: var(--texto); }
+  .calc__indicador {
+    position: absolute;
+    top: 0.3rem;
+    bottom: 0.3rem;
+    left: 0;
+    width: 0;
+    border-radius: 999px;
+    background: var(--marrom);
+    transition: transform 0.55s var(--ease), width 0.55s var(--ease);
+  }
+  .calc__painel.is-entrando { animation: imc-entra 0.55s var(--ease); }
+  .calc__form--agua { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .calc__campo-largo { grid-column: 1 / -1; }
+  .calc__select select {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    font: 600 0.98rem var(--sans);
+    color: var(--texto);
+    padding: 0.85rem 0.9rem;
+    outline: none;
+    cursor: pointer;
+  }
+  .calc__copos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 1.2rem 0;
+  }
+  .calc__copos span {
+    width: 18px;
+    height: 24px;
+    border: 1.5px solid var(--marrom);
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+    background: linear-gradient(to top, rgba(107, 91, 69, 0.35) 70%, transparent 70%);
+    animation: copo-entra 0.5s var(--ease) both;
+  }
+  @keyframes copo-entra { from { opacity: 0; transform: translateY(8px); } }
+  .imc__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .imc__intro .sub { margin-top: 1.4rem; }
+  .imc__nota {
+    margin-top: 1.4rem;
+    font-size: 0.92rem;
+    color: var(--texto-2);
+    max-width: 44ch;
+    padding-left: 1rem;
+    border-left: 2px solid var(--palha);
+  }
+  .imc__cartao {
+    background: var(--creme);
+    border: 1px solid var(--linha);
+    border-radius: 18px;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .imc__grid > * { min-width: 0; }
+  .imc__form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: end;
+  }
+  .imc__campo label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+  }
+  .imc__input {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(52, 37, 31, 0.22);
+    border-radius: 12px;
+    background: var(--branco);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .imc__input:focus-within {
+    border-color: var(--marrom);
+    box-shadow: 0 0 0 3px rgba(107, 91, 69, 0.15);
+  }
+  .imc__input input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    font: 600 1.15rem var(--sans);
+    color: var(--texto);
+    padding: 0.85rem 0 0.85rem 0.9rem;
+    outline: none;
+  }
+  .imc__input span {
+    padding-right: 0.9rem;
+    color: var(--texto-2);
+    font-size: 0.85rem;
+  }
+  .imc__btn {
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin-top: 0.4rem;
+  }
+  .imc__erro {
+    grid-column: 1 / -1;
+    color: #9a3f2b;
+    font-size: 0.9rem;
+  }
+  .imc__resultado {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--linha);
+  }
+  .imc__resultado.is-novo { animation: imc-entra 0.7s var(--ease); }
+  @keyframes imc-entra { from { opacity: 0; transform: translateY(12px); } }
+  .imc__valor {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 2rem + 4vw, 4.6rem);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .imc__valor small {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--texto-2);
+  }
+  .imc__classe {
+    font-family: var(--serif);
+    font-size: var(--fs-3);
+    margin-top: 0.4rem;
+  }
+  .imc__escala {
+    position: relative;
+    margin: 1.4rem 0 1.2rem;
+    padding-top: 10px;
+  }
+  .imc__faixas {
+    display: flex;
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .imc__marcador {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 30px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: var(--texto);
+  }
+  .imc__texto { color: var(--texto); }
+  .imc__fonte {
+    font-size: 0.82rem;
+    color: var(--texto-2);
+    margin-top: 0.6rem;
+  }
+  .imc__cta { margin-top: 1.4rem; }
+  .imc__cta :global(svg) { width: 1rem; height: 1rem; }
+  @media (max-width: 900px) {
+    .imc__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .imc__form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .imc__campo:nth-child(3) { grid-column: 1 / -1; }
+  }
+</style>
