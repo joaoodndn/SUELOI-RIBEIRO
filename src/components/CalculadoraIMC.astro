@@ -25,15 +25,15 @@ import Icone from './Icone.astro';
       <form class="imc__form" novalidate>
         <div class="imc__campo">
           <label for="imc-altura">Altura</label>
-          <div class="imc__input"><input id="imc-altura" name="altura" inputmode="decimal" placeholder="165" autocomplete="off" required /><span>cm</span></div>
+          <div class="imc__input"><input size="4" id="imc-altura" name="altura" inputmode="decimal" placeholder="165" autocomplete="off" required /><span>cm</span></div>
         </div>
         <div class="imc__campo">
           <label for="imc-peso">Peso</label>
-          <div class="imc__input"><input id="imc-peso" name="peso" inputmode="decimal" placeholder="68" autocomplete="off" required /><span>kg</span></div>
+          <div class="imc__input"><input size="4" id="imc-peso" name="peso" inputmode="decimal" placeholder="68" autocomplete="off" required /><span>kg</span></div>
         </div>
         <div class="imc__campo">
           <label for="imc-idade">Idade</label>
-          <div class="imc__input"><input id="imc-idade" name="idade" inputmode="numeric" placeholder="35" autocomplete="off" required /><span>anos</span></div>
+          <div class="imc__input"><input size="4" id="imc-idade" name="idade" inputmode="numeric" placeholder="35" autocomplete="off" required /><span>anos</span></div>
         </div>
         <button class="btn imc__btn" type="submit">Calcular IMC</button>
         <p class="imc__erro" role="alert" hidden></p>
@@ -188,9 +188,10 @@ import Icone from './Icone.astro';
     border-radius: 18px;
     padding: clamp(1.5rem, 3vw, 2.5rem);
   }
+  .imc__grid > * { min-width: 0; }
   .imc__form {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
     align-items: end;
   }
@@ -215,6 +216,7 @@ import Icone from './Icone.astro';
   .imc__input input {
     flex: 1;
     min-width: 0;
+    width: 100%;
     border: 0;
     background: transparent;
     font: 600 1.15rem var(--sans);
@@ -295,7 +297,7 @@ import Icone from './Icone.astro';
     .imc__grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 520px) {
-    .imc__form { grid-template-columns: 1fr 1fr; }
+    .imc__form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .imc__campo:nth-child(3) { grid-column: 1 / -1; }
   }
 </style>
