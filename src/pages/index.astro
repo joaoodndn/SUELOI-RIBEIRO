@@ -8,7 +8,7 @@ import { FOTOS, FAIXA } from '../data/fotos';
 import { FAQ, DICAS, AVALIACOES } from '../data/conteudo';
 import CalculadoraIMC from '../components/CalculadoraIMC.astro';
 import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto } from '../config';
-import selo from '../assets/img/sueli-rosto-2-recorte-selo.jpg';
+import retratoHero from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
 import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
 
 const confianca = [
@@ -51,7 +51,6 @@ const etapas = [
     <div class="wrap hero__grid">
       <div class="hero__texto">
         <p class="hero__selo" data-hero="sobe">
-          <Image src={selo} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} width={240} height={288} class="hero__avatar" loading="eager" />
           <span><strong>{CONFIG.nome}</strong><br />Nutricionista · {CONFIG.crn}</span>
         </p>
         <h1 class="hero__titulo" data-titulo="hero">Ciência e estratégia para uma nutrição individualizada</h1>
@@ -67,7 +66,7 @@ const etapas = [
       </div>
       <div class="hero__fotos">
         <div class="foto foto--arco hero__foto-a" data-hero="foto" data-mouse="18">
-          <Foto foto={FOTOS.heroConsulta} ratio={4 / 5} sizes="(max-width: 900px) 92vw, 44vw" prioridade />
+          <Image src={retratoHero} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 900px) 92vw, 40vw" loading="eager" fetchpriority="high" class="hero__retrato" />
         </div>
         <div class="foto hero__foto-b" data-hero="foto" data-mouse="-34">
           <Foto foto={FOTOS.heroPrato} ratio={1} sizes="(max-width: 900px) 40vw, 16vw" larguras={[320, 480, 640]} prioridade />
@@ -291,7 +290,7 @@ const etapas = [
   <!-- CONTATO -->
   <div class="letreiro" aria-hidden="true">
     <div class="letreiro__linha" data-letreiro="-1"><span>Nutrição clínica</span><span>Composição corporal</span><span>Saúde metabólica</span><span>Nutrição clínica</span><span>Composição corporal</span></div>
-    <div class="letreiro__linha" data-letreiro="1"><span>Rondônia</span><span>Do exame ao prato</span><span>Sueli Ribeiro</span><span>Rondônia</span><span>Do exame ao prato</span></div>
+    <div class="letreiro__linha" data-letreiro="1"><span>Ciência e estratégia para uma nutrição individualizada</span><span>Ciência e estratégia para uma nutrição individualizada</span></div>
   </div>
 
   <section class="sec sec--escura contato" id="contato" data-cursor-escuro>
@@ -349,7 +348,7 @@ const etapas = [
     object-position: 50% 30%;
     box-shadow: 0 0 0 1px var(--linha), 0 0 0 5px var(--creme), 0 0 0 6px var(--palha), 0 20px 40px -24px rgba(52, 37, 31, 0.5);
   }
-  .hero__selo { gap: 1.1rem; }
+  .hero__selo { gap: 1.1rem; padding-left: 1rem; border-left: 2px solid var(--palha); }
   .hero__selo strong { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; }
   .hero__titulo {
     font-size: clamp(2.35rem, 1.45rem + 3.3vw, 4.7rem);
@@ -377,6 +376,12 @@ const etapas = [
     aspect-ratio: 4 / 5;
     width: 82%;
     margin-left: auto;
+  }
+  .hero__retrato {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 62%;
   }
   .hero__foto-b {
     position: absolute;
@@ -713,8 +718,9 @@ const etapas = [
   .faixa__dica-txt-arrastar { display: none; }
   .faixa__seta {
     display: inline-flex;
-    animation: seta-vai 1.6s var(--ease) infinite;
+    animation: seta-vai 1.4s var(--ease) 1s 3;
   }
+  .faixa__dica:hover .faixa__seta { animation: seta-vai 1.4s var(--ease) 1; }
   .faixa__seta :global(svg) { width: 1.1rem; height: 1.1rem; }
   @keyframes seta-vai {
     0%, 100% { transform: translateX(0); }

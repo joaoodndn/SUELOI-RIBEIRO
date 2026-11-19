@@ -5,14 +5,14 @@
 /* ---------- Tokens ---------- */
 :root {
   /* Paleta clara: creme, areia e palha, com marrom só nos botões e no texto */
-  --creme: #faf7f1;
-  --bege: #f3eadc;
-  --areia: #e8d9bf;
-  --palha: #d9c3a0;
-  --marrom: #7a5d45;
-  --marrom-escuro: #5e4634;
-  --marrom-medio: #8c6e52;
-  --dourado: #a88763;
+  --creme: #faf8f2;
+  --bege: #f2eee2;
+  --areia: #e7dfc8;
+  --palha: #d8cdae;
+  --marrom: #6b5b45;
+  --marrom-escuro: #524533;
+  --marrom-medio: #84735a;
+  --dourado: #a08b66;
   --texto: #34251f;
   --texto-2: #6e5a4c;
   --branco: #ffffff;
@@ -840,11 +840,11 @@ html.tem-cursor .cursor-anel {
 }
 .letreiro__linha {
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   width: max-content;
   font-family: var(--serif);
-  font-size: clamp(3.5rem, 2rem + 7vw, 9rem);
-  line-height: 1;
+  font-size: clamp(2rem, 1.2rem + 3.6vw, 5rem);
+  line-height: 1.1;
   letter-spacing: -0.03em;
   white-space: nowrap;
   color: var(--texto);
@@ -858,7 +858,7 @@ html.tem-cursor .cursor-anel {
 .letreiro__linha span {
   display: inline-flex;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 }
 .letreiro__linha span::after {
   content: '';
