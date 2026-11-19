@@ -9,6 +9,8 @@ export const PENDENTE = 'PREENCHER';
 
 export const CONFIG = {
   nome: 'Sueli Ribeiro',
+  /** Tratamento usado no site. Deixe '' para mostrar só o nome. */
+  tratamento: 'Dra.',
   profissao: 'Nutricionista',
   crn: 'CRN7/RO 17285',
 
@@ -21,7 +23,7 @@ export const CONFIG = {
    * Direct do Instagram.
    */
   whatsapp: '5569992074571',
-  mensagemWhatsapp: 'Olá, Sueli! Vim pelo site e gostaria de agendar uma consulta.',
+  mensagemWhatsapp: 'Olá, Dra. Sueli! Vim pelo site e gostaria de agendar uma consulta.',
 
   instagram: 'nutri.sueliribeiro',
 
@@ -74,3 +76,8 @@ export const canalAgendamento = preenchido(CONFIG.whatsapp) ? 'WhatsApp' : 'Inst
 export function localTexto() {
   return preenchido(CONFIG.cidade) ? `${CONFIG.cidade}, ${CONFIG.uf}` : CONFIG.estado;
 }
+
+/** Nome com tratamento, ex.: 'Dra. Sueli Ribeiro' */
+export const nomeFormal = [CONFIG.tratamento, CONFIG.nome].filter(Boolean).join(' ');
+/** Primeiro nome com tratamento, ex.: 'Dra. Sueli' */
+export const nomeCurto = [CONFIG.tratamento, CONFIG.nome.split(' ')[0]].filter(Boolean).join(' ');

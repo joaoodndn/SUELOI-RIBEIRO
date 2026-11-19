@@ -7,7 +7,7 @@ import { AREAS } from '../data/areas';
 import { FOTOS, FAIXA } from '../data/fotos';
 import { FAQ, DICAS, AVALIACOES } from '../data/conteudo';
 import Calculadoras from '../components/Calculadoras.astro';
-import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto } from '../config';
+import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto, nomeFormal } from '../config';
 import retratoHero from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
 import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
 
@@ -42,7 +42,7 @@ const etapas = [
 ];
 ---
 <Base
-  titulo={`${CONFIG.nome} | Nutricionista clínica em ${CONFIG.estado}`}
+  titulo={`${nomeFormal} | Nutricionista clínica em ${CONFIG.estado}`}
   descricao={`Nutricionista clínica em ${CONFIG.estado} (${CONFIG.crn}). Emagrecimento e composição corporal, acompanhamento com GLP-1, hipertrofia, saúde metabólica, intestinal e intolerâncias alimentares.`}
   intro
 >
@@ -51,7 +51,7 @@ const etapas = [
     <div class="wrap hero__grid">
       <div class="hero__texto">
         <p class="hero__selo" data-hero="sobe">
-          <span><strong>{CONFIG.nome}</strong><br />Nutricionista · {CONFIG.crn}</span>
+          <span><strong>{nomeFormal}</strong><br />Nutricionista · {CONFIG.crn}</span>
         </p>
         <h1 class="hero__titulo" data-titulo="hero">Ciência e estratégia para uma nutrição individualizada</h1>
         <p class="hero__sub" data-hero="sobe">
@@ -66,7 +66,7 @@ const etapas = [
       </div>
       <div class="hero__fotos">
         <div class="foto foto--arco hero__foto-a" data-hero="foto" data-mouse="18">
-          <Image src={retratoHero} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 900px) 92vw, 40vw" loading="eager" fetchpriority="high" class="hero__retrato" />
+          <Image src={retratoHero} alt={`${nomeFormal} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 900px) 92vw, 40vw" loading="eager" fetchpriority="high" class="hero__retrato" />
         </div>
         <div class="foto hero__foto-b" data-hero="foto" data-mouse="-34">
           <Foto foto={FOTOS.heroPrato} ratio={1} sizes="(max-width: 900px) 40vw, 16vw" larguras={[320, 480, 640]} prioridade />
@@ -90,9 +90,10 @@ const etapas = [
   <section class="sec apresenta">
     <div class="wrap apresenta__grid">
       <span class="rotulo" data-traco>A proposta</span>
-      <p class="apresenta__texto" data-acende>
-        Nutrição clínica não é só o que vai no prato. É entender seus exames, seu sono, seu treino, seus sintomas e a rotina que você tem de verdade. A partir disso, o plano ajusta o que precisa ser ajustado e mantém a comida que faz sentido para você.
-      </p>
+      <div class="apresenta__texto" data-acende>
+        <p>A nutrição clínica vai muito além da alimentação. Envolve uma avaliação abrangente dos exames laboratoriais, da qualidade do sono, da prática de atividades físicas, dos sintomas apresentados e dos hábitos que compõem a rotina de cada indivíduo.</p>
+        <p>Com base nessa análise, é desenvolvido um planejamento nutricional individualizado, com ajustes estratégicos que atendam às necessidades específicas de cada paciente, respeitando suas preferências alimentares e sua realidade cotidiana.</p>
+      </div>
     </div>
   </section>
 
@@ -131,18 +132,18 @@ const etapas = [
           <Foto foto={FOTOS.sobre} ratio={3 / 4} sizes="(max-width: 900px) 80vw, 34vw" larguras={[400, 600, 800]} />
         </div>
         <figure class="sobre__avatar" data-anim="sobe">
-          <Image src={avatar} alt={`${CONFIG.nome} atendendo no consultório`} width={150} height={150} />
+          <Image src={avatar} alt={`${nomeFormal} atendendo no consultório`} width={150} height={150} />
         </figure>
       </div>
       <div class="sobre__texto">
         <span class="rotulo" data-traco>Quem atende</span>
-        <h2 class="titulo" data-titulo>{CONFIG.nome}</h2>
+        <h2 class="titulo" data-titulo>{nomeFormal}</h2>
         <p class="sobre__crn" data-anim="sobe">Nutricionista · {CONFIG.crn}</p>
         <div class="prosa" data-anim="sobe">
           <p>Atendo em {localTexto()} com foco em nutrição clínica: emagrecimento e composição corporal, acompanhamento de quem usa medicamentos da classe GLP-1, hipertrofia, saúde metabólica, intestinal e intolerâncias alimentares.</p>
           <p>O plano é sempre individual. Ele leva em conta exames, rotina, preferências e o momento de cada pessoa, e é ajustado a cada retorno. Quando o caso pede, o trabalho é feito junto com o médico.</p>
         </div>
-        <a class="link sobre__link" href="/sobre" data-anim="sobe">Mais sobre a Sueli</a>
+        <a class="link sobre__link" href="/sobre" data-anim="sobe">Mais sobre a Dra. Sueli</a>
       </div>
     </div>
   </section>
@@ -249,7 +250,7 @@ const etapas = [
           <span class="rotulo" data-traco>Quem já passou por aqui</span>
           <h2 class="titulo" data-titulo>O que dizem sobre o atendimento.</h2>
         </div>
-        <p class="sub" data-anim="sobe">Comentários deixados no Instagram da Sueli.</p>
+        <p class="sub" data-anim="sobe">Comentários deixados no Instagram da Dra. Sueli.</p>
       </div>
       <ul class="avaliacoes__lista" data-anim="stagger">
         {AVALIACOES.map((a, i) => (
@@ -463,11 +464,12 @@ const etapas = [
   }
   .apresenta__texto {
     font-family: var(--serif);
-    font-size: clamp(1.7rem, 1.2rem + 1.9vw, 3rem);
-    line-height: 1.22;
-    letter-spacing: -0.015em;
-    max-width: 28ch;
+    font-size: clamp(1.3rem, 1rem + 1.1vw, 2.05rem);
+    line-height: 1.38;
+    letter-spacing: -0.01em;
+    max-width: 40ch;
   }
+  .apresenta__texto p + p { margin-top: 1.1em; }
   @media (max-width: 760px) {
     .apresenta__grid { grid-template-columns: 1fr; gap: 0; }
   }

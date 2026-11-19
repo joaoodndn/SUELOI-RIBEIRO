@@ -2,22 +2,22 @@
 import Base from '../layouts/Base.astro';
 import Icone from '../components/Icone.astro';
 import { Image } from 'astro:assets';
-import { CONFIG, linkAgendamento, preenchido, localTexto } from '../config';
+import { CONFIG, linkAgendamento, preenchido, localTexto, nomeFormal } from '../config';
 import { AREAS } from '../data/areas';
 import retrato from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
 import '../styles/interna.css';
 const formacao = CONFIG.formacao;
 ---
-<Base titulo="Sobre" descricao={`Conheça ${CONFIG.nome}, nutricionista clínica em ${CONFIG.estado} (${CONFIG.crn}).`}>
+<Base titulo="Sobre" descricao={`Conheça ${nomeFormal}, nutricionista clínica em ${CONFIG.estado} (${CONFIG.crn}).`}>
   <section class="int-hero">
     <div class="wrap int-hero__grid">
       <div>
         <nav class="migalha" aria-label="Você está em" data-anim="sobe"><a href="/">Início</a><span aria-hidden="true">/</span><span>Sobre</span></nav>
-        <h1 data-titulo>{CONFIG.nome}</h1>
+        <h1 data-titulo>{nomeFormal}</h1>
         <p class="sub" data-anim="sobe">Nutricionista clínica · {CONFIG.crn} · {localTexto()}</p>
       </div>
       <div class="foto foto--arco int-hero__foto sobre-retrato" data-anim="mascara">
-        <Image src={retrato} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 860px) 92vw, 40vw" loading="eager" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%" />
+        <Image src={retrato} alt={`${nomeFormal} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 860px) 92vw, 40vw" loading="eager" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%" />
       </div>
     </div>
   </section>

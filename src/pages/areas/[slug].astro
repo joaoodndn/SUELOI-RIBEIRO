@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Foto from '../../components/Foto.astro';
 import Icone from '../../components/Icone.astro';
 import { AREAS, type Area } from '../../data/areas';
-import { linkAgendamento } from '../../config';
+import { linkAgendamento, nomeFormal } from '../../config';
 import '../../styles/interna.css';
 
 export function getStaticPaths() {
@@ -11,7 +11,7 @@ export function getStaticPaths() {
 }
 const { area } = Astro.props as { area: Area };
 const outras = AREAS.filter((a) => a.slug !== area.slug);
-const msg = `Olá, Sueli! Vim pelo site e gostaria de agendar uma consulta sobre ${area.titulo.toLowerCase()}.`;
+const msg = `Olá, Dra. Sueli! Vim pelo site e gostaria de agendar uma consulta sobre ${area.titulo.toLowerCase()}.`;
 ---
 <Base titulo={area.titulo} descricao={area.resumo}>
   <section class="int-hero">

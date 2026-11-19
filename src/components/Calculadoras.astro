@@ -15,7 +15,7 @@
  *  - Menores de 20 anos: o IMC é avaliado por curvas de crescimento (IMC para idade),
  *    então a calculadora não classifica.
  */
-import { linkAgendamento } from '../config';
+import { linkAgendamento, nomeFormal } from '../config';
 import Icone from './Icone.astro';
 ---
 <section class="sec imc" id="imc" aria-labelledby="calc-titulo">
@@ -62,7 +62,7 @@ import Icone from './Icone.astro';
         </div>
         <p class="imc__texto"></p>
         <p class="imc__fonte"></p>
-        <a class="btn btn--linha imc__cta" href={linkAgendamento('Olá, Sueli! Calculei meu IMC no site e gostaria de agendar uma avaliação.')} target="_blank" rel="noopener">Agendar avaliação completa <Icone nome="seta" /></a>
+        <a class="btn btn--linha imc__cta" href={linkAgendamento('Olá, Dra. Sueli! Calculei meu IMC no site e gostaria de agendar uma avaliação.')} target="_blank" rel="noopener">Agendar avaliação completa <Icone nome="seta" /></a>
       </div>
       </div>
 
@@ -119,7 +119,7 @@ import Icone from './Icone.astro';
           <p class="imc__texto calc__texto"></p>
           <p class="imc__fonte calc__fonte"></p>
           <p class="imc__fonte">Não use esta estimativa se você tem doença renal, está gestante ou amamentando, ou usa medicamentos para emagrecer sem acompanhamento: nesses casos a necessidade de proteína é definida individualmente.</p>
-          <a class="btn btn--linha imc__cta" href={linkAgendamento('Olá, Sueli! Usei a calculadora de proteína do site e gostaria de agendar uma consulta.')} target="_blank" rel="noopener">Montar meu plano com a Sueli <Icone nome="seta" /></a>
+          <a class="btn btn--linha imc__cta" href={linkAgendamento('Olá, Dra. Sueli! Usei a calculadora de proteína do site e gostaria de agendar uma consulta.')} target="_blank" rel="noopener">Montar meu plano com a Dra. Sueli <Icone nome="seta" /></a>
         </div>
       </div>
     </div>

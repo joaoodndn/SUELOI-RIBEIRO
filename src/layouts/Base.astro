@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Monograma from '../components/Monograma.astro';
 import Icone from '../components/Icone.astro';
-import { CONFIG, instagramUrl, linkAgendamento, canalAgendamento, preenchido, localTexto } from '../config';
+import { CONFIG, instagramUrl, linkAgendamento, canalAgendamento, preenchido, localTexto, nomeFormal } from '../config';
 import { AREAS } from '../data/areas';
 import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
 
@@ -14,7 +14,7 @@ interface Props {
 }
 const { titulo, descricao, intro = false } = Astro.props;
 const url = new URL(Astro.url.pathname, CONFIG.siteUrl).href;
-const tituloCompleto = titulo.includes(CONFIG.nome) ? titulo : `${titulo} | ${CONFIG.nome}, Nutricionista`;
+const tituloCompleto = titulo.includes(CONFIG.nome) ? titulo : `${titulo} | ${nomeFormal}, Nutricionista`;
 const og = new URL(avatar.src, CONFIG.siteUrl).href;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const nav = [
@@ -27,7 +27,7 @@ const nav = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'MedicalBusiness',
-  name: `${CONFIG.nome} — Nutricionista`,
+  name: `${nomeFormal} — Nutricionista`,
   url: CONFIG.siteUrl,
   image: og,
   medicalSpecialty: 'Dietetics',
@@ -40,6 +40,7 @@ const jsonLd = {
   founder: {
     '@type': 'Person',
     name: CONFIG.nome,
+    ...(CONFIG.tratamento ? { honorificPrefix: CONFIG.tratamento } : {}),
     jobTitle: 'Nutricionista',
     identifier: CONFIG.crn,
     sameAs: [instagramUrl],
@@ -59,7 +60,7 @@ const jsonLd = {
     <link rel="apple-touch-icon" href={avatar.src} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:site_name" content={`${CONFIG.nome}, Nutricionista`} />
+    <meta property="og:site_name" content={`${nomeFormal}, Nutricionista`} />
     <meta property="og:title" content={tituloCompleto} />
     <meta property="og:description" content={descricao} />
     <meta property="og:url" content={url} />
@@ -89,7 +90,7 @@ const jsonLd = {
         <div class="intro__metade intro__metade--b"></div>
         <div class="intro__centro">
           <Monograma class="intro__sr" />
-          <p class="intro__nome">{`${CONFIG.nome} · Nutricionista`.split('').map((c) => <span>{c === ' ' ? ' ' : c}</span>)}</p>
+          <p class="intro__nome">{`${nomeFormal} · Nutricionista`.split('').map((c) => <span>{c === ' ' ? ' ' : c}</span>)}</p>
           <div class="intro__linha"></div>
         </div>
         <button class="intro__pular" type="button" tabindex="-1">Pular</button>
@@ -98,10 +99,10 @@ const jsonLd = {
 
     <header class="header">
       <div class="wrap header__in">
-        <a class="marca" href="/" aria-label={`${CONFIG.nome}, Nutricionista — página inicial`}>
+        <a class="marca" href="/" aria-label={`${nomeFormal}, Nutricionista — página inicial`}>
           <Monograma class="marca__sr" />
           <span>
-            <span class="marca__nome">{CONFIG.nome}</span>
+            <span class="marca__nome">{nomeFormal}</span>
             <span class="marca__prof">Nutricionista · {CONFIG.crn}</span>
           </span>
         </a>
@@ -136,7 +137,7 @@ const jsonLd = {
       <div class="wrap">
         <div class="rodape__topo">
           <div>
-            <p class="rodape__marca">{CONFIG.nome}<br />Nutricionista</p>
+            <p class="rodape__marca">{nomeFormal}<br />Nutricionista</p>
             <p style="margin-top:1rem">{CONFIG.crn} · {localTexto()}</p>
           </div>
           <div>
@@ -150,13 +151,13 @@ const jsonLd = {
               <li><a href={instagramUrl} target="_blank" rel="noopener">Instagram @{CONFIG.instagram}</a></li>
               {preenchido(CONFIG.endereco) && <li>{CONFIG.endereco}</li>}
               {preenchido(CONFIG.horarios) && <li>{CONFIG.horarios}</li>}
-              <li><a href="/sobre">Sobre a Sueli</a></li>
+              <li><a href="/sobre">Sobre a Dra. Sueli</a></li>
             </ul>
           </div>
         </div>
         <div class="rodape__aviso">
           <p>Conteúdo informativo. Não substitui consulta nem orientação médica.</p>
-          <p>© {new Date().getFullYear()} {CONFIG.nome}. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} {nomeFormal}. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

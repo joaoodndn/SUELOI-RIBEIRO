@@ -2,12 +2,12 @@
 import Base from '../layouts/Base.astro';
 import Foto from '../components/Foto.astro';
 import Icone from '../components/Icone.astro';
-import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto } from '../config';
+import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto, nomeFormal } from '../config';
 import { FOTOS } from '../data/fotos';
 import '../styles/interna.css';
 const modalidades = [CONFIG.atendimentoPresencial && 'Presencial', CONFIG.atendimentoOnline && 'Online'].filter(Boolean) as string[];
 ---
-<Base titulo="Contato e agendamento" descricao={`Agende sua consulta com ${CONFIG.nome}, nutricionista em ${localTexto()}.`}>
+<Base titulo="Contato e agendamento" descricao={`Agende sua consulta com ${nomeFormal}, nutricionista em ${localTexto()}.`}>
   <section class="int-hero">
     <div class="wrap int-hero__grid">
       <div>
