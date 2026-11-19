@@ -32,7 +32,7 @@ export const FOTOS = {
 
   // Áreas de atuação
   emagrecimento: f('1675270444770-1a6d1f69aefc', 'oThoRP1zGzE', 'Profissional medindo a circunferência da cintura de um paciente com fita métrica', '50% 50%'),
-  glp1: f('1685485276223-0bb0226dcca8', '8gG2PDqpktY', 'Mãos segurando uma caneta de aplicação ao lado de um glicosímetro, sobre mesa de madeira', '45% 50%'),
+  glp1: f('1685485276223-0bb0226dcca8', '8gG2PDqpktY', 'Mãos usando um lancetador para medir a glicemia, sobre mesa de madeira', '45% 50%'),
   hipertrofia: f('1516481265257-97e5f4bc50d5', 'KIzBvHNe7hY', 'Pessoa preparando uma barra com anilhas para o treino de força', '50% 50%'),
   metabolica: f('1685061269933-563cc709b973', 's9TB1EbIhzs', 'Glicosímetro e frasco de tiras reagentes sobre mesa de madeira', '40% 55%'),
   intestinal: f('1618771622532-421eda797750', 'dLfwYP33vi4', 'Pessoa com as mãos sobre a barriga, sinal de desconforto digestivo', '50% 55%'),
