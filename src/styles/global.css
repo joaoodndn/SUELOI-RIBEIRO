@@ -1,6 +1,5 @@
-@import '@fontsource/cormorant-garamond/latin-400.css';
-@import '@fontsource/cormorant-garamond/latin-500.css';
-@import '@fontsource/cormorant-garamond/latin-500-italic.css';
+@import '@fontsource-variable/playfair-display/wght.css';
+@import '@fontsource-variable/playfair-display/wght-italic.css';
 @import '@fontsource-variable/manrope/wght.css';
 
 /* ---------- Tokens ---------- */
@@ -17,7 +16,7 @@
   --linha: rgba(52, 37, 31, 0.14);
   --linha-clara: rgba(248, 246, 242, 0.18);
 
-  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --serif: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
   --sans: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
 
   --fs-0: clamp(0.8rem, 0.78rem + 0.1vw, 0.86rem);
@@ -76,9 +75,9 @@ h2,
 h3,
 h4 {
   font-family: var(--serif);
-  font-weight: 500;
-  line-height: 1.04;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   margin: 0;
   text-wrap: balance;
 }
