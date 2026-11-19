@@ -67,8 +67,7 @@ const aoRolar = (y: number) => {
 let lenis: Lenis | undefined;
 if (reduz) {
   // Versão suave para quem desligou animações no sistema: só esmaecimentos, sem deslocamento.
-  root.classList.add('sem-intro');
-  document.querySelector('.intro')?.remove();
+  introSuave();
   window.addEventListener('scroll', () => aoRolar(window.scrollY), { passive: true });
   aoRolar(window.scrollY);
   const io = new IntersectionObserver((entradas) => {
@@ -79,8 +78,30 @@ if (reduz) {
     });
   }, { rootMargin: '0px 0px -8% 0px' });
   $$('[data-anim], [data-titulo], [data-hero]').forEach((el) => { el.classList.add('suave'); io.observe(el); });
+  $$('.rotulo[data-traco]').forEach((el) => io.observe(el));
 } else {
   iniciarMovimento();
+}
+
+/** Abertura para quem desligou animações: traço do monograma e esmaecimentos, sem deslocamento. */
+function introSuave() {
+  const intro = document.querySelector<HTMLElement>('.intro');
+  if (!intro || root.classList.contains('sem-intro')) { intro?.remove(); return; }
+  const anel = intro.querySelector<SVGCircleElement>('.mono-anel')!;
+  const sr = intro.querySelector<SVGTextElement>('.mono-letras')!;
+  const comp = 2 * Math.PI * 47;
+  gsap.set(anel, { strokeDasharray: comp, strokeDashoffset: comp });
+  gsap.set(sr, { fillOpacity: 0, strokeOpacity: 0 });
+  gsap.set(['.intro__nome', '.intro__linha'], { opacity: 0 });
+  gsap.set('.intro__linha', { scaleX: 1 });
+  const fim = () => { try { sessionStorage.setItem('sr-intro', '1'); } catch {} intro.remove(); };
+  const tl = gsap.timeline({ onComplete: fim });
+  tl.to(anel, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut' })
+    .to(sr, { fillOpacity: 1, strokeOpacity: 1, duration: 0.7 }, 0.5)
+    .to('.intro__nome', { opacity: 1, duration: 0.7 }, 0.8)
+    .to('.intro__linha', { opacity: 1, duration: 0.6 }, 1.1)
+    .to(intro, { opacity: 0, duration: 0.7, ease: 'power1.inOut' }, 2.1);
+  intro.querySelector('.intro__pular')?.addEventListener('click', () => tl.progress(1));
 }
 
 function iniciarMovimento() {
@@ -147,7 +168,8 @@ function iniciarMovimento() {
     tl.to(anel, { strokeDashoffset: 0, duration: 1.1, ease: 'power2.inOut' })
       .to(sr, { strokeDashoffset: 0, duration: 1, ease: 'power2.inOut' }, 0.2)
       .to(sr, { fillOpacity: 1, duration: 0.5 }, 0.95)
-      .from(letras, { yPercent: 60, opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.022 }, 0.55)
+      .from(intro.querySelector('.intro__sr'), { scale: 0.86, duration: 1.6, ease: 'expo.out' }, 0)
+      .from(letras, { yPercent: 80, opacity: 0, filter: 'blur(6px)', duration: 0.7, ease: 'power3.out', stagger: 0.022 }, 0.55)
       .to('.intro__linha', { scaleX: 1, duration: 0.8, ease: 'power3.inOut' }, 1.1)
       .to('.intro__centro', { opacity: 0, y: -12, duration: 0.45, ease: 'power2.in' }, 2.0)
       .to('.intro__metade--a', { yPercent: -100, duration: 1, ease: 'expo.inOut' }, 2.15)
@@ -163,6 +185,45 @@ function iniciarMovimento() {
   // Demais títulos: revelam ao entrar na tela
   titulos.filter((t) => t !== heroTitulo).forEach((el) => {
     ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true, onEnter: () => revelarTitulo(el) });
+  });
+
+  // ---------- Traço dos rótulos ----------
+  $$('.rotulo[data-traco]').forEach((el) => {
+    ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: () => el.classList.add('is-visivel') });
+  });
+
+  // ---------- Cartões: foto abre em máscara, texto sobe, em cascata por coluna ----------
+  $$('[data-anim="cartoes"]').forEach((lista) => {
+    const itens = Array.from(lista.children) as HTMLElement[];
+    const colunas = () => {
+      const topo = itens[0]?.getBoundingClientRect().top ?? 0;
+      return Math.max(1, itens.filter((i) => Math.abs(i.getBoundingClientRect().top - topo) < 4).length);
+    };
+    const cols = colunas();
+    itens.forEach((item, idx) => {
+      const foto = item.querySelector<HTMLElement>('.foto');
+      const img = foto?.querySelector('img');
+      const textos = Array.from(item.querySelectorAll<HTMLElement>('h3, p, .area__mais'));
+      const tl = gsap.timeline({ scrollTrigger: { trigger: item, start: 'top 88%', once: true }, delay: (idx % cols) * 0.12 });
+      gsap.set(item, { opacity: 1 });
+      if (foto) tl.fromTo(foto, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'expo.inOut' });
+      if (img) tl.fromTo(img, { scale: 1.35 }, { scale: 1, duration: 1.8, ease: 'expo.out' }, 0.05);
+      tl.fromTo(textos, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.07 }, 0.55);
+    });
+  });
+
+  // ---------- Parallax interno da foto (dentro da moldura) ----------
+  $$('[data-img-parallax]').forEach((el) => {
+    const img = el.querySelector('img');
+    if (!img) return;
+    gsap.set(img, { scale: 1.18 });
+    gsap.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
+  // ---------- Letreiro que acompanha a rolagem ----------
+  $$('[data-letreiro]').forEach((el) => {
+    const dir = parseFloat(el.dataset.letreiro || '-1');
+    gsap.fromTo(el, { xPercent: dir < 0 ? 0 : -25 }, { xPercent: dir < 0 ? -25 : 0, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: 0.5 } });
   });
 
   // ---------- Sobe (fade up) ----------
@@ -235,6 +296,40 @@ function iniciarMovimento() {
       });
       b.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
     });
+
+    // ---------- Fotos do hero acompanham o mouse ----------
+    const hero = document.querySelector<HTMLElement>('.hero');
+    const camadas = $$('[data-mouse]').map((el) => ({
+      f: parseFloat(el.dataset.mouse || '20'),
+      x: gsap.quickTo(el, 'x', { duration: 1.2, ease: 'power3.out' }),
+      y: gsap.quickTo(el, 'y', { duration: 1.2, ease: 'power3.out' }),
+    }));
+    hero?.addEventListener('pointermove', (e) => {
+      const nx = e.clientX / window.innerWidth - 0.5;
+      const ny = e.clientY / window.innerHeight - 0.5;
+      camadas.forEach((c) => { c.x(nx * c.f); c.y(ny * c.f); });
+    });
+    hero?.addEventListener('pointerleave', () => camadas.forEach((c) => { c.x(0); c.y(0); }));
+
+    // ---------- Cursor personalizado ----------
+    const cursor = document.querySelector<HTMLElement>('.cursor');
+    if (cursor) {
+      root.classList.add('tem-cursor');
+      const rotulo = cursor.querySelector<HTMLElement>('.cursor__rotulo')!;
+      const cx = gsap.quickTo(cursor, 'x', { duration: 0.35, ease: 'power3.out' });
+      const cy = gsap.quickTo(cursor, 'y', { duration: 0.35, ease: 'power3.out' });
+      gsap.set(cursor, { opacity: 0 });
+      window.addEventListener('pointermove', (e) => { gsap.to(cursor, { opacity: 1, duration: 0.3, overwrite: 'auto' }); cx(e.clientX); cy(e.clientY); });
+      document.addEventListener('pointerleave', () => gsap.to(cursor, { opacity: 0, duration: 0.3 }));
+      document.addEventListener('pointerover', (e) => {
+        const alvo = e.target as HTMLElement;
+        const comRotulo = alvo.closest<HTMLElement>('[data-cursor]');
+        cursor.classList.toggle('is-rotulo', !!comRotulo);
+        rotulo.textContent = comRotulo?.dataset.cursor ?? '';
+        cursor.classList.toggle('is-link', !comRotulo && !!alvo.closest('a, button, summary'));
+        cursor.classList.toggle('is-escuro', !!alvo.closest('[data-cursor-escuro], .rodape, .marquee, .menu-mobile'));
+      });
+    }
 
     // ---------- Tilt discreto nos cartões das áreas ----------
     $$('[data-tilt]').forEach((c) => {

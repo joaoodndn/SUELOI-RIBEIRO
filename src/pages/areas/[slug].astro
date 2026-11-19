@@ -65,7 +65,7 @@ const msg = `Olá, Sueli! Vim pelo site e gostaria de agendar uma consulta sobre
         <h2 data-titulo>Quer começar por aqui?</h2>
         <a class="btn" data-magnetico href={linkAgendamento(msg)} target="_blank" rel="noopener">Agendar consulta <Icone nome="seta" /></a>
       </div>
-      <span class="rotulo">Outras áreas</span>
+      <span class="rotulo" data-traco>Outras áreas</span>
       <ul class="outras" data-anim="stagger">
         {outras.map((o) => <li><a href={`/areas/${o.slug}`}>{o.titulo}<Icone nome="seta" /></a></li>)}
       </ul>

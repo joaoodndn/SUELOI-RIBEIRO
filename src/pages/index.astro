@@ -65,10 +65,10 @@ const etapas = [
         </div>
       </div>
       <div class="hero__fotos">
-        <div class="foto foto--arco hero__foto-a" data-hero="foto">
+        <div class="foto foto--arco hero__foto-a" data-hero="foto" data-mouse="18">
           <Foto foto={FOTOS.heroConsulta} ratio={4 / 5} sizes="(max-width: 900px) 92vw, 44vw" prioridade />
         </div>
-        <div class="foto hero__foto-b" data-hero="foto">
+        <div class="foto hero__foto-b" data-hero="foto" data-mouse="-34">
           <Foto foto={FOTOS.heroPrato} ratio={1} sizes="(max-width: 900px) 40vw, 16vw" larguras={[320, 480, 640]} prioridade />
         </div>
       </div>
@@ -89,7 +89,7 @@ const etapas = [
   <!-- APRESENTAÇÃO -->
   <section class="sec apresenta">
     <div class="wrap apresenta__grid">
-      <span class="rotulo">A proposta</span>
+      <span class="rotulo" data-traco>A proposta</span>
       <p class="apresenta__texto" data-acende>
         Nutrição clínica não é só o que vai no prato. É entender seus exames, seu sono, seu treino, seus sintomas e a rotina que você tem de verdade. A partir disso, o plano ajusta o que precisa ser ajustado e mantém a comida que faz sentido para você.
       </p>
@@ -101,15 +101,15 @@ const etapas = [
     <div class="wrap">
       <div class="cabeca">
         <div>
-          <span class="rotulo">Áreas de atuação</span>
+          <span class="rotulo" data-traco>Áreas de atuação</span>
           <h2 class="titulo" data-titulo>Seis frentes, um acompanhamento.</h2>
         </div>
         <p class="sub" data-anim="sobe">Cada área tem uma página com o que é, para quem é indicada e como funciona o acompanhamento.</p>
       </div>
-      <ul class="areas" data-anim="stagger">
+      <ul class="areas" data-anim="cartoes">
         {AREAS.map((a) => (
           <li>
-            <a class="area" href={`/areas/${a.slug}`} data-tilt>
+            <a class="area" href={`/areas/${a.slug}`} data-tilt data-cursor="Ver área">
               <div class="foto area__foto">
                 <Foto foto={a.foto} ratio={4 / 5} sizes="(max-width: 640px) 92vw, (max-width: 1000px) 45vw, 30vw" larguras={[400, 600, 800]} />
               </div>
@@ -127,12 +127,12 @@ const etapas = [
   <section class="sec sobre" id="sobre">
     <div class="wrap sobre__grid">
       <div class="sobre__foto-col">
-        <div class="foto foto--arco sobre__foto" data-anim="mascara">
+        <div class="foto foto--arco sobre__foto" data-anim="mascara" data-img-parallax>
           <Image src={retrato} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 900px) 80vw, 34vw" />
         </div>
       </div>
       <div class="sobre__texto">
-        <span class="rotulo">Quem atende</span>
+        <span class="rotulo" data-traco>Quem atende</span>
         <h2 class="titulo" data-titulo>{CONFIG.nome}</h2>
         <p class="sobre__crn" data-anim="sobe">Nutricionista · {CONFIG.crn}</p>
         <div class="prosa" data-anim="sobe">
@@ -149,7 +149,7 @@ const etapas = [
     <div class="wrap">
       <div class="cabeca">
         <div>
-          <span class="rotulo">Como funciona</span>
+          <span class="rotulo" data-traco>Como funciona</span>
           <h2 class="titulo" data-titulo>Três etapas, do primeiro encontro aos retornos.</h2>
         </div>
       </div>
@@ -172,10 +172,10 @@ const etapas = [
   </section>
 
   <!-- ALÉM DO PRATO (scroll horizontal) -->
-  <section class="faixa sec--escura" data-horizontal aria-labelledby="faixa-titulo">
+  <section class="faixa sec--escura" data-horizontal data-cursor-escuro aria-labelledby="faixa-titulo">
     <div class="faixa__trilho">
       <div class="faixa__intro">
-        <span class="rotulo">O que entra na conta</span>
+        <span class="rotulo" data-traco>O que entra na conta</span>
         <h2 class="titulo" id="faixa-titulo" data-titulo>Nutrição vai além do prato.</h2>
         <p class="sub">Sono, treino, hidratação, exames, intestino, rotina de compras. Tudo isso pesa no resultado e entra na conversa.</p>
       </div>
@@ -195,12 +195,12 @@ const etapas = [
     <div class="wrap">
       <div class="cabeca">
         <div>
-          <span class="rotulo">Conteúdos</span>
+          <span class="rotulo" data-traco>Conteúdos</span>
           <h2 class="titulo" data-titulo>Para ler antes da consulta.</h2>
         </div>
         <a class="link" href="/receitas-e-dicas" data-anim="sobe">Ver todos os conteúdos</a>
       </div>
-      <ul class="dicas" data-anim="stagger">
+      <ul class="dicas" data-anim="cartoes">
         {DICAS.map((d) => (
           <li class="dica">
             <div class="foto dica__foto"><Foto foto={d.foto} ratio={3 / 2} sizes="(max-width: 760px) 92vw, 30vw" larguras={[400, 600, 800]} /></div>
@@ -218,7 +218,7 @@ const etapas = [
 
   <section class="sec sec--bege" id="depoimentos">
     <div class="wrap">
-      <span class="rotulo">Depoimentos</span>
+      <span class="rotulo" data-traco>Depoimentos</span>
       <h2 class="titulo" data-titulo>Quem já acompanhou.</h2>
       <ul class="depoimentos" data-anim="stagger">
         <li><blockquote>"Texto do depoimento autorizado."</blockquote><p>Nome ou iniciais</p></li>
@@ -231,7 +231,7 @@ const etapas = [
   <section class="sec sec--bege" id="faq">
     <div class="wrap faq">
       <div class="faq__cabeca">
-        <span class="rotulo">Dúvidas frequentes</span>
+        <span class="rotulo" data-traco>Dúvidas frequentes</span>
         <h2 class="titulo" data-titulo>Antes de agendar.</h2>
         <p class="sub" data-anim="sobe">Não achou sua pergunta? Mande uma mensagem pelo {canalAgendamento}.</p>
       </div>
@@ -247,10 +247,15 @@ const etapas = [
   </section>
 
   <!-- CONTATO -->
-  <section class="sec sec--escura contato" id="contato">
+  <div class="letreiro" aria-hidden="true">
+    <div class="letreiro__linha" data-letreiro="-1"><span>Nutrição clínica</span><span>Composição corporal</span><span>Saúde metabólica</span><span>Nutrição clínica</span><span>Composição corporal</span></div>
+    <div class="letreiro__linha" data-letreiro="1"><span>Rondônia</span><span>Do exame ao prato</span><span>Sueli Ribeiro</span><span>Rondônia</span><span>Do exame ao prato</span></div>
+  </div>
+
+  <section class="sec sec--escura contato" id="contato" data-cursor-escuro>
     <div class="wrap contato__grid">
       <div>
-        <span class="rotulo">Agendamento</span>
+        <span class="rotulo" data-traco>Agendamento</span>
         <h2 class="contato__titulo" data-titulo>Vamos marcar sua primeira consulta?</h2>
         <div class="contato__acoes" data-anim="sobe">
           <a class="btn btn--claro" data-magnetico href={linkAgendamento()} target="_blank" rel="noopener">
@@ -366,7 +371,7 @@ const etapas = [
   .marquee__trilho {
     display: flex;
     width: max-content;
-    animation: marquee 38s linear infinite;
+    animation: marquee 55s linear infinite;
   }
   .marquee:hover .marquee__trilho,
   .marquee.is-pausado .marquee__trilho {

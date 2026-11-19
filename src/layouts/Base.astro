@@ -73,7 +73,7 @@ const jsonLd = {
       var forcar = /[?&]movimento=1/.test(location.search);
       try { if (forcar) sessionStorage.setItem('sr-movimento', '1'); if (sessionStorage.getItem('sr-movimento')) forcar = true; } catch (e) {}
       if (forcar) d.classList.add('forcar-movimento');
-      var semIntro = !intro || (!forcar && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      var semIntro = !intro;
       try { if (sessionStorage.getItem('sr-intro')) semIntro = true; } catch (e) {}
       if (semIntro) d.classList.add('sem-intro');
       // Se o script de animação não carregar, mostra tudo.
@@ -165,6 +165,8 @@ const jsonLd = {
       <Icone nome={canalAgendamento === 'WhatsApp' ? 'whatsapp' : 'instagram'} />
       <span>Agendar</span>
     </a>
+
+    <div class="cursor" aria-hidden="true"><span class="cursor__rotulo"></span></div>
 
     <script>
       import '../scripts/motion.ts';
