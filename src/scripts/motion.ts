@@ -9,7 +9,7 @@ declare global {
 }
 clearTimeout(window.__motionTimer);
 
-const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches && !root.classList.contains('forcar-movimento');
 const ponteiroFino = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const $$ = <T extends Element = HTMLElement>(s: string, el: ParentNode = document) => Array.from(el.querySelectorAll<T>(s));
 
@@ -66,9 +66,19 @@ const aoRolar = (y: number) => {
 /* ---------------- Sem animação ---------------- */
 let lenis: Lenis | undefined;
 if (reduz) {
+  // Versão suave para quem desligou animações no sistema: só esmaecimentos, sem deslocamento.
   root.classList.add('sem-intro');
+  document.querySelector('.intro')?.remove();
   window.addEventListener('scroll', () => aoRolar(window.scrollY), { passive: true });
   aoRolar(window.scrollY);
+  const io = new IntersectionObserver((entradas) => {
+    entradas.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-visivel');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  $$('[data-anim], [data-titulo], [data-hero]').forEach((el) => { el.classList.add('suave'); io.observe(el); });
 } else {
   iniciarMovimento();
 }

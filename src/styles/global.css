@@ -639,15 +639,48 @@ html.sem-intro .intro {
   from { opacity: 0; transform: translateY(16px); }
 }
 
+/* Versão suave (sistema com animações desligadas): só opacidade */
+html .suave.suave {
+  opacity: 0;
+  transition: opacity 0.9s ease !important;
+}
+html .suave.suave.is-visivel {
+  opacity: 1;
+}
+html.forcar-movimento [data-anim='sobe'],
+html.forcar-movimento [data-anim='stagger'] > * {
+  opacity: 0;
+}
+html.forcar-movimento [data-anim='mascara'] {
+  clip-path: inset(100% 0 0 0);
+}
+html.forcar-movimento [data-titulo] {
+  visibility: hidden;
+}
+html.forcar-movimento.motion-falhou [data-anim],
+html.forcar-movimento.motion-falhou [data-anim] > * {
+  opacity: 1;
+  clip-path: none;
+}
+html.forcar-movimento.motion-falhou [data-titulo] {
+  visibility: visible;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  html.forcar-movimento .intro {
+    display: grid;
+  }
+  html.forcar-movimento.sem-intro .intro {
+    display: none;
+  }
+  html:not(.forcar-movimento) *,
+  html:not(.forcar-movimento) *::before,
+  html:not(.forcar-movimento) *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .intro {
+  html:not(.forcar-movimento) .intro {
     display: none;
   }
 }
