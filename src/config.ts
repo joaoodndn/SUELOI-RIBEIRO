@@ -13,7 +13,7 @@ export const CONFIG = {
   crn: 'CRN7/RO 17285',
 
   /** URL final do site (usada em SEO, sitemap e Open Graph). */
-  siteUrl: 'https://site-sueli-v2.vercel.app',
+  siteUrl: 'https://sueliribeiro.vercel.app',
 
   /**
    * WhatsApp com DDI + DDD + número, só dígitos. Ex.: '5569999999999'.
