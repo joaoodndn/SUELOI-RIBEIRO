@@ -77,7 +77,7 @@ btnMais?.addEventListener('click', () => {
   const abrir = btnMais.getAttribute('aria-expanded') !== 'true';
   extras.forEach((el) => (el.hidden = !abrir));
   btnMais.setAttribute('aria-expanded', String(abrir));
-  btnMais.textContent = abrir ? 'Ver menos comentários' : 'Ver mais comentários';
+  btnMais.textContent = abrir ? 'Ver menos relatos' : 'Ver mais relatos';
   if (abrir && !reduz) gsap.fromTo(extras, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.08 });
   if (abrir) extras[0]?.querySelector('a')?.focus({ preventScroll: true });
   ScrollTrigger?.refresh?.();

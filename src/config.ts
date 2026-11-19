@@ -54,6 +54,7 @@ export const CONFIG = {
    */
   formacao: [
     { titulo: 'Graduação em Nutrição', instituicao: PENDENTE, ano: PENDENTE },
+    { titulo: 'Curso de extensão: Obesidade e Diabetes — Fisiopatologia e Sinalização Celular', instituicao: 'Faculdade de Ciências Aplicadas (FCA) — Unicamp', ano: '2026' },
     // { titulo: 'Pós-graduação em ...', instituicao: '...', ano: '...' },
   ],
 } as const;

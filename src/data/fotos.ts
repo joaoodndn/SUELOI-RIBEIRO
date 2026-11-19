@@ -32,7 +32,7 @@ export const FOTOS = {
 
   // Áreas de atuação
   emagrecimento: f('1675270444770-1a6d1f69aefc', 'oThoRP1zGzE', 'Profissional medindo a circunferência da cintura de um paciente com fita métrica', '50% 50%'),
-  glp1: f('1685485276223-0bb0226dcca8', '8gG2PDqpktY', 'Mãos usando um lancetador para medir a glicemia, sobre mesa de madeira', '45% 50%'),
+  glp1: f('1675270347058-8066cd1fe523', 'On_9vGMsFHI', 'Nutricionista registrando a avaliação em uma ficha, com notebook e frutas sobre a mesa', '62% 55%'),
   hipertrofia: f('1516481265257-97e5f4bc50d5', 'KIzBvHNe7hY', 'Pessoa preparando uma barra com anilhas para o treino de força', '50% 50%'),
   metabolica: f('1685061269933-563cc709b973', 's9TB1EbIhzs', 'Glicosímetro e frasco de tiras reagentes sobre mesa de madeira', '40% 55%'),
   intestinal: f('1675919857284-5c2f75578eb1', 'NNFhIUlwt2o', 'Tigela de iogurte natural com colher, alimento que favorece a saúde intestinal', '50% 50%'),
@@ -56,15 +56,15 @@ export const FOTOS = {
 /** Faixa "Nutrição vai além do prato" (scroll horizontal) */
 /** r = proporção da foto original (largura/altura): define o formato do cartão na faixa */
 export const FAIXA: (Foto & { legenda: string; r: number })[] = [
-  { ...f('1760074032551-fef8992ca72d', 'Vw2O5QkDJQo', 'Tubo de coleta de sangue para exame laboratorial'), legenda: 'Leitura de exames', r: 0.67 },
+  { ...f('1760074032551-fef8992ca72d', 'Vw2O5QkDJQo', 'Tubo de coleta de sangue para exame laboratorial'), legenda: 'Exames laboratoriais', r: 0.67 },
   { ...f('1778918006457-54fcf15d4a5a', 'KswNFGi1s44', 'Mãos segurando uma fita métrica'), legenda: 'Composição corporal', r: 0.67 },
-  { ...f('1547560488-bae538ffad63', 'v5oafxFZQqc', 'Pessoa dormindo em cama iluminada pela luz da manhã'), legenda: 'Sono', r: 0.75 },
+  { ...f('1547560488-bae538ffad63', 'v5oafxFZQqc', 'Pessoa dormindo em cama iluminada pela luz da manhã'), legenda: 'Qualidade do sono', r: 0.75 },
   { ...f('1564644411757-a723deba07a8', '-hNBS5q5klc', 'Copo de água sobre mesa de madeira'), legenda: 'Hidratação', r: 1.49 },
-  { ...f('1584863265045-f9d10ca7fa61', 'DHsdSeCpjRU', 'Mulher segurando uma anilha durante o treino de força'), legenda: 'Treino', r: 0.67 },
-  { ...f('1644704170910-a0cdf183649b', 'VepJDAuitQ4', 'Mãos segurando uma tigela com grãos, legumes e folhas'), legenda: 'Comida de verdade', r: 1.49 },
-  { ...f('1655890193532-3f51318b23c0', 'GN1kHuSGHD0', 'Mãos picando ervas sobre uma tábua de madeira'), legenda: 'Cozinhar em casa', r: 1.49 },
-  { ...f('1646836390736-ee0af3b6e9c6', 'xnWM1LwY75s', 'Cesta de compras com frutas e alimentos'), legenda: 'Compras e rótulos', r: 1.49 },
-  { ...f('1700070220976-1f167b2a92f7', 'eZqvZNaL4Hc', 'Pessoa caminhando em uma trilha arborizada'), legenda: 'Movimento', r: 0.67 },
+  { ...f('1584863265045-f9d10ca7fa61', 'DHsdSeCpjRU', 'Mulher segurando uma anilha durante o treino de força'), legenda: 'Treinamento de força', r: 0.67 },
+  { ...f('1644704170910-a0cdf183649b', 'VepJDAuitQ4', 'Mãos segurando uma tigela com grãos, legumes e folhas'), legenda: 'Qualidade da alimentação', r: 1.49 },
+  { ...f('1655890193532-3f51318b23c0', 'GN1kHuSGHD0', 'Mãos picando ervas sobre uma tábua de madeira'), legenda: 'Preparo das refeições', r: 1.49 },
+  { ...f('1646836390736-ee0af3b6e9c6', 'xnWM1LwY75s', 'Cesta de compras com frutas e alimentos'), legenda: 'Leitura de rótulos', r: 1.49 },
+  { ...f('1700070220976-1f167b2a92f7', 'eZqvZNaL4Hc', 'Pessoa caminhando em uma trilha arborizada'), legenda: 'Atividade física', r: 0.67 },
 ];
 
 /** Monta a URL da CDN do Unsplash com recorte e formato automáticos. */

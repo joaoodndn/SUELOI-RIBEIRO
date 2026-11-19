@@ -4,7 +4,7 @@ import Icone from '../components/Icone.astro';
 import { Image } from 'astro:assets';
 import { CONFIG, linkAgendamento, preenchido, localTexto, nomeFormal } from '../config';
 import { AREAS } from '../data/areas';
-import retrato from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
+import retrato from '../assets/img/sueli-sobre-barcelona.jpg';
 import '../styles/interna.css';
 const formacao = CONFIG.formacao;
 ---
@@ -13,11 +13,11 @@ const formacao = CONFIG.formacao;
     <div class="wrap int-hero__grid">
       <div>
         <nav class="migalha" aria-label="Você está em" data-anim="sobe"><a href="/">Início</a><span aria-hidden="true">/</span><span>Sobre</span></nav>
-        <h1 data-titulo>{nomeFormal}</h1>
-        <p class="sub" data-anim="sobe">Nutricionista clínica · {CONFIG.crn} · {localTexto()}</p>
+        <h1 data-titulo>Quem é a {nomeFormal}</h1>
+        <p class="sub" data-anim="sobe">Nutricionista clínica em {localTexto()}, registrada no {CONFIG.crn}. Defende uma nutrição prática e descomplicada, fundamentada em ciência e voltada à saúde a longo prazo.</p>
       </div>
       <div class="foto foto--arco int-hero__foto sobre-retrato" data-anim="mascara">
-        <Image src={retrato} alt={`${nomeFormal} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 860px) 92vw, 40vw" loading="eager" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%" />
+        <Image src={retrato} alt={`${nomeFormal} sentada em uma escadaria ao ar livre, com palmeiras ao fundo`} widths={[450, 700, 900]} sizes="(max-width: 860px) 92vw, 400px" loading="eager" style="width:100%;height:100%;object-fit:cover" />
       </div>
     </div>
   </section>
@@ -25,23 +25,32 @@ const formacao = CONFIG.formacao;
   <section class="sec sec--bege">
     <div class="wrap blocos">
       <div class="bloco" data-anim="sobe">
-        <h2>Como eu trabalho</h2>
+        <h2>Atualização profissional</h2>
         <div class="prosa">
-          <p>Meu trabalho é nutrição clínica: entender o que está acontecendo com a sua saúde e traduzir isso em uma alimentação que caiba na sua vida. Isso passa por exames, composição corporal, sintomas, sono, treino e rotina.</p>
-          <p>Não trabalho com dietas prontas nem com restrições sem motivo. O plano é construído com você e revisado a cada retorno. Quando o caso pede, converso com o médico que acompanha você.</p>
+          <p>A Dra. Sueli mantém atualização constante nos temas que mais aparecem na prática clínica. Participou do curso de extensão “Obesidade e Diabetes: Fisiopatologia e Sinalização Celular”, na Faculdade de Ciências Aplicadas da Unicamp, com cinco dias de imersão nos mecanismos que ligam inflamação, hormônios e alimentação ao desenvolvimento dessas doenças.</p>
+          <p>Em novembro de 2026, integrou a Semana de Conscientização sobre o Diabetes promovida pela Luzitana, ao lado de outros profissionais de saúde, com orientações práticas sobre prevenção e manejo da doença.</p>
         </div>
       </div>
       <div class="bloco" data-anim="sobe">
-        <h2>Áreas de atuação</h2>
-        <ul class="lista-fina">{AREAS.map((a) => <li><a class="link" href={`/areas/${a.slug}`}>{a.titulo}</a></li>)}</ul>
+        <h2>Visão sobre a nutrição</h2>
+        <div class="prosa">
+          <p>Para a Dra. Sueli, não existe uma dieta única capaz de resolver todos os casos. A alimentação participa do controle da composição corporal, da saúde metabólica e da preservação muscular, dentro de uma abordagem que considera o organismo como um todo.</p>
+          <p>Ela defende planos sem restrições extremas, com foco em longevidade, e trata o treino de força como aliado da saúde, sobretudo para mulheres a partir dos 40 anos. Praticante de musculação, vive no dia a dia o que orienta no consultório.</p>
+        </div>
       </div>
       <div class="bloco" data-anim="sobe">
-        <h2>Formação</h2>
+        <h2>Conteúdo educativo</h2>
+        <div class="prosa">
+          <p>No Instagram <a class="link" href={`https://www.instagram.com/${CONFIG.instagram}/`} target="_blank" rel="noopener">@{CONFIG.instagram}</a>, compartilha conteúdo sobre emagrecimento, uso de medicamentos da classe GLP-1, saúde intestinal, lipedema, climatério, suplementação e receitas sem glúten e sem lactose.</p>
+        </div>
+      </div>
+      <div class="bloco" data-anim="sobe">
+        <h2>Formação e registro</h2>
         <ul class="lista-fina">
           {formacao.map((f) => (
             <li>{f.titulo}{preenchido(f.instituicao) && ` · ${f.instituicao}`}{preenchido(f.ano) && ` · ${f.ano}`}</li>
           ))}
-          <li>Registro no Conselho Regional de Nutricionistas: {CONFIG.crn}</li>
+          <li>Registro no Conselho Regional de Nutricionistas da 7ª Região: {CONFIG.crn}</li>
         </ul>
       </div>
     </div>
@@ -49,11 +58,11 @@ const formacao = CONFIG.formacao;
 
   <section class="sec">
     <div class="wrap cta-faixa">
-      <h2 data-titulo>Vamos conversar sobre o seu caso?</h2>
+      <h2 data-titulo>Agende sua avaliação com a Dra. Sueli.</h2>
       <a class="btn" data-magnetico href={linkAgendamento()} target="_blank" rel="noopener">Agendar consulta <Icone nome="seta" /></a>
     </div>
   </section>
 </Base>
 <style>
-  .sobre-retrato { aspect-ratio: 3 / 4; max-width: 380px; }
+  .sobre-retrato { aspect-ratio: 3 / 4; max-width: 400px; }
 </style>

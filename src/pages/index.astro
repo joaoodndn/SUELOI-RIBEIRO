@@ -23,20 +23,38 @@ const confianca = [
 const etapas = [
   {
     n: '01',
-    titulo: 'Avaliação',
-    texto: 'Conversa sobre histórico, rotina, sono, treino e alimentação. Medidas, composição corporal quando aplicável e leitura dos seus exames.',
+    titulo: 'Avaliação nutricional',
+    texto: 'A primeira consulta reúne as informações que orientam todas as decisões do plano e resulta em um diagnóstico nutricional com prioridades definidas.',
+    itens: [
+      'Anamnese clínica e nutricional: histórico de saúde, medicamentos, sintomas digestivos, sono e estresse',
+      'Investigação do padrão alimentar, do comportamento alimentar e dos sinais de fome e saciedade',
+      'Antropometria e bioimpedância para estimar massa magra, massa gorda e água corporal',
+      'Interpretação de exames laboratoriais e solicitação complementar quando necessário',
+    ],
     foto: FOTOS.avaliacao,
   },
   {
     n: '02',
-    titulo: 'Planejamento',
-    texto: 'Plano alimentar individualizado, com opções e substituições para casa, trabalho e refeições fora. Nada de cardápio genérico.',
+    titulo: 'Planejamento estratégico',
+    texto: 'Com o diagnóstico definido, o plano é estruturado a partir de metas mensuráveis e de uma estratégia compatível com a rotina do paciente.',
+    itens: [
+      'Cálculo das necessidades de energia e de macronutrientes conforme objetivo, composição corporal e treino',
+      'Distribuição das refeições e da proteína ao longo do dia, de acordo com os horários de trabalho e de treino',
+      'Plano alimentar com lista de substituições e orientações para refeições fora de casa',
+      'Prescrição de suplementos somente quando há indicação clínica',
+    ],
     foto: FOTOS.planejamento,
   },
   {
     n: '03',
-    titulo: 'Acompanhamento',
-    texto: 'Retornos para reavaliar medidas, sintomas e exames, entender o que funcionou e ajustar o plano. A evolução é acompanhada além do peso.',
+    titulo: 'Acompanhamento e reavaliação',
+    texto: 'A evolução é monitorada de forma contínua, e cada ajuste no plano é feito com base em dados objetivos.',
+    itens: [
+      'Retornos periódicos, com intervalo definido conforme o objetivo e a fase do tratamento',
+      'Reavaliação das medidas e da composição corporal para acompanhar a evolução além do peso',
+      'Análise da adesão ao plano, dos sintomas e de novos exames',
+      'Revisão das metas e da estratégia a cada etapa do processo',
+    ],
     foto: FOTOS.acompanhamento,
   },
 ];
@@ -100,9 +118,9 @@ const etapas = [
       <div class="cabeca">
         <div>
           <span class="rotulo" data-traco>Áreas de atuação</span>
-          <h2 class="titulo" data-titulo>Seis frentes, um acompanhamento.</h2>
+          <h2 class="titulo" data-titulo>Seis áreas, um acompanhamento integrado.</h2>
         </div>
-        <p class="sub" data-anim="sobe">Cada área tem uma página com o que é, para quem é indicada e como funciona o acompanhamento.</p>
+        <p class="sub" data-anim="sobe">Cada área tem uma página com a descrição, as indicações e a forma de acompanhamento.</p>
       </div>
       <ul class="areas" data-anim="cartoes">
         {AREAS.map((a) => (
@@ -134,8 +152,9 @@ const etapas = [
         <h2 class="titulo" data-titulo>Quem é a {nomeFormal}</h2>
         <p class="sobre__crn" data-anim="sobe">Nutricionista · {CONFIG.crn}</p>
         <div class="prosa" data-anim="sobe">
-          <p>Atendo em {localTexto()} com foco em nutrição clínica: emagrecimento e composição corporal, acompanhamento de quem usa medicamentos da classe GLP-1, hipertrofia, saúde metabólica, intestinal e intolerâncias alimentares.</p>
-          <p>O plano é sempre individual. Ele leva em conta exames, rotina, preferências e o momento de cada pessoa, e é ajustado a cada retorno.</p>
+          <p>Nutricionista registrada no Conselho Regional de Nutricionistas sob o número {CONFIG.crn.replace('CRN7/RO ', '')} (CRN7/RO), com atuação em {localTexto()}. Realiza consultas e avaliação de composição corporal por bioimpedância.</p>
+          <p>Mantém atualização constante na área: participou do curso de extensão “Obesidade e Diabetes: Fisiopatologia e Sinalização Celular”, na Faculdade de Ciências Aplicadas da Unicamp, e integrou a Semana de Conscientização sobre o Diabetes promovida pela Luzitana, com orientações sobre prevenção e manejo da doença.</p>
+          <p>Defende uma nutrição prática e descomplicada, sem dietas extremamente restritivas e com foco em saúde a longo prazo. Praticante de musculação, destaca o treino de força como aliado da saúde metabólica, sobretudo para mulheres a partir dos 40 anos.</p>
         </div>
         <a class="link sobre__link" href="/sobre" data-anim="sobe">Mais sobre a Dra. Sueli</a>
       </div>
@@ -148,7 +167,7 @@ const etapas = [
       <div class="cabeca">
         <div>
           <span class="rotulo" data-traco>Como funciona</span>
-          <h2 class="titulo" data-titulo>Três etapas, do primeiro encontro aos retornos.</h2>
+          <h2 class="titulo" data-titulo>Como é conduzido o acompanhamento.</h2>
         </div>
       </div>
       <div class="etapas__palco">
@@ -163,6 +182,7 @@ const etapas = [
             <div class="etapa__corpo">
               <h3 class="etapa__titulo">{e.titulo}</h3>
               <p class="texto-2">{e.texto}</p>
+              <ul class="etapa__lista">{e.itens.map((it) => <li>{it}</li>)}</ul>
             </div>
             <div class="foto etapa__foto" data-anim="mascara">
               <Foto foto={e.foto} ratio={3 / 2} sizes="(max-width: 900px) 92vw, 30vw" larguras={[400, 600, 900]} />
@@ -178,9 +198,9 @@ const etapas = [
   <section class="faixa sec--escura" data-horizontal data-cursor-escuro aria-labelledby="faixa-titulo">
     <div class="faixa__trilho">
       <div class="faixa__intro">
-        <span class="rotulo" data-traco>O que entra na conta</span>
-        <h2 class="titulo" id="faixa-titulo" data-titulo>Nutrição vai além do prato.</h2>
-        <p class="sub">Sono, treino, hidratação, exames, intestino, rotina de compras. Tudo isso pesa no resultado e entra na conversa.</p>
+        <span class="rotulo" data-traco>Abordagem integral</span>
+        <h2 class="titulo" id="faixa-titulo" data-titulo>Fatores que determinam a saúde metabólica.</h2>
+        <p class="sub">Exames laboratoriais, composição corporal, qualidade do sono, hidratação, prática de exercícios e hábitos de rotina são avaliados em conjunto, porque influenciam diretamente a resposta ao plano nutricional.</p>
         <p class="faixa__dica"><span class="faixa__dica-txt-rolar">Role para ver mais</span><span class="faixa__dica-txt-arrastar">Arraste para o lado</span><span class="faixa__seta" aria-hidden="true"><Icone nome="seta" /></span></p>
       </div>
       {FAIXA.map((f, i) => (
@@ -204,8 +224,8 @@ const etapas = [
     <div class="wrap">
       <div class="cabeca">
         <div>
-          <span class="rotulo" data-traco>Conteúdos</span>
-          <h2 class="titulo" data-titulo>Para ler antes da consulta.</h2>
+          <span class="rotulo" data-traco>Conteúdo informativo</span>
+          <h2 class="titulo" data-titulo>Informação nutricional baseada em evidências.</h2>
         </div>
         <a class="link" href="/receitas-e-dicas" data-anim="sobe">Ver todos os conteúdos</a>
       </div>
@@ -241,21 +261,22 @@ const etapas = [
     <div class="wrap">
       <div class="cabeca">
         <div>
-          <span class="rotulo" data-traco>Quem já passou por aqui</span>
-          <h2 class="titulo" data-titulo>O que dizem sobre o atendimento.</h2>
+          <span class="rotulo" data-traco>Avaliações</span>
+          <h2 class="titulo" data-titulo>Relatos de pacientes.</h2>
         </div>
-        <p class="sub" data-anim="sobe">Comentários deixados no Instagram da Dra. Sueli.</p>
+        <p class="sub" data-anim="sobe">Depoimentos publicados por pacientes no Instagram da Dra. Sueli.</p>
       </div>
       <ul class="avaliacoes__lista" data-anim="stagger">
         {AVALIACOES.map((a, i) => (
           <li class={`avaliacao ${i >= 3 ? 'avaliacao--extra' : ''}`} hidden={i >= 3}>
             <blockquote>{a.texto}</blockquote>
+            {a.contexto && <p class="avaliacao__contexto">{a.contexto}</p>}
             <a class="avaliacao__autor" href={a.post} target="_blank" rel="noopener"><Icone nome="instagram" /> {a.autor}</a>
           </li>
         ))}
       </ul>
       <div class="avaliacoes__mais">
-        <button type="button" class="btn btn--linha" data-ver-mais aria-expanded="false">Ver mais comentários</button>
+        <button type="button" class="btn btn--linha" data-ver-mais aria-expanded="false">Ver mais relatos</button>
         <a class="link" href={instagramUrl} target="_blank" rel="noopener">Ver no Instagram</a>
       </div>
     </div>
@@ -268,8 +289,8 @@ const etapas = [
     <div class="wrap faq">
       <div class="faq__cabeca">
         <span class="rotulo" data-traco>Dúvidas frequentes</span>
-        <h2 class="titulo" data-titulo>Antes de agendar.</h2>
-        <p class="sub" data-anim="sobe">Não achou sua pergunta? Mande uma mensagem pelo {canalAgendamento}.</p>
+        <h2 class="titulo" data-titulo>Perguntas frequentes.</h2>
+        <p class="sub" data-anim="sobe">Para outras dúvidas, entre em contato pelo {canalAgendamento}.</p>
       </div>
       <div class="faq__lista">
         {FAQ.map((q) => (
@@ -643,7 +664,31 @@ const etapas = [
     margin-bottom: 1rem;
     overflow-wrap: anywhere;
   }
-  .etapa__corpo p { max-width: 40ch; }
+  .etapa__corpo p { max-width: 46ch; }
+  .etapa__lista {
+    list-style: none;
+    margin: 1.1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+    max-width: 48ch;
+    font-size: 0.92rem;
+    color: var(--texto);
+  }
+  .etapa__lista li {
+    display: flex;
+    gap: 0.7rem;
+    line-height: 1.5;
+  }
+  .etapa__lista li::before {
+    content: '';
+    flex: none;
+    width: 5px;
+    height: 5px;
+    margin-top: 0.6em;
+    border-radius: 50%;
+    background: var(--dourado);
+  }
   .etapa__foto { aspect-ratio: 3 / 2; }
   .etapa > * { min-width: 0; }
   @media (max-width: 900px) {
@@ -806,6 +851,11 @@ const etapas = [
   }
   .avaliacao blockquote::before { content: '“'; color: var(--dourado); margin-right: 0.1em; }
   .avaliacao blockquote::after { content: '”'; color: var(--dourado); margin-left: 0.05em; }
+  .avaliacao__contexto {
+    margin-top: -0.6rem;
+    font-size: 0.82rem;
+    color: var(--texto-2);
+  }
   .avaliacao__autor {
     display: inline-flex;
     align-items: center;

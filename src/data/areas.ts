@@ -19,22 +19,22 @@ export const AREAS: Area[] = [
     titulo: 'Emagrecimento e composição corporal',
     tituloCurto: 'Emagrecimento',
     resumo:
-      'Olhar além do número da balança: massa gorda, massa magra, hidratação, fome e rotina, com um plano que dê para manter.',
+      'Avaliação que vai além do peso: massa gorda, massa magra, hidratação, fome e rotina, com um plano sustentável a longo prazo.',
     foto: FOTOS.emagrecimento,
     oQueE: [
       'Emagrecer não é só perder peso. Duas pessoas com o mesmo peso podem ter composições corporais muito diferentes, e é a composição, junto com os exames e o seu bem-estar, que orienta o trabalho.',
       'O foco é reduzir gordura preservando massa muscular, com um plano que respeite a sua rotina, seus horários e o que você gosta de comer.',
     ],
     paraQuem: [
-      'Quem quer emagrecer sem dieta extrema ou cardápio genérico',
-      'Quem já tentou várias vezes e recupera o peso',
-      'Quem sente muita fome ao longo do dia ou belisca à noite',
+      'Quem busca emagrecer sem dietas extremas ou cardápios genéricos',
+      'Quem tem histórico de reganho de peso após dietas',
+      'Quem apresenta fome frequente ao longo do dia ou consumo alimentar noturno',
       'Quem quer entender melhor a própria composição corporal',
     ],
     acompanhamento: [
       'Avaliação de peso, medidas e, quando aplicável, bioimpedância.',
       'Leitura da rotina: horários, trabalho, sono, treino e refeições fora de casa.',
-      'Estratégias para fome e saciedade, com refeições que sustentem até a próxima.',
+      'Estratégias para controle de fome e saciedade, com refeições de maior poder de saciedade.',
       'Ajustes a cada retorno, com base no que funcionou e no que não funcionou.',
     ],
     naConsulta: [
@@ -52,13 +52,13 @@ export const AREAS: Area[] = [
       'Apoio na alimentação de quem usa medicamentos da classe GLP-1: proteína suficiente, massa muscular, hidratação e conforto digestivo.',
     foto: FOTOS.glp1,
     oQueE: [
-      'Os medicamentos da classe GLP-1 reduzem o apetite. Com menos fome, fica mais fácil comer pouco demais, deixar de lado a proteína e perder massa muscular junto com a gordura.',
+      'Os medicamentos da classe GLP-1 reduzem o apetite. Com menor ingestão alimentar, aumenta o risco de consumo insuficiente de proteína e de perda de massa muscular junto com a gordura.',
       'O papel da nutricionista é cuidar da qualidade do que você come nesse período: garantir proteína suficiente, hidratação, boa tolerância digestiva e um padrão alimentar que continue funcionando depois.',
     ],
     paraQuem: [
       'Quem já usa um medicamento da classe GLP-1 com prescrição médica',
-      'Quem tem dificuldade de comer o suficiente com o apetite reduzido',
-      'Quem sente náusea, empachamento ou intestino preso durante o uso',
+      'Quem tem dificuldade de atingir as necessidades nutricionais com o apetite reduzido',
+      'Quem apresenta náusea, plenitude gástrica ou constipação durante o uso',
       'Quem quer se preparar para a fase de redução ou suspensão definida pelo médico',
     ],
     acompanhamento: [
@@ -84,19 +84,19 @@ export const AREAS: Area[] = [
       'Plano alimentar alinhado ao treino: energia e proteína adequadas, bem distribuídas no dia, e atenção à recuperação.',
     foto: FOTOS.hipertrofia,
     oQueE: [
-      'Ganhar massa muscular depende do treino, do descanso e da alimentação. Sem energia e proteína suficientes, o treino rende menos e a recuperação demora mais.',
+      'O ganho de massa muscular depende do treino, do descanso e da alimentação. Sem energia e proteína suficientes, o desempenho no treino e a recuperação ficam comprometidos.',
       'O plano é montado em cima da sua rotina de treinos, com refeições e lanches práticos para os horários em que você realmente consegue comer.',
     ],
     paraQuem: [
-      'Quem treina musculação e não vê evolução',
+      'Quem pratica musculação e não observa evolução na composição corporal',
       'Quem tem dificuldade de comer o suficiente ao longo do dia',
-      'Quem quer ganhar massa sem ganhar gordura em excesso',
-      'Quem quer preservar músculo com o passar dos anos',
+      'Quem busca ganho de massa muscular com controle do ganho de gordura',
+      'Quem busca preservar massa muscular com o envelhecimento',
     ],
     acompanhamento: [
       'Cálculo das necessidades de energia e proteína a partir da sua avaliação.',
       'Distribuição das refeições em torno dos treinos.',
-      'Opções de lanches práticos para levar e preparar.',
+      'Opções de lanches práticos para a rotina de treinos.',
       'Reavaliação da composição corporal para acompanhar a evolução.',
     ],
     naConsulta: [
@@ -144,12 +144,12 @@ export const AREAS: Area[] = [
       'Constipação, gases, distensão e desconforto digestivo, além do cuidado alimentar na gordura no fígado.',
     foto: FOTOS.intestinal,
     oQueE: [
-      'Intestino preso, gases, barriga distendida e desconforto depois de comer atrapalham o dia a dia e costumam ter relação com o que, como e quando se come.',
+      'Constipação intestinal, gases, distensão abdominal e desconforto após as refeições afetam a qualidade de vida e costumam ter relação com a composição, a forma e os horários da alimentação.',
       'A gordura no fígado (esteatose) é outro quadro em que a alimentação tem papel central. Nos dois casos, o trabalho é feito em etapas, com mudanças graduais que o corpo consiga acompanhar.',
     ],
     paraQuem: [
-      'Quem convive com intestino preso ou irregular',
-      'Quem sente gases, distensão ou desconforto após as refeições',
+      'Quem convive com constipação ou funcionamento intestinal irregular',
+      'Quem apresenta gases, distensão ou desconforto após as refeições',
       'Quem recebeu diagnóstico de gordura no fígado',
       'Quem quer hábitos que favoreçam a microbiota intestinal',
     ],
@@ -174,13 +174,13 @@ export const AREAS: Area[] = [
       'Identificar gatilhos junto com a equipe de saúde e evitar restrições desnecessárias, com uma dieta completa e saborosa.',
     foto: FOTOS.intolerancias,
     oQueE: [
-      'Cortar alimentos por conta própria pode empobrecer a dieta sem resolver o problema. O primeiro passo é entender o que realmente causa os sintomas, junto com a equipe de saúde.',
-      'Quando a restrição é necessária, como na alimentação sem glúten ou sem lactose, o trabalho é garantir que a dieta continue completa, variada e gostosa.',
+      'A exclusão de alimentos por conta própria pode empobrecer a dieta sem resolver o problema. O primeiro passo é identificar o que realmente causa os sintomas, junto com a equipe de saúde.',
+      'Quando a restrição é necessária, como na alimentação sem glúten ou sem lactose, o objetivo é garantir que a dieta continue completa, variada e saborosa.',
     ],
     paraQuem: [
       'Quem tem diagnóstico de intolerância à lactose ou doença celíaca',
-      'Quem suspeita que algum alimento faz mal, mas não sabe qual',
-      'Quem já retirou vários alimentos e sente a dieta pobre',
+      'Quem suspeita de reação a algum alimento, mas ainda não identificou a causa',
+      'Quem já excluiu vários alimentos e tem uma dieta pouco variada',
       'Quem precisa de ideias práticas sem glúten ou sem lactose',
     ],
     acompanhamento: [

@@ -72,28 +72,26 @@ export const DICAS = [
 export const AVALIACOES = [
   {
     texto:
-      'O segredo é a disciplina e a constância associado a profissionais capacitados que entendem a necessidade de cada um. E isso nossa nutri faz com excelência! Só confiar e seguir o caminho que ela vai te dar.',
+      'Esse resultado incrível comprova que não tem atalhos e resultados rápidos. O segredo é a disciplina e a constância associado a profissionais capacitados que entendem a necessidade de cada um. E isso nossa nutri faz com excelência! Só confiar e seguir o caminho que ela vai te dar.',
     autor: '@consultoria.lucilene',
     post: 'https://www.instagram.com/p/DeIHeU-TWK6/',
   },
   {
-    texto: 'Nutri maravilhosa e paciente aplicada.',
-    autor: '@anicleibarreto',
-    post: 'https://www.instagram.com/p/DUcL-g-jJba/',
+    texto:
+      'Muito feliz com minha evolução! Ainda temos muito pela frente. Obrigada por todo acompanhamento, dedicação e por fazer parte desse processo!',
+    autor: '@vanessagois1',
+    post: 'https://www.instagram.com/p/Dfc8ub7TgoR/',
   },
   {
-    texto: 'Que orgulho em ver vocês. Fizeram parte da minha história.',
-    autor: '@daneilefarias_ademicon',
-    post: 'https://www.instagram.com/p/DcmhlG8zpuG/',
+    texto: 'Muito obrigada por me ajudar no controle dessa doença.',
+    contexto: 'Paciente em acompanhamento para lipedema',
+    autor: '@chef_naiara',
+    post: 'https://www.instagram.com/p/Df06JWhDGb1/',
   },
   {
-    texto: 'Arrasaram! Você é a melhor.',
-    autor: '@mi.romaoo',
-    post: 'https://www.instagram.com/p/DcmhlG8zpuG/',
-  },
-  {
-    texto: 'Parabéns a nutri.',
-    autor: '@chirleneesteticista.cacoal',
-    post: 'https://www.instagram.com/p/DcmhlG8zpuG/',
+    texto:
+      'Resultado não é mágica, é estratégia! Obrigada @nutri.sueliribeiro por me mostrar que é possível evoluir com equilíbrio.',
+    autor: '@pedroski.cycling',
+    post: 'https://www.instagram.com/p/DW6N3_KD8ZI/',
   },
 ];
