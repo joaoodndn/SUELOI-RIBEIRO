@@ -722,11 +722,17 @@ const etapas = [
   }
   .faixa__nav {
     position: absolute;
-    right: var(--gutter);
-    bottom: clamp(1.5rem, 4vw, 3rem);
+    left: clamp(0.5rem, 2vw, 1.5rem);
+    right: clamp(0.5rem, 2vw, 1.5rem);
+    top: 50%;
+    transform: translateY(-50%);
     display: none;
-    gap: 0.6rem;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 2;
   }
+  .faixa__btn { pointer-events: auto; box-shadow: 0 10px 24px -14px rgba(52, 37, 31, 0.5); }
+  .faixa__btn[disabled] { opacity: 0; pointer-events: none; }
   .faixa__btn {
     width: 3.2rem;
     height: 3.2rem;
@@ -865,11 +871,18 @@ const etapas = [
     .faixa__item[data-par='par'] { margin-bottom: 3rem; }
   }
   /* Sem animação (sistema com movimento reduzido): rolagem lateral nativa */
-  @media (prefers-reduced-motion: reduce) {
-    :global(html:not(.forcar-movimento)) .faixa { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
-    :global(html:not(.forcar-movimento)) .faixa__item,
-    :global(html:not(.forcar-movimento)) .faixa__intro { scroll-snap-align: start; }
+  :global(.faixa.is-nativa) { overflow: hidden; }
+  :global(.faixa.is-nativa) .faixa__trilho {
+    width: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    padding-bottom: 1rem;
   }
+  :global(.faixa.is-nativa) .faixa__trilho::-webkit-scrollbar { display: none; }
+  :global(.faixa.is-nativa) .faixa__item,
+  :global(.faixa.is-nativa) .faixa__intro { scroll-snap-align: start; }
 
   /* DICAS */
   .dicas {

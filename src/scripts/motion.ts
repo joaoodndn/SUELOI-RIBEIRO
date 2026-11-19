@@ -106,14 +106,21 @@ if (reduz) {
   $$('.rotulo[data-traco]').forEach((el) => io.observe(el));
 
   const faixa = document.querySelector<HTMLElement>('.faixa');
-  if (faixa) {
+  const rolo = faixa?.querySelector<HTMLElement>('.faixa__trilho');
+  if (faixa && rolo) {
     faixa.classList.add('is-nativa');
     const barraF = faixa.querySelector<HTMLElement>('.faixa__barra span');
-    const atualiza = () => { const max = faixa.scrollWidth - faixa.clientWidth; if (barraF) barraF.style.transform = `scaleX(${max > 0 ? faixa.scrollLeft / max : 0})`; };
-    faixa.addEventListener('scroll', atualiza, { passive: true });
-    $$<HTMLButtonElement>('.faixa__btn', faixa).forEach((b) => b.addEventListener('click', () => {
+    const btns = $$<HTMLButtonElement>('.faixa__btn', faixa);
+    const atualiza = () => {
+      const max = rolo.scrollWidth - rolo.clientWidth;
+      if (barraF) barraF.style.transform = `scaleX(${max > 0 ? rolo.scrollLeft / max : 0})`;
+      btns.forEach((b) => (b.disabled = b.dataset.dir === '-1' ? rolo.scrollLeft < 8 : rolo.scrollLeft > max - 8));
+    };
+    rolo.addEventListener('scroll', atualiza, { passive: true });
+    atualiza();
+    btns.forEach((b) => b.addEventListener('click', () => {
       const passo = (faixa.querySelector<HTMLElement>('.faixa__item')?.offsetWidth ?? 300) + 24;
-      faixa.scrollBy({ left: Number(b.dataset.dir) * passo, behavior: 'smooth' });
+      rolo.scrollBy({ left: Number(b.dataset.dir) * passo, behavior: 'smooth' });
     }));
   }
   const ioEtapas = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) marcarEtapa($$('.etapa').indexOf(e.target as HTMLElement)); }), { rootMargin: '-45% 0px -45% 0px' });
