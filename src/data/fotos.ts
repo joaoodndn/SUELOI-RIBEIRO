@@ -35,7 +35,7 @@ export const FOTOS = {
   glp1: f('1685485276223-0bb0226dcca8', '8gG2PDqpktY', 'Mãos usando um lancetador para medir a glicemia, sobre mesa de madeira', '45% 50%'),
   hipertrofia: f('1516481265257-97e5f4bc50d5', 'KIzBvHNe7hY', 'Pessoa preparando uma barra com anilhas para o treino de força', '50% 50%'),
   metabolica: f('1685061269933-563cc709b973', 's9TB1EbIhzs', 'Glicosímetro e frasco de tiras reagentes sobre mesa de madeira', '40% 55%'),
-  intestinal: f('1618771622532-421eda797750', 'dLfwYP33vi4', 'Pessoa com as mãos sobre a barriga, sinal de desconforto digestivo', '50% 55%'),
+  intestinal: f('1675919857284-5c2f75578eb1', 'NNFhIUlwt2o', 'Tigela de iogurte natural com colher, alimento que favorece a saúde intestinal', '50% 50%'),
   intolerancias: f('1657299156147-13f929a63ce4', 'RxQGRXKShQ8', 'Mulher lendo o rótulo de um produto durante as compras', '50% 40%'),
 
   // Como funciona

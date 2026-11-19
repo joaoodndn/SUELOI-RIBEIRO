@@ -411,7 +411,27 @@ function iniciarMovimento() {
     });
     hero?.addEventListener('pointerleave', () => camadas.forEach((c) => { c.x(0); c.y(0); }));
 
+    // ---------- Tilt discreto nos cartões das áreas ----------
+    $$('[data-tilt]').forEach((c) => {
+      const rx = gsap.quickTo(c, 'rotationX', { duration: 0.8, ease: 'power3.out' });
+      const ry = gsap.quickTo(c, 'rotationY', { duration: 0.8, ease: 'power3.out' });
+      gsap.set(c, { transformPerspective: 900 });
+      c.addEventListener('pointermove', (e) => {
+        const r = c.getBoundingClientRect();
+        ry(((e.clientX - r.left) / r.width - 0.5) * 5);
+        rx(-((e.clientY - r.top) / r.height - 0.5) * 5);
+      });
+      c.addEventListener('pointerleave', () => { rx(0); ry(0); });
+    });
+  }
+
+  // Recalcula depois que fontes e imagens carregam
+  document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+}
+
     // ---------- Cursor: ponto rápido + anel com atraso (o anel mostra o progresso da página) ----------
+function iniciarCursor() {
     const ponto = document.querySelector<HTMLElement>('.cursor-ponto');
     const anel = document.querySelector<HTMLElement>('.cursor-anel');
     if (ponto && anel) {
@@ -451,22 +471,21 @@ function iniciarMovimento() {
         anel.style.setProperty('--cursor-cor', cor);
       });
     }
-
-    // ---------- Tilt discreto nos cartões das áreas ----------
-    $$('[data-tilt]').forEach((c) => {
-      const rx = gsap.quickTo(c, 'rotationX', { duration: 0.8, ease: 'power3.out' });
-      const ry = gsap.quickTo(c, 'rotationY', { duration: 0.8, ease: 'power3.out' });
-      gsap.set(c, { transformPerspective: 900 });
-      c.addEventListener('pointermove', (e) => {
-        const r = c.getBoundingClientRect();
-        ry(((e.clientX - r.left) / r.width - 0.5) * 5);
-        rx(-((e.clientY - r.top) / r.height - 0.5) * 5);
-      });
-      c.addEventListener('pointerleave', () => { rx(0); ry(0); });
-    });
-  }
-
-  // Recalcula depois que fontes e imagens carregam
-  document.fonts?.ready.then(() => ScrollTrigger.refresh());
-  window.addEventListener('load', () => ScrollTrigger.refresh());
 }
+
+/* ---------- Toque no celular: um círculo que se abre onde o dedo encosta ---------- */
+function iniciarToque() {
+  document.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'touch') return;
+    const c = document.createElement('span');
+    c.className = 'toque';
+    c.style.left = `${e.clientX}px`;
+    c.style.top = `${e.clientY}px`;
+    document.body.appendChild(c);
+    c.addEventListener('animationend', () => c.remove());
+  }, { passive: true });
+}
+
+// Cursor e toque funcionam sempre, inclusive com animações do sistema desligadas
+if (ponteiroFino) iniciarCursor();
+iniciarToque();
