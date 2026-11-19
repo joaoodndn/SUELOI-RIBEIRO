@@ -30,8 +30,8 @@ import Icone from './Icone.astro';
     <div class="imc__cartao" data-anim="sobe">
       <div class="calc__abas" role="tablist" aria-label="Escolha a calculadora">
         <button type="button" role="tab" id="aba-imc" aria-controls="painel-imc" aria-selected="true" class="calc__aba is-ativa">Índice de IMC</button>
-        <button type="button" role="tab" id="aba-agua" aria-controls="painel-agua" aria-selected="false" tabindex="-1" class="calc__aba">Água por dia</button>
-        <button type="button" role="tab" id="aba-proteina" aria-controls="painel-proteina" aria-selected="false" tabindex="-1" class="calc__aba">Proteína por dia</button>
+        <button type="button" role="tab" id="aba-agua" aria-controls="painel-agua" aria-selected="false" tabindex="-1" class="calc__aba">Água</button>
+        <button type="button" role="tab" id="aba-proteina" aria-controls="painel-proteina" aria-selected="false" tabindex="-1" class="calc__aba">Proteína</button>
         <span class="calc__indicador" aria-hidden="true"></span>
       </div>
 
@@ -368,14 +368,13 @@ import Icone from './Icone.astro';
     margin-bottom: 1.8rem;
     background: var(--bege);
     border-radius: 999px;
-    overflow-x: auto;
-    scrollbar-width: none;
   }
   .calc__aba {
     position: relative;
     z-index: 1;
-    flex: 1 0 auto;
-    padding: 0.75rem 1.1rem;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.75rem 0.6rem;
     border: 0;
     border-radius: 999px;
     background: transparent;
@@ -398,7 +397,8 @@ import Icone from './Icone.astro';
     transition: transform 0.55s var(--ease), width 0.55s var(--ease);
   }
   .calc__painel.is-entrando { animation: imc-entra 0.55s var(--ease); }
-  .calc__form--agua { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .calc__form--agua,
+  .calc__form--prot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .calc__campo-largo { grid-column: 1 / -1; }
   .calc__select select {
     flex: 1;
@@ -558,6 +558,7 @@ import Icone from './Icone.astro';
   }
   @media (max-width: 520px) {
     .imc__form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .imc__campo:nth-child(3) { grid-column: 1 / -1; }
+    .imc__form:not(.calc__form--agua):not(.calc__form--prot) .imc__campo:nth-child(3) { grid-column: 1 / -1; }
+    .calc__aba { font-size: 0.82rem; padding-inline: 0.4rem; }
   }
 </style>
