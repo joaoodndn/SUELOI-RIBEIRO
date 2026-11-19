@@ -34,8 +34,8 @@ const jsonLd = {
   areaServed: { '@type': 'State', name: CONFIG.estado },
   sameAs: [instagramUrl],
   ...(preenchido(CONFIG.whatsapp) ? { telephone: `+${CONFIG.whatsapp}` } : {}),
-  ...(preenchido(CONFIG.endereco) && preenchido(CONFIG.cidade)
-    ? { address: { '@type': 'PostalAddress', streetAddress: CONFIG.endereco, addressLocality: CONFIG.cidade, addressRegion: CONFIG.uf, addressCountry: 'BR' } }
+  ...(preenchido(CONFIG.cidade)
+    ? { address: { '@type': 'PostalAddress', ...(preenchido(CONFIG.endereco) ? { streetAddress: CONFIG.endereco } : {}), addressLocality: CONFIG.cidade, addressRegion: CONFIG.uf, addressCountry: 'BR' } }
     : {}),
   founder: {
     '@type': 'Person',

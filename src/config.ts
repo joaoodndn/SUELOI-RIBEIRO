@@ -27,8 +27,8 @@ export const CONFIG = {
 
   instagram: 'nutri.sueliribeiro',
 
-  /** Cidade do consultório. Ex.: 'Porto Velho'. */
-  cidade: PENDENTE,
+  /** Cidade do consultório. */
+  cidade: 'Cacoal',
   estado: 'Rondônia',
   uf: 'RO',
 

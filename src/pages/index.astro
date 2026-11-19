@@ -42,8 +42,8 @@ const etapas = [
 ];
 ---
 <Base
-  titulo={`${nomeFormal} | Nutricionista clínica em ${CONFIG.estado}`}
-  descricao={`Nutricionista clínica em ${CONFIG.estado} (${CONFIG.crn}). Emagrecimento e composição corporal, acompanhamento com GLP-1, hipertrofia, saúde metabólica, intestinal e intolerâncias alimentares.`}
+  titulo={`${nomeFormal} | Nutricionista clínica em ${CONFIG.cidade}, ${CONFIG.uf}`}
+  descricao={`Nutricionista clínica em ${CONFIG.cidade}, ${CONFIG.estado} (${CONFIG.crn}). Emagrecimento e composição corporal, acompanhamento com GLP-1, hipertrofia, saúde metabólica, intestinal e intolerâncias alimentares.`}
   intro
 >
   <!-- HERO -->
@@ -55,7 +55,7 @@ const etapas = [
         </p>
         <h1 class="hero__titulo" data-titulo="hero">Ciência e estratégia para uma nutrição individualizada</h1>
         <p class="hero__sub" data-hero="sobe">
-          Nutricionista clínica em {CONFIG.estado}. Acompanhamento para emagrecimento, composição corporal, hipertrofia e saúde metabólica e intestinal, com um plano que parte da sua rotina, dos seus exames e do que você gosta de comer.
+          Nutricionista clínica com atuação em Cacoal, Rondônia, especializada no acompanhamento nutricional voltado ao emagrecimento, à otimização da composição corporal, à hipertrofia muscular e à promoção da saúde metabólica e intestinal. O atendimento é fundamentado em uma abordagem individualizada, baseada na avaliação clínica, na interpretação de exames laboratoriais e nas necessidades fisiológicas e nutricionais de cada paciente, considerando também seus hábitos, sua rotina e suas preferências alimentares.
         </p>
         <div class="hero__acoes" data-hero="sobe">
           <a class="btn" data-magnetico href={linkAgendamento()} target="_blank" rel="noopener">
@@ -359,11 +359,11 @@ const etapas = [
     max-width: 15ch;
   }
   .hero__sub {
-    margin-top: clamp(1.5rem, 3vw, 2.2rem);
-    font-size: var(--fs-2);
+    margin-top: clamp(1.4rem, 2.6vw, 2rem);
+    font-size: clamp(0.98rem, 0.92rem + 0.25vw, 1.1rem);
     color: var(--texto-2);
-    max-width: 44ch;
-    line-height: 1.55;
+    max-width: 54ch;
+    line-height: 1.7;
   }
   .hero__acoes {
     display: flex;
