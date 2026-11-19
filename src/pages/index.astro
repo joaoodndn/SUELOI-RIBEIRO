@@ -129,15 +129,15 @@ const etapas = [
     <div class="wrap sobre__grid">
       <div class="sobre__foto-col">
         <div class="foto foto--arco sobre__foto" data-anim="mascara" data-img-parallax>
-          <Foto foto={FOTOS.sobre} ratio={3 / 4} sizes="(max-width: 900px) 80vw, 34vw" larguras={[400, 600, 800]} />
+          <Image src={retratoHero} alt={`${nomeFormal} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 900px) 80vw, 34vw" class="sobre__retrato" />
         </div>
         <figure class="sobre__avatar" data-anim="sobe">
-          <Image src={avatar} alt={`${nomeFormal} atendendo no consultório`} width={150} height={150} />
+          <Foto foto={FOTOS.sobre} ratio={1} sizes="150px" larguras={[200, 300]} />
         </figure>
       </div>
       <div class="sobre__texto">
-        <span class="rotulo" data-traco>Quem atende</span>
-        <h2 class="titulo" data-titulo>{nomeFormal}</h2>
+        <span class="rotulo" data-traco>Sobre</span>
+        <h2 class="titulo" data-titulo>Quem é a {nomeFormal}</h2>
         <p class="sobre__crn" data-anim="sobe">Nutricionista · {CONFIG.crn}</p>
         <div class="prosa" data-anim="sobe">
           <p>Atendo em {localTexto()} com foco em nutrição clínica: emagrecimento e composição corporal, acompanhamento de quem usa medicamentos da classe GLP-1, hipertrofia, saúde metabólica, intestinal e intolerâncias alimentares.</p>
@@ -570,6 +570,12 @@ const etapas = [
     overflow: hidden;
     border: 6px solid var(--creme);
     box-shadow: 0 0 0 1px var(--dourado), 0 18px 40px -20px rgba(52, 37, 31, 0.45);
+  }
+  .sobre__retrato {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 45%;
   }
   .sobre__avatar :global(img) {
     width: 100%;

@@ -669,7 +669,7 @@ html.forcar-movimento.motion-falhou [data-titulo] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html:not(.forcar-movimento) *:not(.cursor-ponto):not(.cursor-anel):not(.cursor-anel *):not(.toque),
+  html:not(.forcar-movimento) *:where(:not(.cursor-ponto, .cursor-anel, .cursor-anel *, .toque, .marquee__trilho)),
   html:not(.forcar-movimento) *::before,
   html:not(.forcar-movimento) *::after {
     animation-duration: 0.01ms !important;
@@ -679,6 +679,7 @@ html.forcar-movimento.motion-falhou [data-titulo] {
   /* A faixa de diferenciais continua andando devagar (pausa no hover) */
   html .marquee .marquee__trilho {
     animation-duration: 70s !important;
+    transition: none !important;
   }
 }
 
@@ -734,9 +735,9 @@ html.tem-cursor :is(input, textarea, select) {
   transition: transform 0.35s var(--ease), background-color 0.5s, opacity 0.3s;
 }
 .cursor-anel {
-  width: 44px;
-  height: 44px;
-  margin: -22px 0 0 -22px;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
   display: none;
   place-items: center;
   transition: width 0.5s var(--ease), height 0.5s var(--ease), margin 0.5s var(--ease), opacity 0.3s;
@@ -771,7 +772,7 @@ html.tem-cursor .cursor-anel {
 .cursor-anel__rotulo {
   position: relative;
   color: var(--creme);
-  font: 700 0.74rem/1.1 var(--sans);
+  font: 700 0.62rem/1.1 var(--sans);
   text-align: center;
   opacity: 0;
   transform: scale(0.6);
@@ -779,18 +780,18 @@ html.tem-cursor .cursor-anel {
 }
 /* Em cima de links e botões: o anel abre e o ponto some */
 .cursor-anel.is-link {
-  width: 64px;
-  height: 64px;
-  margin: -32px 0 0 -32px;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
 }
 .cursor-ponto.is-link {
   transform: scale(0);
 }
 /* Em cima dos cartões: o anel vira um disco com texto */
 .cursor-anel.is-rotulo {
-  width: 92px;
-  height: 92px;
-  margin: -46px 0 0 -46px;
+  width: 62px;
+  height: 62px;
+  margin: -31px 0 0 -31px;
 }
 .cursor-anel.is-rotulo .cursor-anel__trilha {
   fill: var(--cursor-cor);
@@ -805,7 +806,7 @@ html.tem-cursor .cursor-anel {
 }
 /* Ao clicar */
 .cursor-ponto.is-clique {
-  transform: scale(2.2);
+  transform: scale(1.6);
 }
 /* Em cima de texto corrido: vira um traço fino */
 .cursor-ponto.is-texto {
