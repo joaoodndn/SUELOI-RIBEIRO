@@ -6,7 +6,7 @@
 <title>Sueli Ribeiro | Nutricionista em Rondônia · CRN7/RO 17285</title>
 <meta name="description" content="Sueli Ribeiro, nutricionista clínica em Rondônia (CRN7/RO 17285). Acompanhamento individual para emagrecimento, diabetes, tireoide, saúde intestinal, saúde do fígado e intolerâncias alimentares, com receitas sem glúten e sem lactose.">
 <link rel="canonical" href="https://site-sueli-v2.vercel.app/">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#3B0D1C">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -24,6 +24,7 @@
 <meta name="twitter:image" content="https://site-sueli-v2.vercel.app/fotos/og.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/fr-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/sg-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <script>
@@ -31,7 +32,9 @@
     var d = document.documentElement;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { d.classList.add("no-anim"); return; }
     d.classList.add("anim");
-    setTimeout(function () { if (!window.__animReady) { d.classList.remove("anim"); d.classList.add("no-anim"); } }, 2500);
+    var seen = false; try { seen = sessionStorage.getItem("sr-loader") === "1"; } catch (e) {}
+    if (!seen) d.classList.add("has-loader");
+    setTimeout(function () { if (!window.__animReady) { d.classList.remove("anim", "has-loader"); d.classList.add("no-anim"); } }, 3000);
   })();
 </script>
 <script type="application/ld+json">
@@ -67,16 +70,27 @@
   <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
 </svg>
 
-<div class="cursor" aria-hidden="true"><div class="cursor__ring"><span class="cursor__label"></span></div><div class="cursor__dot"></div></div>
-<div class="preview" id="preview" aria-hidden="true"></div>
+<!-- Abertura -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__imgs">
+    <img src="fotos/receita-cafe-manga-pitaya-sm.webp" alt="">
+    <img src="fotos/receita-bolo-rubi-beterraba-cacau-c-sm.webp" alt="">
+    <img src="fotos/receita-cafe-mingau-omelete-kiwi-c-sm.webp" alt="">
+    <img src="fotos/receita-empanada-assada-sm.webp" alt="">
+    <img src="fotos/receita-omelete-tomate-cafe-na-mesa-sm.webp" alt="">
+    <img src="fotos/sobre-sueli-camisa-bege-sorrindo-c-sm.webp" alt="" style="object-position:50% 20%">
+  </div>
+  <div class="loader__name"><h2><span>Sueli</span> <span><em>Ribeiro</em></span></h2><span class="loader__count" id="loaderCount">0</span></div>
+  <div class="loader__bar"></div>
+</div>
+
+<div class="cursor" aria-hidden="true"><div class="cursor__c"></div></div>
+<div class="cursor-label" aria-hidden="true"><span></span></div>
 
 <header class="header" id="header">
   <div class="header__bg"></div>
   <div class="wrap header__in">
-    <a class="brand" href="#inicio" aria-label="Sueli Ribeiro, nutricionista. Ir para o início">
-      <img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="38" height="38">
-      <span><b>Sueli Ribeiro</b><small>Nutricionista · CRN7/RO 17285</small></span>
-    </a>
+    <a class="brand" href="#inicio" aria-label="Sueli Ribeiro, nutricionista. Ir para o início"><span><b>Sueli Ribeiro</b><small>Nutricionista · CRN7/RO 17285</small></span></a>
     <nav class="nav" aria-label="Seções do site">
       <ul>
         <li><a href="#especialidades"><span data-t="Especialidades">Especialidades</span></a></li>
@@ -87,162 +101,128 @@
         <li><a href="#duvidas"><span data-t="Dúvidas">Dúvidas</span></a></li>
       </ul>
     </nav>
-    <a class="btn btn--ink" data-agendar data-cursor-link href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span class="t" data-agendar-label>Agendar consulta</span></a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menu"><i></i></button>
+    <a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav"><i></i><span class="menu-txt">Menu</span></button>
   </div>
 </header>
 
 <nav class="mnav" id="mnav" aria-label="Menu" aria-hidden="true">
   <ul>
-    <li><a href="#especialidades" style="--i:0">Especialidades</a></li>
-    <li><a href="#sobre" style="--i:1">Sobre a Sueli</a></li>
-    <li><a href="#como-funciona" style="--i:2">Como funciona</a></li>
-    <li><a href="#receitas" style="--i:3">Receitas</a></li>
-    <li><a href="#dicas" style="--i:4">Dicas</a></li>
-    <li><a href="#duvidas" style="--i:5">Dúvidas</a></li>
-    <li><a href="#contato" style="--i:6">Contato</a></li>
+    <li><a href="#especialidades" style="--i:0">Especialidades <small>01</small></a></li>
+    <li><a href="#sobre" style="--i:1">Sobre a Sueli <small>02</small></a></li>
+    <li><a href="#como-funciona" style="--i:2">Como funciona <small>03</small></a></li>
+    <li><a href="#receitas" style="--i:3">Receitas <small>04</small></a></li>
+    <li><a href="#dicas" style="--i:4">Dicas <small>05</small></a></li>
+    <li><a href="#duvidas" style="--i:5">Dúvidas <small>06</small></a></li>
+    <li><a href="#contato" style="--i:6">Contato <small>07</small></a></li>
   </ul>
-  <a class="btn btn--light" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span class="t" data-agendar-label>Agendar consulta</span></a>
+  <a class="btn btn--pista" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-agendar-label>Agendar consulta</span></a>
 </nav>
 
 <main id="conteudo">
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="inicio" aria-labelledby="hero-title">
-  <div class="wrap hero__top">
-    <h1 id="hero-title"><span class="l1">Comida de verdade,</span><span class="l2">cuidado <em>de perto.</em></span></h1>
-    <div class="hero__side">
-      <p><b>Sueli Ribeiro</b>, nutricionista clínica em Rondônia. Acompanhamento individual para emagrecimento, diabetes, tireoide, intestino, fígado e intolerâncias.</p>
-      <div class="hero__ctas">
-        <a class="btn btn--accent" data-agendar data-cursor-link href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span class="t" data-agendar-label>Agendar consulta</span></a>
-        <a class="btn btn--line" data-cursor-link href="#especialidades"><span class="t">Especialidades</span></a>
-      </div>
-      <span class="hero__badge"><i></i>CRN7/RO 17285 · Atendimento individual</span>
-    </div>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="trail" id="trail" aria-hidden="true"></div>
+  <div class="hero__portrait" data-cursor="Oi!">
+    <picture><source type="image/webp" srcset="fotos/sobre-sueli-camisa-bege-sorrindo-c-sm.webp 600w, fotos/sobre-sueli-camisa-bege-sorrindo-c.webp 720w" sizes="340px"><img src="fotos/sobre-sueli-camisa-bege-sorrindo-c.jpg" width="720" height="896" alt="Sueli Ribeiro sorrindo no consultório, de camisa bege e óculos" fetchpriority="high" style="object-position:50% 20%"></picture>
   </div>
-
-  <div class="hero__scroll">
-    <div class="strip" id="strip">
-      <figure class="strip__item s1" data-speed="1.1" data-cursor="Receitas" data-href="#receitas">
-        <picture><source type="image/webp" srcset="fotos/receita-cafe-manga-pitaya-sm.webp 600w, fotos/receita-cafe-manga-pitaya.webp 720w" sizes="280px"><img src="fotos/receita-cafe-manga-pitaya.jpg" width="720" height="1280" alt="Prato com manga, pitaya, omelete e pão" style="object-position:50% 62%" fetchpriority="high"></picture>
-        <figcaption>Manga e pitaya</figcaption>
-      </figure>
-      <figure class="strip__item s2" data-speed=".7" data-cursor="Receitas" data-href="#receitas">
-        <picture><source type="image/webp" srcset="fotos/receita-cafe-mingau-omelete-kiwi-sm.webp 600w, fotos/receita-cafe-mingau-omelete-kiwi.webp 1200w" sizes="340px"><img src="fotos/receita-cafe-mingau-omelete-kiwi.jpg" width="1200" height="2134" alt="Café da manhã com mingau, omelete, kiwi e café" style="object-position:50% 50%" fetchpriority="high"></picture>
-        <figcaption>Mingau, omelete e kiwi</figcaption>
-      </figure>
-      <figure class="strip__item s3" data-speed="1.25" data-cursor="Sobre" data-href="#sobre">
-        <picture><source type="image/webp" srcset="fotos/sobre-sueli-camisa-bege-sorrindo-sm.webp 600w, fotos/sobre-sueli-camisa-bege-sorrindo.webp 720w" sizes="420px"><img src="fotos/sobre-sueli-camisa-bege-sorrindo.jpg" width="720" height="1280" alt="Sueli Ribeiro sorrindo no consultório, de camisa bege e óculos" style="object-position:50% 100%" fetchpriority="high"></picture>
-        <span class="strip__tag">Sueli Ribeiro</span>
-      </figure>
-      <figure class="strip__item s4" data-speed=".85" data-cursor="Receitas" data-href="#receitas">
-        <picture><source type="image/webp" srcset="fotos/receita-bolo-rubi-beterraba-cacau-sm.webp 600w, fotos/receita-bolo-rubi-beterraba-cacau.webp 1200w" sizes="260px"><img src="fotos/receita-bolo-rubi-beterraba-cacau.jpg" width="1200" height="2134" alt="Bolo de beterraba com cacau" style="object-position:50% 15%"></picture>
-        <figcaption>Bolo rubi</figcaption>
-      </figure>
-      <figure class="strip__item s5" data-speed="1.15" data-cursor="Receitas" data-href="#receitas">
-        <picture><source type="image/webp" srcset="fotos/receita-omelete-tomate-cafe-na-mesa-sm.webp 600w, fotos/receita-omelete-tomate-cafe-na-mesa.webp 1200w" sizes="320px"><img src="fotos/receita-omelete-tomate-cafe-na-mesa.jpg" width="1200" height="2133" alt="Omelete com tomates assados e pão sobre toalhinha de crochê" style="object-position:50% 38%"></picture>
-        <figcaption>Omelete com tomate</figcaption>
-      </figure>
+  <div class="wrap hero__title">
+    <h1 id="hero-title"><span class="w1">Sueli</span> <span class="w2">Ribeiro</span><span class="sr-only"> · nutricionista clínica em Rondônia</span></h1>
+    <div class="hero__foot">
+      <p>Nutricionista clínica em Rondônia. Comida de verdade, cuidado de perto: emagrecimento, diabetes, tireoide, intestino, fígado e intolerâncias.</p>
+      <div class="hero__ctas" style="pointer-events:auto">
+        <a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-agendar-label>Agendar consulta</span></a>
+        <a class="btn btn--ghost" data-magnetic href="#especialidades">Especialidades</a>
+      </div>
+      <span class="hero__hint">Mexa o mouse por aqui ✦</span>
     </div>
   </div>
 </section>
 
 <!-- ============ MANIFESTO ============ -->
 <section class="manifesto" aria-label="Como a Sueli trabalha">
+  <div class="manifesto__float" data-speed="-0.25"><img src="fotos/receita-cafe-omelete-mamao-sm.webp" alt="" style="object-position:50% 64%" loading="lazy"></div>
+  <div class="manifesto__float b" data-speed="0.3"><img src="fotos/receita-cafe-manga-pitaya-sm.webp" alt="" style="object-position:50% 62%" loading="lazy"></div>
   <div class="wrap">
-    <div class="manifesto__label"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="44" height="44" loading="lazy">Como eu trabalho</div>
-    <p class="big" id="manifesto">Cada plano começa pela sua história, pelos seus exames e pela rotina que você tem de verdade. Sem dieta da moda e sem culpa: comida de verdade, ciência e acompanhamento de perto.</p>
-    <div class="sign"><span><b>Sueli Ribeiro</b>, nutricionista</span><span>CRN7/RO 17285</span></div>
+    <span class="eyebrow" style="margin-bottom:34px;display:inline-flex">Como eu trabalho</span>
+    <p class="big" id="manifesto">Cada plano começa pela <em>sua história</em>, pelos seus exames e pela rotina que você tem de verdade. Sem dieta da moda e sem culpa: comida de verdade, ciência e acompanhamento de perto.</p>
+    <div class="manifesto__meta"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="54" height="54" loading="lazy"><span><b>Sueli Ribeiro</b>, nutricionista</span><span>CRN7/RO 17285</span></div>
   </div>
 </section>
 
 <!-- ============ ESPECIALIDADES ============ -->
-<section class="sec" id="especialidades" aria-labelledby="esp-title" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="tag">Especialidades</span><h2 id="esp-title" style="margin-top:18px">Onde eu posso<br>te ajudar</h2></div>
-      <p>Seis frentes de cuidado clínico, sempre ajustadas aos seus exames e à sua rotina.</p>
-    </div>
-    <ul class="spec-list" id="specList"></ul>
+<section class="esp" id="especialidades" aria-labelledby="esp-title">
+  <div class="wrap esp__intro">
+    <div><span class="eyebrow">Especialidades</span><h2 id="esp-title" style="margin-top:18px">Onde eu posso <em>te ajudar</em></h2></div>
+    <p>Seis frentes de cuidado clínico, sempre ajustadas aos seus exames e à sua rotina.</p>
+  </div>
+  <div class="wrap esp__pin">
+    <ul class="esp__list" id="espList"></ul>
+    <div class="esp__stage" id="espStage" aria-hidden="true"><span class="count" id="espCount">01 / 06</span></div>
   </div>
 </section>
 
 <!-- ============ SOBRE ============ -->
-<section class="sec about" id="sobre" aria-labelledby="sobre-title">
-  <div class="wrap about__grid">
-    <div class="about__photos">
-      <figure class="ph1" data-cursor="Sueli">
-        <picture><source type="image/webp" srcset="fotos/hero-alt-sueli-camisa-jeans-sm.webp 600w, fotos/hero-alt-sueli-camisa-jeans.webp 720w" sizes="(min-width: 1000px) 34vw, 70vw"><img src="fotos/hero-alt-sueli-camisa-jeans.jpg" width="720" height="1280" alt="Sueli Ribeiro de camisa jeans no consultório" loading="lazy" decoding="async"></picture>
-      </figure>
-      <figure class="ph2" data-cursor="Sueli">
-        <picture><source type="image/webp" srcset="fotos/sobre-sueli-pre-treino-suco-sm.webp 600w, fotos/sobre-sueli-pre-treino-suco.webp 1200w" sizes="(min-width: 1000px) 24vw, 50vw"><img src="fotos/sobre-sueli-pre-treino-suco.jpg" width="1200" height="2134" alt="Sueli Ribeiro sorrindo com um copo de suco" loading="lazy" decoding="async"></picture>
-      </figure>
+<section class="about" id="sobre" aria-labelledby="sobre-title">
+  <div class="about__zoom">
+    <div class="about__img"><picture><source type="image/webp" srcset="fotos/sobre-sueli-pre-treino-suco-c-sm.webp 600w, fotos/sobre-sueli-pre-treino-suco-c.webp 1200w" sizes="100vw"><img src="fotos/sobre-sueli-pre-treino-suco-c.jpg" width="1200" height="1644" alt="Sueli Ribeiro sorrindo com um copo de suco no consultório" loading="lazy" decoding="async" style="object-position:50% 6%"></picture></div>
+    <div class="about__over"><span class="eyebrow">Sobre a Sueli</span><h2 id="sobre-title" style="margin-top:20px">Prazer, <em>Sueli.</em></h2></div>
+  </div>
+  <div class="wrap about__body">
+    <div>
+      <p class="lead">Nutricionista clínica, com atendimento individual e um jeito simples, gostoso e possível de olhar para a comida.</p>
+      <p class="txt">No consultório, o plano é construído com você: o que você gosta de comer, o que cabe no seu bolso e na sua semana. No Instagram, ela mostra isso na prática, com pratos coloridos, receitas possíveis e informação com base científica.</p>
+      <ul class="facts" id="facts" style="margin-top:40px">
+        <li><span>Registro</span><b>CRN7/RO 17285</b></li>
+        <li><span>Atuação</span><b>Nutrição clínica</b></li>
+        <li><span>Região</span><b>Rondônia</b></li>
+        <li><a data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener"><span>Instagram</span><b>@nutri.sueliribeiro</b></a></li>
+      </ul>
     </div>
-    <div class="about__text">
-      <span class="sec-head" style="margin:0 0 18px;display:block"><span class="tag">Sobre a Sueli</span></span>
-      <h2 id="sobre-title">Prazer,<br>Sueli Ribeiro.</h2>
-      <p class="lead">Nutricionista clínica, com atendimento individual e um jeito simples de olhar para a alimentação.</p>
-      <p>No consultório, o plano é construído com você: o que você gosta de comer, o que cabe no seu bolso e na sua semana. No Instagram, ela mostra isso na prática, com pratos coloridos, receitas possíveis e informação com base científica.</p>
-      <dl class="facts" id="facts">
-        <div><dt>Registro</dt><dd>CRN7/RO 17285</dd></div>
-        <div><dt>Atuação</dt><dd>Nutrição clínica</dd></div>
-        <div><dt>Região</dt><dd>Rondônia</dd></div>
-        <div><dt>Instagram</dt><dd><a data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">@nutri.sueliribeiro</a></dd></div>
-      </dl>
+    <div class="about__duo">
+      <figure data-cursor="Sueli"><picture><source type="image/webp" srcset="fotos/hero-alt-sueli-camisa-jeans-c-sm.webp 600w, fotos/hero-alt-sueli-camisa-jeans-c.webp 720w" sizes="(min-width: 1000px) 20vw, 45vw"><img src="fotos/hero-alt-sueli-camisa-jeans-c.jpg" width="720" height="742" alt="Sueli Ribeiro de camisa jeans no consultório" loading="lazy" decoding="async" style="object-position:50% 30%"></picture></figure>
+      <figure data-cursor="Sueli"><picture><source type="image/webp" srcset="fotos/sobre-sueli-regata-proteina-c-sm.webp 600w, fotos/sobre-sueli-regata-proteina-c.webp 1200w" sizes="(min-width: 1000px) 20vw, 45vw"><img src="fotos/sobre-sueli-regata-proteina-c.jpg" width="1200" height="1388" alt="Sueli Ribeiro falando sobre proteína nas refeições" loading="lazy" decoding="async" style="object-position:50% 25%"></picture></figure>
     </div>
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker__row" data-dir="1"><span>Emagrecimento</span><span>Diabetes</span><span>Tireoide</span><span>Intestino</span><span>Fígado</span><span>Intolerâncias</span><span>Emagrecimento</span><span>Diabetes</span><span>Tireoide</span><span>Intestino</span><span>Fígado</span><span>Intolerâncias</span></div>
-  <div class="ticker__row ticker__row--b" data-dir="-1"><span>Comida de verdade</span><span>Sem glúten</span><span>Sem lactose</span><span>Receitas práticas</span><span>Comida de verdade</span><span>Sem glúten</span><span>Sem lactose</span><span>Receitas práticas</span></div>
-</div>
-
 <!-- ============ COMO FUNCIONA ============ -->
-<section class="sec" id="como-funciona" aria-labelledby="como-title" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="tag">Como funciona</span><h2 id="como-title" style="margin-top:18px">Do primeiro “oi”<br>ao acompanhamento</h2></div>
-      <p>Quatro etapas, no seu ritmo.</p>
-    </div>
-    <ol class="steps" style="list-style:none;margin:0;padding:0">
-      <li class="step">
-        <span class="step__n" aria-hidden="true">01</span>
-        <div>
-          <h3>Você manda uma mensagem</h3>
-          <p>Conta o que está buscando, tira as dúvidas e escolhe o melhor dia para a consulta.</p>
-          <a class="btn btn--ink" data-agendar data-cursor-link href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span class="t" data-agendar-label>Agendar consulta</span></a>
-        </div>
-        <div class="step__media chat" aria-label="Exemplo de mensagem para agendar">
-          <div class="chat__top"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="34" height="34"><span><b>Sueli Ribeiro</b><small>Nutricionista</small></span></div>
+<section class="how" id="como-funciona" aria-labelledby="como-title">
+  <div class="how__wrap">
+    <div class="wrap how__head"><span class="eyebrow">Como funciona</span><h2 id="como-title">Do primeiro “oi” <em>ao cuidado contínuo</em></h2></div>
+    <ol class="how__track" id="howTrack" style="list-style:none;margin:0">
+      <li class="card">
+        <div><span class="card__n">01</span><div><h3>Você manda uma mensagem</h3><p>Conta o que está buscando, tira as dúvidas e escolhe o melhor dia para a consulta.</p></div></div>
+        <div class="card__media chat" aria-label="Exemplo de mensagem para agendar">
+          <div class="chat__top"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="32" height="32"><span><b>Sueli Ribeiro</b><small>Nutricionista</small></span></div>
           <div class="bubble bubble--me">Olá, Sueli! Vim pelo site e gostaria de agendar uma consulta.</div>
           <div class="bubble bubble--typing" aria-hidden="true"><i></i><i></i><i></i></div>
         </div>
       </li>
-      <li class="step">
-        <span class="step__n" aria-hidden="true">02</span>
-        <div><h3>Avaliação inicial</h3><p>Conversa detalhada sobre saúde, rotina, histórico e exames, com bioimpedância quando indicada.</p></div>
-        <div class="step__media"><picture><source type="image/webp" srcset="fotos/avaliacao-bioimpedancia-sm.webp 600w, fotos/avaliacao-bioimpedancia.webp 720w" sizes="(min-width: 900px) 34vw, 90vw"><img src="fotos/avaliacao-bioimpedancia.jpg" width="720" height="1280" alt="Balança de bioimpedância no consultório" loading="lazy" decoding="async" style="object-position:50% 45%"></picture></div>
+      <li class="card">
+        <div><span class="card__n">02</span><div><h3>Avaliação inicial</h3><p>Conversa detalhada sobre saúde, rotina, histórico e exames, com bioimpedância quando indicada.</p></div></div>
+        <div class="card__media"><picture><source type="image/webp" srcset="fotos/sobre-sueli-camiseta-branca-c.webp 640w" sizes="(min-width: 1000px) 30vw, 90vw"><img src="fotos/sobre-sueli-camiseta-branca-c.jpg" width="640" height="784" alt="Sueli Ribeiro no consultório, pronta para a avaliação" loading="lazy" decoding="async" style="object-position:50% 25%"></picture></div>
       </li>
-      <li class="step">
-        <span class="step__n" aria-hidden="true">03</span>
-        <div><h3>Plano feito para você</h3><p>Alimentos que cabem no seu gosto, no seu bolso e na sua semana, com materiais práticos como a lista de compras.</p></div>
-        <div class="step__media"><picture><source type="image/webp" srcset="fotos/card-lista-de-compras-com-sueli-sm.webp 600w, fotos/card-lista-de-compras-com-sueli.webp 1200w" sizes="(min-width: 900px) 34vw, 90vw"><img src="fotos/card-lista-de-compras-com-sueli.jpg" width="1200" height="1599" alt="Material da Sueli: guia de lista de compras inteligente" loading="lazy" decoding="async" style="object-position:50% 22%"></picture></div>
+      <li class="card">
+        <div><span class="card__n">03</span><div><h3>Plano feito para você</h3><p>Alimentos que cabem no seu gosto, no seu bolso e na sua semana, com materiais como a lista de compras.</p></div></div>
+        <div class="card__media"><picture><source type="image/webp" srcset="fotos/card-lista-de-compras-com-sueli-sm.webp 600w, fotos/card-lista-de-compras-com-sueli.webp 1200w" sizes="(min-width: 1000px) 30vw, 90vw"><img src="fotos/card-lista-de-compras-com-sueli.jpg" width="1200" height="1599" alt="Material da Sueli: guia de lista de compras inteligente" loading="lazy" decoding="async" style="object-position:50% 22%"></picture></div>
       </li>
-      <li class="step">
-        <span class="step__n" aria-hidden="true">04</span>
-        <div><h3>Acompanhamento e ajustes</h3><p>Retornos para acompanhar a evolução, responder dúvidas e ajustar o plano com base no que funciona para você.</p></div>
-        <div class="step__media"><picture><source type="image/webp" srcset="fotos/sobre-sueli-explicando-pre-load-sm.webp 600w, fotos/sobre-sueli-explicando-pre-load.webp 1200w" sizes="(min-width: 900px) 34vw, 90vw"><img src="fotos/sobre-sueli-explicando-pre-load.jpg" width="1200" height="2134" alt="Sueli Ribeiro explicando um gráfico de estudo sobre alimentação" loading="lazy" decoding="async" style="object-position:50% 2%"></picture></div>
+      <li class="card">
+        <div><span class="card__n">04</span><div><h3>Acompanhamento e ajustes</h3><p>Retornos para acompanhar a evolução, responder dúvidas e ajustar o plano com base no que funciona.</p></div></div>
+        <div class="card__media"><picture><source type="image/webp" srcset="fotos/sobre-sueli-explicando-pre-load-c-sm.webp 600w, fotos/sobre-sueli-explicando-pre-load-c.webp 1200w" sizes="(min-width: 1000px) 30vw, 90vw"><img src="fotos/sobre-sueli-explicando-pre-load-c.jpg" width="1200" height="608" alt="Sueli Ribeiro explicando sobre alimentação" loading="lazy" decoding="async" style="object-position:50% 40%"></picture></div>
       </li>
     </ol>
+    <div class="how__bar" aria-hidden="true"><i id="howBar"></i></div>
   </div>
 </section>
 
 <!-- ============ RECEITAS ============ -->
-<section class="sec recipes" id="receitas" aria-labelledby="rec-title">
+<section class="recipes" id="receitas" aria-labelledby="rec-title">
   <div class="wrap">
-    <div class="sec-head">
-      <div><span class="tag">Receitas</span><h2 id="rec-title" style="margin-top:18px">Prático, gostoso<br>e sem complicação</h2></div>
+    <div class="rec__head">
+      <div><span class="eyebrow">Receitas</span><h2 id="rec-title" style="margin-top:18px">Prático, gostoso, <em>de verdade</em></h2></div>
       <div class="filters" id="recFilters" role="group" aria-label="Filtrar receitas"></div>
     </div>
     <div class="rec-grid" id="recGrid" aria-live="polite"></div>
@@ -261,46 +241,35 @@
       <h3 id="lbTitle"></h3>
       <p id="lbDesc"></p>
       <div class="tags" id="lbTags"></div>
-      <a class="btn btn--ink" id="lbLink" href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg><span class="t">Ver no Instagram</span></a>
+      <a class="btn btn--wine" id="lbLink" href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg>Ver no Instagram</a>
       <span class="lb__count" id="lbCount"></span>
     </div>
   </div>
 </div>
 
 <!-- ============ DICAS ============ -->
-<section class="sec" id="dicas" aria-labelledby="dicas-title">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="tag">Dicas de saúde</span><h2 id="dicas-title" style="margin-top:18px">Informação simples,<br>escolhas melhores</h2></div>
-      <div class="rail-ctrl">
-        <button class="round" type="button" id="railPrev" aria-label="Dica anterior" aria-controls="rail"><svg aria-hidden="true"><use href="#i-left"/></svg></button>
-        <button class="round" type="button" id="railNext" aria-label="Próxima dica" aria-controls="rail"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      </div>
-    </div>
+<section class="tips" id="dicas" aria-labelledby="dicas-title">
+  <div class="wrap tips__head">
+    <div><span class="eyebrow">Dicas de saúde</span><h2 id="dicas-title" style="margin-top:18px">Informação simples, <em>escolhas melhores</em></h2></div>
+    <a class="link-u" data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">Mais dicas no Instagram <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
-  <div class="tips-rail" id="rail" tabindex="0" role="region" aria-label="Dicas publicadas no Instagram" data-cursor="Arraste"></div>
-  <div class="wrap tips__foot">
-    <p>Conteúdo educativo. Não substitui consulta.</p>
-    <a class="arrow-link" data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">Mais dicas no Instagram <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  </div>
+  <div class="fan" id="fan"></div>
+  <p class="tips__note wrap">Conteúdo educativo. Não substitui consulta.</p>
 </section>
 
-<!-- ============ DEPOIMENTOS (só com depoimentos reais) ============ -->
-<section class="sec" id="depoimentos" aria-labelledby="dep-title" hidden style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head"><div><span class="tag">Depoimentos</span><h2 id="dep-title" style="margin-top:18px">Quem já fez<br>o acompanhamento</h2></div></div>
-    <div class="testi-list" id="testiList"></div>
-  </div>
+<!-- ============ DEPOIMENTOS ============ -->
+<section class="testi" id="depoimentos" aria-labelledby="dep-title" hidden>
+  <div class="wrap"><h2 id="dep-title">Quem já fez <em>o acompanhamento</em></h2><div class="testi-list" id="testiList"></div></div>
 </section>
 
 <!-- ============ DÚVIDAS ============ -->
-<section class="sec" id="duvidas" aria-labelledby="faq-title" style="padding-top:0">
+<section class="faq" id="duvidas" aria-labelledby="faq-title">
   <div class="wrap faq-grid">
     <div class="faq-aside">
-      <span class="sec-head" style="margin:0 0 18px;display:block"><span class="tag">Dúvidas</span></span>
-      <h2 id="faq-title">Antes da<br>primeira consulta</h2>
+      <span class="eyebrow">Dúvidas</span>
+      <h2 id="faq-title">Antes da <em>primeira consulta</em></h2>
       <p>Não encontrou o que procurava? Mande uma mensagem.</p>
-      <a class="arrow-link" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="link-u" data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span> <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
     <div id="faqList"></div>
   </div>
@@ -308,20 +277,24 @@
 
 <!-- ============ CONTATO ============ -->
 <section class="cta" id="contato" aria-labelledby="contato-title">
+  <h2 class="sr-only" id="contato-title">Agende sua consulta</h2>
+  <div class="cta__marquee" aria-hidden="true" id="ctaMarquee"><span>Vamos <em>conversar?</em> ✦</span><span>Vamos <em>conversar?</em> ✦</span><span>Vamos <em>conversar?</em> ✦</span><span>Vamos <em>conversar?</em> ✦</span></div>
   <div class="wrap cta__in">
     <div>
-      <h2 id="contato-title">Vamos<br>conversar?</h2>
       <p>Mande uma mensagem contando o que você procura. A Sueli responde com os próximos horários e tudo o que você precisa saber para a primeira consulta.</p>
       <div class="cta__actions">
-        <a class="btn btn--light" data-agendar data-cursor-link href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span class="t" data-agendar-label>Agendar consulta</span></a>
-        <a class="arrow-link" data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">@nutri.sueliribeiro <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--pista" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span data-agendar-label>Agendar consulta</span></a>
+        <a class="link-u" data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">@nutri.sueliribeiro <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
       <ul class="cta__info" id="contactInfo"><li><b>Registro</b>CRN7/RO 17285</li><li><b>Região</b>Rondônia</li></ul>
       <div id="mapSlot"></div>
     </div>
-    <div class="cta__photo-wrap" style="position:relative;justify-self:center;width:min(100%,420px)">
-      <div class="cta__photo"><picture><source type="image/webp" srcset="fotos/sobre-sueli-camiseta-branca.webp 640w" sizes="(min-width: 1000px) 30vw, 80vw"><img src="fotos/sobre-sueli-camiseta-branca.jpg" width="640" height="1136" alt="Sueli Ribeiro de camiseta branca, sorrindo, no consultório" loading="lazy" decoding="async"></picture></div>
-      <a class="cta__magnet" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener">Agendar<br>agora</a>
+    <div class="cta__photo">
+      <div class="ph"><picture><source type="image/webp" srcset="fotos/sobre-sueli-camisa-bege-sorrindo-c-sm.webp 600w, fotos/sobre-sueli-camisa-bege-sorrindo-c.webp 720w" sizes="380px"><img src="fotos/sobre-sueli-camisa-bege-sorrindo-c.jpg" width="720" height="896" alt="Sueli Ribeiro sorrindo no consultório" loading="lazy" decoding="async" style="object-position:50% 20%"></picture></div>
+      <a class="cta__magnet" data-agendar data-magnetic href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener" aria-label="Agendar consulta">
+        <svg viewBox="0 0 150 150" aria-hidden="true"><defs><path id="circ" d="M75,75 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs><text><textPath href="#circ">AGENDAR CONSULTA · AGENDAR CONSULTA · </textPath></text></svg>
+        <span aria-hidden="true" style="font-size:1.6rem">✦</span>
+      </a>
     </div>
   </div>
 </section>
@@ -330,15 +303,11 @@
 <footer class="footer">
   <div class="wrap">
     <div class="footer__top">
-      <a class="brand" href="#inicio"><img src="fotos/hero-sueli-consultorio-avatar.webp" alt="" width="38" height="38" loading="lazy"><span><b>Sueli Ribeiro</b><small>Nutricionista · CRN7/RO 17285</small></span></a>
+      <a class="brand" href="#inicio"><span><b>Sueli Ribeiro</b><small>Nutricionista · CRN7/RO 17285</small></span></a>
       <div><h2>Navegação</h2><ul><li><a href="#especialidades">Especialidades</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#como-funciona">Como funciona</a></li><li><a href="#receitas">Receitas</a></li></ul></div>
       <div><h2>Contato</h2><ul><li><a data-agendar href="https://ig.me/m/nutri.sueliribeiro" target="_blank" rel="noopener"><span data-agendar-label>Agendar consulta</span></a></li><li><a data-ig-link href="https://www.instagram.com/nutri.sueliribeiro/" target="_blank" rel="noopener">Instagram</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></div>
     </div>
-    <p class="footer__big" aria-hidden="true">Sueli Ribeiro</p>
-    <div class="footer__legal">
-      <p>Os resultados variam de pessoa para pessoa. Este site tem caráter informativo e não substitui consulta nutricional.</p>
-      <p>© <span id="year">2026</span> Sueli Ribeiro</p>
-    </div>
+    <div class="footer__legal"><p>Os resultados variam de pessoa para pessoa. Este site tem caráter informativo e não substitui consulta nutricional.</p><p>© <span id="year">2026</span> Sueli Ribeiro</p></div>
   </div>
 </footer>
 
@@ -347,6 +316,7 @@
 <script src="js/vendor/gsap.min.js" defer></script>
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/vendor/SplitText.min.js" defer></script>
+<script src="js/vendor/CustomEase.min.js" defer></script>
 <script src="js/vendor/lenis.min.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
