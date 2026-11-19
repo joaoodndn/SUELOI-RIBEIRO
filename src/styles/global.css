@@ -831,39 +831,27 @@ html.tem-cursor .cursor-anel {
   transform: scaleX(0);
 }
 
-/* ---------- Letreiro que acompanha a rolagem ---------- */
+/* ---------- Frase final (antes do contato) ---------- */
 .letreiro {
-  overflow: hidden;
-  padding-block: clamp(2.5rem, 6vw, 5rem);
+  padding-block: clamp(4rem, 9vw, 8rem);
   background: var(--creme);
   border-top: 1px solid var(--linha);
 }
-.letreiro__linha {
-  display: flex;
-  gap: 2rem;
-  width: max-content;
+.letreiro__in {
+  text-align: center;
+}
+.letreiro__topo {
+  font-size: 0.9rem;
+  color: var(--texto-2);
+  margin-bottom: 1.4rem;
+}
+.letreiro__frase {
   font-family: var(--serif);
-  font-size: clamp(2rem, 1.2rem + 3.6vw, 5rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  white-space: nowrap;
-  color: var(--texto);
-  will-change: transform;
-}
-.letreiro__linha + .letreiro__linha {
-  margin-top: 0.15em;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--marrom-medio);
-}
-.letreiro__linha span {
-  display: inline-flex;
-  align-items: center;
-  gap: 2rem;
-}
-.letreiro__linha span::after {
-  content: '';
-  width: 0.18em;
-  height: 0.18em;
-  border-radius: 50%;
-  background: var(--dourado);
+  font-size: clamp(2rem, 1.1rem + 3.4vw, 4.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+  margin-inline: auto;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
