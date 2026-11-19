@@ -5,7 +5,8 @@ import Icone from '../components/Icone.astro';
 import { Image } from 'astro:assets';
 import { AREAS } from '../data/areas';
 import { FOTOS, FAIXA } from '../data/fotos';
-import { FAQ, DICAS } from '../data/conteudo';
+import { FAQ, DICAS, AVALIACOES } from '../data/conteudo';
+import CalculadoraIMC from '../components/CalculadoraIMC.astro';
 import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto } from '../config';
 import selo from '../assets/img/sueli-rosto-2-recorte-selo.jpg';
 import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
@@ -50,7 +51,7 @@ const etapas = [
     <div class="wrap hero__grid">
       <div class="hero__texto">
         <p class="hero__selo" data-hero="sobe">
-          <Image src={selo} alt={`Foto de ${CONFIG.nome}`} width={128} height={128} class="hero__avatar" loading="eager" />
+          <Image src={selo} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} width={240} height={288} class="hero__avatar" loading="eager" />
           <span><strong>{CONFIG.nome}</strong><br />Nutricionista · {CONFIG.crn}</span>
         </p>
         <h1 class="hero__titulo" data-titulo="hero">Ciência e estratégia para uma nutrição individualizada</h1>
@@ -156,6 +157,10 @@ const etapas = [
           <h2 class="titulo" data-titulo>Três etapas, do primeiro encontro aos retornos.</h2>
         </div>
       </div>
+      <div class="etapas__palco">
+      <ol class="etapas__indice" aria-hidden="true">
+        {etapas.map((e) => <li><span>{e.n}</span>{e.titulo}</li>)}
+      </ol>
       <ol class="etapas" data-linha>
         <span class="etapas__linha" aria-hidden="true"><span class="etapas__linha-fill"></span></span>
         {etapas.map((e) => (
@@ -171,6 +176,7 @@ const etapas = [
           </li>
         ))}
       </ol>
+      </div>
     </div>
   </section>
 
@@ -181,6 +187,7 @@ const etapas = [
         <span class="rotulo" data-traco>O que entra na conta</span>
         <h2 class="titulo" id="faixa-titulo" data-titulo>Nutrição vai além do prato.</h2>
         <p class="sub">Sono, treino, hidratação, exames, intestino, rotina de compras. Tudo isso pesa no resultado e entra na conversa.</p>
+        <p class="faixa__dica"><span class="faixa__dica-txt-rolar">Role para ver mais</span><span class="faixa__dica-txt-arrastar">Arraste para o lado</span><span class="faixa__seta" aria-hidden="true"><Icone nome="seta" /></span></p>
       </div>
       {FAIXA.map((f, i) => (
         <figure class={`faixa__item ${f.r > 1 ? 'faixa__item--larga' : ''}`} data-par={i % 2 === 0 ? 'par' : 'impar'}>
@@ -191,6 +198,11 @@ const etapas = [
         </figure>
       ))}
     </div>
+    <div class="faixa__nav">
+      <button type="button" class="faixa__btn" data-dir="-1" aria-label="Ver fotos anteriores"><Icone nome="seta" /></button>
+      <button type="button" class="faixa__btn" data-dir="1" aria-label="Ver próximas fotos"><Icone nome="seta" /></button>
+    </div>
+    <div class="faixa__barra" aria-hidden="true"><span></span></div>
   </section>
 
   <!-- CONTEÚDOS -->
@@ -229,6 +241,33 @@ const etapas = [
     </div>
   </section>
   -->
+
+  <!-- AVALIAÇÕES (comentários reais do Instagram) -->
+  <section class="sec avaliacoes" id="avaliacoes">
+    <div class="wrap">
+      <div class="cabeca">
+        <div>
+          <span class="rotulo" data-traco>Quem já passou por aqui</span>
+          <h2 class="titulo" data-titulo>O que dizem sobre o atendimento.</h2>
+        </div>
+        <p class="sub" data-anim="sobe">Comentários deixados no Instagram da Sueli.</p>
+      </div>
+      <ul class="avaliacoes__lista" data-anim="stagger">
+        {AVALIACOES.map((a, i) => (
+          <li class={`avaliacao ${i >= 3 ? 'avaliacao--extra' : ''}`} hidden={i >= 3}>
+            <blockquote>{a.texto}</blockquote>
+            <a class="avaliacao__autor" href={a.post} target="_blank" rel="noopener"><Icone nome="instagram" /> {a.autor}</a>
+          </li>
+        ))}
+      </ul>
+      <div class="avaliacoes__mais">
+        <button type="button" class="btn btn--linha" data-ver-mais aria-expanded="false">Ver mais comentários</button>
+        <a class="link" href={instagramUrl} target="_blank" rel="noopener">Ver no Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <CalculadoraIMC />
 
   <!-- FAQ -->
   <section class="sec sec--bege" id="faq">
@@ -303,12 +342,15 @@ const etapas = [
     font-weight: 600;
   }
   .hero__avatar {
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
+    width: 104px;
+    height: 125px;
+    border-radius: 999px 999px 14px 14px;
     object-fit: cover;
-    box-shadow: 0 0 0 1px var(--linha), 0 0 0 4px var(--creme), 0 0 0 5px var(--dourado);
+    object-position: 50% 30%;
+    box-shadow: 0 0 0 1px var(--linha), 0 0 0 5px var(--creme), 0 0 0 6px var(--palha), 0 20px 40px -24px rgba(52, 37, 31, 0.5);
   }
+  .hero__selo { gap: 1.1rem; }
+  .hero__selo strong { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; }
   .hero__titulo {
     font-size: clamp(2.35rem, 1.45rem + 3.3vw, 4.7rem);
     line-height: 1.04;
@@ -600,6 +642,172 @@ const etapas = [
     .etapa__titulo { font-size: var(--fs-3); }
     .etapas__linha { left: 1.7rem; }
     .etapa__n { font-size: 2.3rem; }
+  }
+
+
+  /* ETAPAS: palco com índice lateral */
+  .etapas__palco {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .etapas__indice {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: sticky;
+    top: calc(var(--header-h) + 3rem);
+    display: grid;
+    gap: 0.9rem;
+    font-size: 0.95rem;
+    color: var(--texto-2);
+  }
+  .etapas__indice li {
+    display: flex;
+    gap: 0.7rem;
+    align-items: baseline;
+    transition: color 0.5s, transform 0.5s var(--ease);
+  }
+  .etapas__indice span {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--dourado);
+  }
+  .etapas__indice li.is-ativa {
+    color: var(--texto);
+    transform: translateX(6px);
+    font-weight: 600;
+  }
+  /* Modo empilhado (com animação): uma etapa por vez, trocando com a rolagem */
+  .etapas.is-empilhada {
+    display: grid;
+    gap: 0;
+  }
+  .etapas.is-empilhada .etapa {
+    grid-area: 1 / 1;
+  }
+  .etapas.is-empilhada .etapas__linha {
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .etapas__palco { grid-template-columns: 1fr; gap: 1.5rem; }
+    .etapas__indice { position: static; display: flex; gap: 1.2rem; font-size: 0.85rem; flex-wrap: wrap; }
+    .etapas__indice li.is-ativa { transform: none; }
+  }
+
+  /* FAIXA: dica, botões e barra */
+  .faixa { position: relative; }
+  .faixa__dica {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+    padding: 0.7rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(52, 37, 31, 0.2);
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+  .faixa__dica-txt-arrastar { display: none; }
+  .faixa__seta {
+    display: inline-flex;
+    animation: seta-vai 1.6s var(--ease) infinite;
+  }
+  .faixa__seta :global(svg) { width: 1.1rem; height: 1.1rem; }
+  @keyframes seta-vai {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(7px); }
+  }
+  .faixa__nav {
+    position: absolute;
+    right: var(--gutter);
+    bottom: clamp(1.5rem, 4vw, 3rem);
+    display: none;
+    gap: 0.6rem;
+  }
+  .faixa__btn {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    border: 1px solid rgba(52, 37, 31, 0.25);
+    background: var(--creme);
+    color: var(--texto);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .faixa__btn:hover { background: var(--marrom); color: var(--creme); }
+  .faixa__btn[data-dir='-1'] :global(svg) { transform: rotate(180deg); }
+  .faixa__btn :global(svg) { width: 1.1rem; height: 1.1rem; }
+  .faixa__barra {
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: clamp(0.8rem, 2vw, 1.4rem);
+    height: 2px;
+    background: rgba(52, 37, 31, 0.12);
+  }
+  .faixa__barra span {
+    display: block;
+    height: 100%;
+    background: var(--marrom);
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  /* Modo de rolagem lateral nativa (sem animação): mostra botões e "arraste" */
+  :global(.faixa.is-nativa) .faixa__nav { display: flex; }
+  :global(.faixa.is-nativa) .faixa__dica-txt-rolar { display: none; }
+  :global(.faixa.is-nativa) .faixa__dica-txt-arrastar { display: inline; }
+
+  /* AVALIAÇÕES */
+  .avaliacoes__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .avaliacao {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.4rem;
+    padding: 1.6rem;
+    border: 1px solid var(--linha);
+    border-radius: 16px;
+    background: var(--creme);
+  }
+  .avaliacao[hidden] { display: none; }
+  .avaliacao blockquote {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    line-height: 1.5;
+  }
+  .avaliacao blockquote::before { content: '“'; color: var(--dourado); margin-right: 0.1em; }
+  .avaliacao blockquote::after { content: '”'; color: var(--dourado); margin-left: 0.05em; }
+  .avaliacao__autor {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    color: var(--texto-2);
+    text-decoration: none;
+  }
+  .avaliacao__autor:hover { color: var(--texto); }
+  .avaliacao__autor :global(svg) { width: 1rem; height: 1rem; }
+  .avaliacoes__mais {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 900px) {
+    .avaliacoes__lista { grid-template-columns: 1fr; }
   }
 
   /* FAIXA HORIZONTAL */

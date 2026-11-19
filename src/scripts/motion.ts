@@ -69,6 +69,25 @@ const aoRolar = (y: number) => {
   ultimoY = y;
 };
 
+
+// "Ver mais comentários"
+const btnMais = document.querySelector<HTMLButtonElement>('[data-ver-mais]');
+btnMais?.addEventListener('click', () => {
+  const extras = $$('.avaliacao--extra');
+  const abrir = btnMais.getAttribute('aria-expanded') !== 'true';
+  extras.forEach((el) => (el.hidden = !abrir));
+  btnMais.setAttribute('aria-expanded', String(abrir));
+  btnMais.textContent = abrir ? 'Ver menos comentários' : 'Ver mais comentários';
+  if (abrir && !reduz) gsap.fromTo(extras, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.08 });
+  if (abrir) extras[0]?.querySelector('a')?.focus({ preventScroll: true });
+  ScrollTrigger?.refresh?.();
+});
+
+// Índice das etapas: marca a etapa visível
+const indice = $$('.etapas__indice li');
+const marcarEtapa = (i: number) => indice.forEach((li, k) => li.classList.toggle('is-ativa', k === i));
+marcarEtapa(0);
+
 /* ---------------- Sem animação ---------------- */
 let lenis: Lenis | undefined;
 if (reduz) {
@@ -85,6 +104,20 @@ if (reduz) {
   }, { rootMargin: '0px 0px -8% 0px' });
   $$('[data-anim], [data-titulo], [data-hero]').forEach((el) => { el.classList.add('suave'); io.observe(el); });
   $$('.rotulo[data-traco]').forEach((el) => io.observe(el));
+
+  const faixa = document.querySelector<HTMLElement>('.faixa');
+  if (faixa) {
+    faixa.classList.add('is-nativa');
+    const barraF = faixa.querySelector<HTMLElement>('.faixa__barra span');
+    const atualiza = () => { const max = faixa.scrollWidth - faixa.clientWidth; if (barraF) barraF.style.transform = `scaleX(${max > 0 ? faixa.scrollLeft / max : 0})`; };
+    faixa.addEventListener('scroll', atualiza, { passive: true });
+    $$<HTMLButtonElement>('.faixa__btn', faixa).forEach((b) => b.addEventListener('click', () => {
+      const passo = (faixa.querySelector<HTMLElement>('.faixa__item')?.offsetWidth ?? 300) + 24;
+      faixa.scrollBy({ left: Number(b.dataset.dir) * passo, behavior: 'smooth' });
+    }));
+  }
+  const ioEtapas = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) marcarEtapa($$('.etapa').indexOf(e.target as HTMLElement)); }), { rootMargin: '-45% 0px -45% 0px' });
+  $$('.etapa').forEach((el) => ioEtapas.observe(el));
 } else {
   iniciarMovimento();
 }
@@ -140,6 +173,46 @@ function iniciarMovimento() {
       if (hash === '#conteudo') alvo.focus({ preventScroll: true });
     });
   });
+
+  // ---------- Etapas: uma por vez, trocando conforme a rolagem ----------
+  const listaEtapas = document.querySelector<HTMLElement>('.etapas');
+  const palco = document.querySelector<HTMLElement>('.etapas__palco');
+  if (listaEtapas && palco) {
+    const itens = $$('.etapa', listaEtapas);
+    itens.forEach((it) => it.querySelector('[data-anim]')?.removeAttribute('data-anim'));
+    listaEtapas.classList.add('is-empilhada');
+    listaEtapas.removeAttribute('data-linha');
+    itens.forEach((it, i) => {
+      gsap.set(it, { autoAlpha: i === 0 ? 1 : 0 });
+      const foto = it.querySelector('.etapa__foto');
+      if (i > 0 && foto) gsap.set(foto, { clipPath: 'inset(100% 0% 0% 0%)' });
+    });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: palco,
+        start: () => (window.innerWidth < 900 ? 'top top+=90' : 'center center'),
+        end: () => `+=${window.innerHeight * 1.1 * (itens.length - 1) + window.innerHeight * 0.4}`,
+        pin: true,
+        scrub: 0.7,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (st) => marcarEtapa(Math.min(itens.length - 1, Math.round(st.progress * (itens.length - 1 + 0.4) - 0.2))),
+      },
+    });
+    tl.to({}, { duration: 0.3 });
+    itens.forEach((it, i) => {
+      if (i === 0) return;
+      const ant = itens[i - 1];
+      const foto = it.querySelector('.etapa__foto');
+      const img = foto?.querySelector('img');
+      tl.to(ant, { autoAlpha: 0, y: -50, duration: 0.5, ease: 'power2.in' })
+        .fromTo(it, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '<0.25')
+        .fromTo(it.querySelector('.etapa__n'), { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, '<');
+      if (foto) tl.to(foto, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.7, ease: 'power2.inOut' }, '<0.1');
+      if (img) tl.fromTo(img, { scale: 1.25 }, { scale: 1, duration: 0.8, ease: 'power2.out' }, '<');
+      tl.to({}, { duration: 0.35 });
+    });
+  }
 
   // ---------- Títulos: revelação por linha, com máscara ----------
   const titulos = $$('[data-titulo]');
@@ -291,7 +364,8 @@ function iniciarMovimento() {
       const trilho = sec.querySelector<HTMLElement>('.faixa__trilho');
       if (!trilho) return;
       const dist = () => trilho.scrollWidth - window.innerWidth + parseFloat(getComputedStyle(trilho).paddingLeft);
-      const tween = gsap.to(trilho, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: () => `+=${dist()}`, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1 } });
+      const barraF = sec.querySelector<HTMLElement>('.faixa__barra span');
+      const tween = gsap.to(trilho, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: () => `+=${dist()}`, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1, onUpdate: (st) => { if (barraF) barraF.style.transform = `scaleX(${st.progress})`; } } });
       $$('.faixa__item img', trilho).forEach((img) => {
         gsap.fromTo(img, { xPercent: -8 }, { xPercent: 8, ease: 'none', scrollTrigger: { trigger: img.parentElement, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
       });

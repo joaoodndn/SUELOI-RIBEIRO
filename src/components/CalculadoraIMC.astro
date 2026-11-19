@@ -1,0 +1,301 @@
+---
+/**
+ * Calculadora de IMC (Índice de Massa Corporal).
+ * Fórmula: peso (kg) / altura (m)².
+ * Classificação:
+ *  - Adultos (20 a 59 anos): Organização Mundial da Saúde (OMS).
+ *  - Pessoas idosas (60 anos ou mais): pontos de corte do Ministério da Saúde
+ *    (SISVAN / Caderneta da Pessoa Idosa): < 22 baixo peso; 22 a 27 adequado; > 27 sobrepeso.
+ *  - Menores de 20 anos: o IMC é avaliado por curvas de crescimento (IMC para idade),
+ *    então a calculadora não classifica.
+ */
+import { linkAgendamento } from '../config';
+import Icone from './Icone.astro';
+---
+<section class="sec imc" id="imc" aria-labelledby="imc-titulo">
+  <div class="wrap imc__grid">
+    <div class="imc__intro">
+      <span class="rotulo" data-traco>Calcule agora</span>
+      <h2 class="titulo" id="imc-titulo" data-titulo>Índice de IMC</h2>
+      <p class="sub" data-anim="sobe">Informe sua altura e seu peso para calcular o Índice de Massa Corporal e ver em qual faixa ele está, segundo a classificação oficial.</p>
+      <p class="imc__nota" data-anim="sobe">O IMC é uma triagem. Ele não diferencia músculo de gordura nem mostra onde a gordura está. A avaliação completa é feita na consulta.</p>
+    </div>
+
+    <div class="imc__cartao" data-anim="sobe">
+      <form class="imc__form" novalidate>
+        <div class="imc__campo">
+          <label for="imc-altura">Altura</label>
+          <div class="imc__input"><input id="imc-altura" name="altura" inputmode="decimal" placeholder="165" autocomplete="off" required /><span>cm</span></div>
+        </div>
+        <div class="imc__campo">
+          <label for="imc-peso">Peso</label>
+          <div class="imc__input"><input id="imc-peso" name="peso" inputmode="decimal" placeholder="68" autocomplete="off" required /><span>kg</span></div>
+        </div>
+        <div class="imc__campo">
+          <label for="imc-idade">Idade</label>
+          <div class="imc__input"><input id="imc-idade" name="idade" inputmode="numeric" placeholder="35" autocomplete="off" required /><span>anos</span></div>
+        </div>
+        <button class="btn imc__btn" type="submit">Calcular IMC</button>
+        <p class="imc__erro" role="alert" hidden></p>
+      </form>
+
+      <div class="imc__resultado" aria-live="polite" hidden>
+        <p class="imc__valor"><span class="imc__numero">0</span><small>kg/m²</small></p>
+        <p class="imc__classe"></p>
+        <div class="imc__escala" aria-hidden="true">
+          <div class="imc__faixas"></div>
+          <span class="imc__marcador"></span>
+        </div>
+        <p class="imc__texto"></p>
+        <p class="imc__fonte"></p>
+        <a class="btn btn--linha imc__cta" href={linkAgendamento('Olá, Sueli! Calculei meu IMC no site e gostaria de agendar uma avaliação.')} target="_blank" rel="noopener">Agendar avaliação completa <Icone nome="seta" /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Faixa = { ate: number; nome: string; cor: string; texto: string };
+
+  // OMS — adultos de 20 a 59 anos
+  const ADULTO: Faixa[] = [
+    { ate: 18.5, nome: 'Abaixo do peso', cor: '#c9b48f', texto: 'O IMC está abaixo da faixa considerada adequada para adultos (18,5 a 24,9).' },
+    { ate: 25, nome: 'Peso adequado', cor: '#8fa37f', texto: 'O IMC está dentro da faixa considerada adequada para adultos (18,5 a 24,9).' },
+    { ate: 30, nome: 'Sobrepeso', cor: '#d9b46a', texto: 'O IMC está na faixa de sobrepeso (25 a 29,9).' },
+    { ate: 35, nome: 'Obesidade grau I', cor: '#cf9460', texto: 'O IMC está na faixa de obesidade grau I (30 a 34,9).' },
+    { ate: 40, nome: 'Obesidade grau II', cor: '#bf7150', texto: 'O IMC está na faixa de obesidade grau II (35 a 39,9).' },
+    { ate: Infinity, nome: 'Obesidade grau III', cor: '#a2533f', texto: 'O IMC está na faixa de obesidade grau III (40 ou mais).' },
+  ];
+  // Ministério da Saúde — pessoas com 60 anos ou mais
+  const IDOSO: Faixa[] = [
+    { ate: 22, nome: 'Baixo peso', cor: '#c9b48f', texto: 'Para pessoas com 60 anos ou mais, o IMC abaixo de 22 é classificado como baixo peso.' },
+    { ate: 27.0001, nome: 'Peso adequado', cor: '#8fa37f', texto: 'Para pessoas com 60 anos ou mais, o IMC entre 22 e 27 é classificado como peso adequado.' },
+    { ate: Infinity, nome: 'Sobrepeso', cor: '#d9b46a', texto: 'Para pessoas com 60 anos ou mais, o IMC acima de 27 é classificado como sobrepeso.' },
+  ];
+  const FONTE_ADULTO = 'Classificação da Organização Mundial da Saúde (OMS) para adultos de 20 a 59 anos.';
+  const FONTE_IDOSO = 'Classificação do Ministério da Saúde para pessoas com 60 anos ou mais.';
+
+  const raiz = document.querySelector<HTMLElement>('.imc');
+  if (raiz) {
+    const form = raiz.querySelector<HTMLFormElement>('.imc__form')!;
+    const erro = raiz.querySelector<HTMLElement>('.imc__erro')!;
+    const res = raiz.querySelector<HTMLElement>('.imc__resultado')!;
+    const num = raiz.querySelector<HTMLElement>('.imc__numero')!;
+    const classe = raiz.querySelector<HTMLElement>('.imc__classe')!;
+    const texto = raiz.querySelector<HTMLElement>('.imc__texto')!;
+    const fonte = raiz.querySelector<HTMLElement>('.imc__fonte')!;
+    const faixasEl = raiz.querySelector<HTMLElement>('.imc__faixas')!;
+    const marcador = raiz.querySelector<HTMLElement>('.imc__marcador')!;
+    const escala = raiz.querySelector<HTMLElement>('.imc__escala')!;
+
+    const ler = (nome: string) => parseFloat(String(new FormData(form).get(nome) ?? '').replace(',', '.'));
+    const fmt = (n: number) => n.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+    // Escala visual de 14 a 45 kg/m²
+    const MIN = 14, MAX = 45;
+    const pos = (v: number) => `${((Math.min(MAX, Math.max(MIN, v)) - MIN) / (MAX - MIN)) * 100}%`;
+    const desenharEscala = (faixas: Faixa[]) => {
+      let ini = MIN;
+      faixasEl.innerHTML = faixas.map((f) => {
+        const fim = Math.min(f.ate, MAX);
+        const w = ((fim - ini) / (MAX - MIN)) * 100;
+        ini = fim;
+        return `<span style="width:${w}%;background:${f.cor}" title="${f.nome}"></span>`;
+      }).join('');
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      erro.hidden = true;
+      let altura = ler('altura');
+      const peso = ler('peso');
+      const idade = ler('idade');
+      if (altura > 0 && altura < 3) altura = altura * 100; // aceita 1,65 m
+      const problemas: string[] = [];
+      if (!(altura >= 100 && altura <= 230)) problemas.push('altura entre 100 e 230 cm');
+      if (!(peso >= 25 && peso <= 300)) problemas.push('peso entre 25 e 300 kg');
+      if (!(idade >= 2 && idade <= 120)) problemas.push('idade em anos');
+      if (problemas.length) {
+        erro.textContent = `Confira os dados: informe ${problemas.join(', ')}.`;
+        erro.hidden = false;
+        res.hidden = true;
+        return;
+      }
+      const imc = peso / Math.pow(altura / 100, 2);
+      res.hidden = false;
+
+      if (idade < 20) {
+        num.textContent = fmt(imc);
+        classe.textContent = 'Classificação por idade';
+        classe.style.color = '';
+        texto.textContent = 'Para menores de 20 anos, o IMC é interpretado em curvas de crescimento, de acordo com a idade e o sexo. Essa classificação não pode ser feita só com o número. Procure um profissional de saúde.';
+        fonte.textContent = 'Organização Mundial da Saúde: curvas de IMC para idade.';
+        escala.hidden = true;
+        return;
+      }
+      escala.hidden = false;
+      const faixas = idade >= 60 ? IDOSO : ADULTO;
+      const faixa = faixas.find((f) => imc < f.ate)!;
+      desenharEscala(faixas);
+      classe.textContent = faixa.nome;
+      texto.textContent = faixa.texto;
+      fonte.textContent = idade >= 60 ? FONTE_IDOSO : FONTE_ADULTO;
+
+      // anima o número e o marcador
+      const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('forcar-movimento');
+      if (reduz) {
+        num.textContent = fmt(imc);
+        marcador.style.left = pos(imc);
+      } else {
+        const t0 = performance.now();
+        const dur = 900;
+        const passo = (t: number) => {
+          const k = Math.min(1, (t - t0) / dur);
+          const e2 = 1 - Math.pow(1 - k, 3);
+          num.textContent = fmt(imc * e2);
+          marcador.style.left = pos(MIN + (imc - MIN) * e2);
+          if (k < 1) requestAnimationFrame(passo);
+        };
+        requestAnimationFrame(passo);
+      }
+      res.classList.remove('is-novo');
+      void res.offsetWidth;
+      res.classList.add('is-novo');
+    });
+  }
+</script>
+
+<style>
+  .imc { background: var(--bege); }
+  .imc__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .imc__intro .sub { margin-top: 1.4rem; }
+  .imc__nota {
+    margin-top: 1.4rem;
+    font-size: 0.92rem;
+    color: var(--texto-2);
+    max-width: 44ch;
+    padding-left: 1rem;
+    border-left: 2px solid var(--palha);
+  }
+  .imc__cartao {
+    background: var(--creme);
+    border: 1px solid var(--linha);
+    border-radius: 18px;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .imc__form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: end;
+  }
+  .imc__campo label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+  }
+  .imc__input {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(52, 37, 31, 0.22);
+    border-radius: 12px;
+    background: var(--branco);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .imc__input:focus-within {
+    border-color: var(--marrom);
+    box-shadow: 0 0 0 3px rgba(122, 93, 69, 0.15);
+  }
+  .imc__input input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    font: 600 1.15rem var(--sans);
+    color: var(--texto);
+    padding: 0.85rem 0 0.85rem 0.9rem;
+    outline: none;
+  }
+  .imc__input span {
+    padding-right: 0.9rem;
+    color: var(--texto-2);
+    font-size: 0.85rem;
+  }
+  .imc__btn {
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin-top: 0.4rem;
+  }
+  .imc__erro {
+    grid-column: 1 / -1;
+    color: #9a3f2b;
+    font-size: 0.9rem;
+  }
+  .imc__resultado {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--linha);
+  }
+  .imc__resultado.is-novo { animation: imc-entra 0.7s var(--ease); }
+  @keyframes imc-entra { from { opacity: 0; transform: translateY(12px); } }
+  .imc__valor {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 2rem + 4vw, 4.6rem);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .imc__valor small {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--texto-2);
+  }
+  .imc__classe {
+    font-family: var(--serif);
+    font-size: var(--fs-3);
+    margin-top: 0.4rem;
+  }
+  .imc__escala {
+    position: relative;
+    margin: 1.4rem 0 1.2rem;
+    padding-top: 10px;
+  }
+  .imc__faixas {
+    display: flex;
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .imc__marcador {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 30px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: var(--texto);
+  }
+  .imc__texto { color: var(--texto); }
+  .imc__fonte {
+    font-size: 0.82rem;
+    color: var(--texto-2);
+    margin-top: 0.6rem;
+  }
+  .imc__cta { margin-top: 1.4rem; }
+  .imc__cta :global(svg) { width: 1rem; height: 1rem; }
+  @media (max-width: 900px) {
+    .imc__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .imc__form { grid-template-columns: 1fr 1fr; }
+    .imc__campo:nth-child(3) { grid-column: 1 / -1; }
+  }
+</style>

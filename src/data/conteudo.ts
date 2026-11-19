@@ -63,3 +63,37 @@ export const DICAS = [
     foto: FOTOS.dicaBalanca,
   },
 ];
+
+/**
+ * Comentários reais deixados no Instagram da Sueli (@nutri.sueliribeiro), copiados
+ * sem alteração de sentido (só os emojis foram retirados). Antes de publicar novos,
+ * confirme com a pessoa se ela autoriza o uso no site.
+ */
+export const AVALIACOES = [
+  {
+    texto:
+      'O segredo é a disciplina e a constância associado a profissionais capacitados que entendem a necessidade de cada um. E isso nossa nutri faz com excelência! Só confiar e seguir o caminho que ela vai te dar.',
+    autor: '@consultoria.lucilene',
+    post: 'https://www.instagram.com/p/DeIHeU-TWK6/',
+  },
+  {
+    texto: 'Nutri maravilhosa e paciente aplicada.',
+    autor: '@anicleibarreto',
+    post: 'https://www.instagram.com/p/DUcL-g-jJba/',
+  },
+  {
+    texto: 'Que orgulho em ver vocês. Fizeram parte da minha história.',
+    autor: '@daneilefarias_ademicon',
+    post: 'https://www.instagram.com/p/DcmhlG8zpuG/',
+  },
+  {
+    texto: 'Arrasaram! Você é a melhor.',
+    autor: '@mi.romaoo',
+    post: 'https://www.instagram.com/p/DcmhlG8zpuG/',
+  },
+  {
+    texto: 'Parabéns a nutri.',
+    autor: '@chirleneesteticista.cacoal',
+    post: 'https://www.instagram.com/p/DcmhlG8zpuG/',
+  },
+];
