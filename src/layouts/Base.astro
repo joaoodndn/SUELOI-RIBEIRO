@@ -1,0 +1,170 @@
+---
+import '../styles/global.css';
+import Monograma from '../components/Monograma.astro';
+import Icone from '../components/Icone.astro';
+import { CONFIG, instagramUrl, linkAgendamento, canalAgendamento, preenchido, localTexto } from '../config';
+import { AREAS } from '../data/areas';
+import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
+
+interface Props {
+  titulo: string;
+  descricao: string;
+  intro?: boolean;
+  cabecalhoClaro?: boolean;
+}
+const { titulo, descricao, intro = false } = Astro.props;
+const url = new URL(Astro.url.pathname, CONFIG.siteUrl).href;
+const tituloCompleto = titulo.includes(CONFIG.nome) ? titulo : `${titulo} | ${CONFIG.nome}, Nutricionista`;
+const og = new URL(avatar.src, CONFIG.siteUrl).href;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  { href: '/#areas', label: 'Áreas de atuação' },
+  { href: '/sobre', label: 'Sobre' },
+  { href: '/receitas-e-dicas', label: 'Conteúdos' },
+  { href: '/contato', label: 'Contato' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: `${CONFIG.nome} — Nutricionista`,
+  url: CONFIG.siteUrl,
+  image: og,
+  medicalSpecialty: 'Dietetics',
+  areaServed: { '@type': 'State', name: CONFIG.estado },
+  sameAs: [instagramUrl],
+  ...(preenchido(CONFIG.whatsapp) ? { telephone: `+${CONFIG.whatsapp}` } : {}),
+  ...(preenchido(CONFIG.endereco) && preenchido(CONFIG.cidade)
+    ? { address: { '@type': 'PostalAddress', streetAddress: CONFIG.endereco, addressLocality: CONFIG.cidade, addressRegion: CONFIG.uf, addressCountry: 'BR' } }
+    : {}),
+  founder: {
+    '@type': 'Person',
+    name: CONFIG.nome,
+    jobTitle: 'Nutricionista',
+    identifier: CONFIG.crn,
+    sameAs: [instagramUrl],
+  },
+};
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={url} />
+    <meta name="theme-color" content="#F8F6F2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={avatar.src} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={`${CONFIG.nome}, Nutricionista`} />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline define:vars={{ intro }}>
+      var d = document.documentElement;
+      d.classList.add('js');
+      var semIntro = !intro || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      try { if (sessionStorage.getItem('sr-intro')) semIntro = true; } catch (e) {}
+      if (semIntro) d.classList.add('sem-intro');
+      // Se o script de animação não carregar, mostra tudo.
+      window.__motionTimer = setTimeout(function () { d.classList.add('motion-falhou', 'sem-intro'); }, 4000);
+    </script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+    {intro && (
+      <div class="intro" aria-hidden="true">
+        <div class="intro__metade intro__metade--a"></div>
+        <div class="intro__metade intro__metade--b"></div>
+        <div class="intro__centro">
+          <Monograma class="intro__sr" />
+          <p class="intro__nome">{`${CONFIG.nome} · Nutricionista`.split('').map((c) => <span>{c === ' ' ? ' ' : c}</span>)}</p>
+          <div class="intro__linha"></div>
+        </div>
+        <button class="intro__pular" type="button" tabindex="-1">Pular</button>
+      </div>
+    )}
+
+    <header class="header">
+      <div class="wrap header__in">
+        <a class="marca" href="/" aria-label={`${CONFIG.nome}, Nutricionista — página inicial`}>
+          <Monograma class="marca__sr" />
+          <span>
+            <span class="marca__nome">{CONFIG.nome}</span>
+            <span class="marca__prof">Nutricionista · {CONFIG.crn}</span>
+          </span>
+        </a>
+        <nav class="nav" aria-label="Principal">
+          {nav.map((n) => (
+            <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>
+          ))}
+          <a class="btn" data-magnetico href={linkAgendamento()} target="_blank" rel="noopener">Agendar consulta</a>
+        </nav>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-mobile">
+          <span></span><span></span>
+          <b class="sr-only">Abrir menu</b>
+        </button>
+      </div>
+      <div class="menu-mobile" id="menu-mobile">
+        <ul>
+          <li><a href="/">Início</a></li>
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        </ul>
+        <div class="menu-mobile__pe">
+          <a class="btn btn--claro" href={linkAgendamento()} target="_blank" rel="noopener">Agendar consulta</a>
+          <span>{CONFIG.crn} · {localTexto()}</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <slot />
+    </main>
+
+    <footer class="rodape">
+      <div class="wrap">
+        <div class="rodape__topo">
+          <div>
+            <p class="rodape__marca">{CONFIG.nome}<br />Nutricionista</p>
+            <p style="margin-top:1rem">{CONFIG.crn} · {localTexto()}</p>
+          </div>
+          <div>
+            <h2>Áreas de atuação</h2>
+            <ul>{AREAS.map((a) => <li><a href={`/areas/${a.slug}`}>{a.titulo}</a></li>)}</ul>
+          </div>
+          <div>
+            <h2>Contato</h2>
+            <ul>
+              <li><a href={linkAgendamento()} target="_blank" rel="noopener">Agendar pelo {canalAgendamento}</a></li>
+              <li><a href={instagramUrl} target="_blank" rel="noopener">Instagram @{CONFIG.instagram}</a></li>
+              {preenchido(CONFIG.endereco) && <li>{CONFIG.endereco}</li>}
+              {preenchido(CONFIG.horarios) && <li>{CONFIG.horarios}</li>}
+              <li><a href="/sobre">Sobre a Sueli</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="rodape__aviso">
+          <p>Conteúdo informativo. Não substitui consulta nem orientação médica.</p>
+          <p>© {new Date().getFullYear()} {CONFIG.nome}. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <a class="flutuante" href={linkAgendamento()} target="_blank" rel="noopener" aria-label={`Agendar consulta pelo ${canalAgendamento}`}>
+      <Icone nome={canalAgendamento === 'WhatsApp' ? 'whatsapp' : 'instagram'} />
+      <span>Agendar</span>
+    </a>
+
+    <script>
+      import '../scripts/motion.ts';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,723 @@
+---
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import Icone from '../components/Icone.astro';
+import { Image } from 'astro:assets';
+import { AREAS } from '../data/areas';
+import { FOTOS, FAIXA } from '../data/fotos';
+import { FAQ, DICAS } from '../data/conteudo';
+import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto } from '../config';
+import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
+import retrato from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
+
+const confianca = [
+  CONFIG.crn,
+  'Atendimento individualizado',
+  'Avaliação de composição corporal',
+  'Plano a partir dos seus exames',
+  'Sem dietas extremas',
+  ...(CONFIG.atendimentoPresencial && CONFIG.atendimentoOnline ? ['Presencial e online'] : []),
+];
+
+const etapas = [
+  {
+    n: '01',
+    titulo: 'Avaliação',
+    texto: 'Conversa sobre histórico, rotina, sono, treino e alimentação. Medidas, composição corporal quando aplicável e leitura dos seus exames.',
+    foto: FOTOS.avaliacao,
+  },
+  {
+    n: '02',
+    titulo: 'Planejamento',
+    texto: 'Plano alimentar individualizado, com opções e substituições para casa, trabalho e refeições fora. Nada de cardápio genérico.',
+    foto: FOTOS.planejamento,
+  },
+  {
+    n: '03',
+    titulo: 'Acompanhamento',
+    texto: 'Retornos para reavaliar medidas, sintomas e exames, entender o que funcionou e ajustar o plano. A evolução é acompanhada além do peso.',
+    foto: FOTOS.acompanhamento,
+  },
+];
+---
+<Base
+  titulo={`${CONFIG.nome} | Nutricionista clínica em ${CONFIG.estado}`}
+  descricao={`Nutricionista clínica em ${CONFIG.estado} (${CONFIG.crn}). Emagrecimento e composição corporal, acompanhamento com GLP-1, hipertrofia, saúde metabólica, intestinal e intolerâncias alimentares.`}
+  intro
+>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__texto">
+        <p class="hero__selo" data-hero="sobe">
+          <Image src={avatar} alt="" width={44} height={44} class="hero__avatar" />
+          <span><strong>{CONFIG.nome}</strong><br />Nutricionista · {CONFIG.crn}</span>
+        </p>
+        <h1 class="hero__titulo" data-titulo="hero">Nutrição clínica em {CONFIG.estado}, do exame ao prato.</h1>
+        <p class="hero__sub" data-hero="sobe">
+          Acompanhamento individualizado para emagrecimento, composição corporal, hipertrofia e saúde metabólica e intestinal. Cada plano parte da sua rotina, dos seus exames e do que você gosta de comer.
+        </p>
+        <div class="hero__acoes" data-hero="sobe">
+          <a class="btn" data-magnetico href={linkAgendamento()} target="_blank" rel="noopener">
+            Agendar consulta <Icone nome="seta" />
+          </a>
+          <a class="btn btn--linha" href="#areas">Conhecer as áreas</a>
+        </div>
+      </div>
+      <div class="hero__fotos">
+        <div class="foto foto--arco hero__foto-a" data-hero="foto">
+          <Foto foto={FOTOS.heroConsulta} ratio={4 / 5} sizes="(max-width: 900px) 92vw, 44vw" prioridade />
+        </div>
+        <div class="foto hero__foto-b" data-hero="foto">
+          <Foto foto={FOTOS.heroPrato} ratio={1} sizes="(max-width: 900px) 40vw, 16vw" larguras={[320, 480, 640]} prioridade />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAIXA DE CONFIANÇA -->
+  <div class="marquee" aria-label="Diferenciais do atendimento">
+    <div class="marquee__trilho">
+      {[0, 1].map((k) => (
+        <ul aria-hidden={k === 1 ? 'true' : undefined}>
+          {confianca.map((c) => <li>{c}</li>)}
+        </ul>
+      ))}
+    </div>
+  </div>
+
+  <!-- APRESENTAÇÃO -->
+  <section class="sec apresenta">
+    <div class="wrap apresenta__grid">
+      <span class="rotulo">A proposta</span>
+      <p class="apresenta__texto" data-acende>
+        Nutrição clínica não é só o que vai no prato. É entender seus exames, seu sono, seu treino, seus sintomas e a rotina que você tem de verdade. A partir disso, o plano ajusta o que precisa ser ajustado e mantém a comida que faz sentido para você.
+      </p>
+    </div>
+  </section>
+
+  <!-- ÁREAS -->
+  <section class="sec sec--bege" id="areas">
+    <div class="wrap">
+      <div class="cabeca">
+        <div>
+          <span class="rotulo">Áreas de atuação</span>
+          <h2 class="titulo" data-titulo>Seis frentes, um acompanhamento.</h2>
+        </div>
+        <p class="sub" data-anim="sobe">Cada área tem uma página com o que é, para quem é indicada e como funciona o acompanhamento.</p>
+      </div>
+      <ul class="areas" data-anim="stagger">
+        {AREAS.map((a) => (
+          <li>
+            <a class="area" href={`/areas/${a.slug}`} data-tilt>
+              <div class="foto area__foto">
+                <Foto foto={a.foto} ratio={4 / 5} sizes="(max-width: 640px) 92vw, (max-width: 1000px) 45vw, 30vw" larguras={[400, 600, 800]} />
+              </div>
+              <h3 class="area__titulo">{a.titulo}</h3>
+              <p class="area__resumo">{a.resumo}</p>
+              <span class="area__mais">Saiba mais <Icone nome="seta" /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="sec sobre" id="sobre">
+    <div class="wrap sobre__grid">
+      <div class="sobre__foto-col">
+        <div class="foto foto--arco sobre__foto" data-anim="mascara">
+          <Image src={retrato} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 900px) 80vw, 34vw" />
+        </div>
+      </div>
+      <div class="sobre__texto">
+        <span class="rotulo">Quem atende</span>
+        <h2 class="titulo" data-titulo>{CONFIG.nome}</h2>
+        <p class="sobre__crn" data-anim="sobe">Nutricionista · {CONFIG.crn}</p>
+        <div class="prosa" data-anim="sobe">
+          <p>Atendo em {localTexto()} com foco em nutrição clínica: emagrecimento e composição corporal, acompanhamento de quem usa medicamentos da classe GLP-1, hipertrofia, saúde metabólica, intestinal e intolerâncias alimentares.</p>
+          <p>O plano é sempre individual. Ele leva em conta exames, rotina, preferências e o momento de cada pessoa, e é ajustado a cada retorno. Quando o caso pede, o trabalho é feito junto com o médico.</p>
+        </div>
+        <a class="link sobre__link" href="/sobre" data-anim="sobe">Mais sobre a Sueli</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="sec sec--bege" id="como-funciona">
+    <div class="wrap">
+      <div class="cabeca">
+        <div>
+          <span class="rotulo">Como funciona</span>
+          <h2 class="titulo" data-titulo>Três etapas, do primeiro encontro aos retornos.</h2>
+        </div>
+      </div>
+      <ol class="etapas" data-linha>
+        <span class="etapas__linha" aria-hidden="true"><span class="etapas__linha-fill"></span></span>
+        {etapas.map((e) => (
+          <li class="etapa">
+            <span class="etapa__n" aria-hidden="true">{e.n}</span>
+            <div class="etapa__corpo">
+              <h3 class="etapa__titulo">{e.titulo}</h3>
+              <p class="texto-2">{e.texto}</p>
+            </div>
+            <div class="foto etapa__foto" data-anim="mascara">
+              <Foto foto={e.foto} ratio={3 / 2} sizes="(max-width: 900px) 92vw, 30vw" larguras={[400, 600, 900]} />
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ALÉM DO PRATO (scroll horizontal) -->
+  <section class="faixa sec--escura" data-horizontal aria-labelledby="faixa-titulo">
+    <div class="faixa__trilho">
+      <div class="faixa__intro">
+        <span class="rotulo">O que entra na conta</span>
+        <h2 class="titulo" id="faixa-titulo" data-titulo>Nutrição vai além do prato.</h2>
+        <p class="sub">Sono, treino, hidratação, exames, intestino, rotina de compras. Tudo isso pesa no resultado e entra na conversa.</p>
+      </div>
+      {FAIXA.map((f, i) => (
+        <figure class="faixa__item" data-par={i % 2 === 0 ? 'par' : 'impar'}>
+          <div class="foto faixa__foto">
+            <Foto foto={f} ratio={3 / 4} sizes="(max-width: 900px) 70vw, 24vw" larguras={[360, 540, 720]} />
+          </div>
+          <figcaption>{f.legenda}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- CONTEÚDOS -->
+  <section class="sec" id="conteudos">
+    <div class="wrap">
+      <div class="cabeca">
+        <div>
+          <span class="rotulo">Conteúdos</span>
+          <h2 class="titulo" data-titulo>Para ler antes da consulta.</h2>
+        </div>
+        <a class="link" href="/receitas-e-dicas" data-anim="sobe">Ver todos os conteúdos</a>
+      </div>
+      <ul class="dicas" data-anim="stagger">
+        {DICAS.map((d) => (
+          <li class="dica">
+            <div class="foto dica__foto"><Foto foto={d.foto} ratio={3 / 2} sizes="(max-width: 760px) 92vw, 30vw" larguras={[400, 600, 800]} /></div>
+            <h3 class="dica__titulo">{d.titulo}</h3>
+            <p class="texto-2">{d.texto}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS
+       Só publicar depoimentos reais, com autorização por escrito do paciente.
+       Para ativar: preencher a lista abaixo e remover o comentário do bloco.
+
+  <section class="sec sec--bege" id="depoimentos">
+    <div class="wrap">
+      <span class="rotulo">Depoimentos</span>
+      <h2 class="titulo" data-titulo>Quem já acompanhou.</h2>
+      <ul class="depoimentos" data-anim="stagger">
+        <li><blockquote>"Texto do depoimento autorizado."</blockquote><p>Nome ou iniciais</p></li>
+      </ul>
+    </div>
+  </section>
+  -->
+
+  <!-- FAQ -->
+  <section class="sec sec--bege" id="faq">
+    <div class="wrap faq">
+      <div class="faq__cabeca">
+        <span class="rotulo">Dúvidas frequentes</span>
+        <h2 class="titulo" data-titulo>Antes de agendar.</h2>
+        <p class="sub" data-anim="sobe">Não achou sua pergunta? Mande uma mensagem pelo {canalAgendamento}.</p>
+      </div>
+      <div class="faq__lista">
+        {FAQ.map((q) => (
+          <details class="faq__item">
+            <summary><span>{q.p}</span><Icone nome="mais" class="faq__icone" /></summary>
+            <div class="faq__resp"><p>{q.r}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="sec sec--escura contato" id="contato">
+    <div class="wrap contato__grid">
+      <div>
+        <span class="rotulo">Agendamento</span>
+        <h2 class="contato__titulo" data-titulo>Vamos marcar sua primeira consulta?</h2>
+        <div class="contato__acoes" data-anim="sobe">
+          <a class="btn btn--claro" data-magnetico href={linkAgendamento()} target="_blank" rel="noopener">
+            <Icone nome={canalAgendamento === 'WhatsApp' ? 'whatsapp' : 'instagram'} /> Agendar pelo {canalAgendamento}
+          </a>
+          <a class="btn btn--linha" href={instagramUrl} target="_blank" rel="noopener">@{CONFIG.instagram}</a>
+        </div>
+      </div>
+      <ul class="contato__dados" data-anim="stagger">
+        <li><Icone nome="local" /><span>{preenchido(CONFIG.endereco) ? `${CONFIG.endereco} · ${localTexto()}` : localTexto()}</span></li>
+        {preenchido(CONFIG.horarios) && <li><Icone nome="relogio" /><span>{CONFIG.horarios}</span></li>}
+        <li><Icone nome="instagram" /><a class="link" href={instagramUrl} target="_blank" rel="noopener">instagram.com/{CONFIG.instagram}</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* HERO */
+  .hero {
+    padding-top: calc(var(--header-h) + clamp(2rem, 5vw, 4.5rem));
+    padding-bottom: clamp(3rem, 6vw, 6rem);
+    overflow: hidden;
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .hero__selo {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.86rem;
+    line-height: 1.35;
+    color: var(--texto-2);
+    margin-bottom: clamp(1.5rem, 3vw, 2.4rem);
+  }
+  .hero__selo strong {
+    color: var(--texto);
+    font-weight: 600;
+  }
+  .hero__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px var(--linha), 0 0 0 4px var(--creme), 0 0 0 5px var(--dourado);
+  }
+  .hero__titulo {
+    font-size: var(--fs-5);
+    line-height: 0.98;
+    max-width: 12ch;
+  }
+  .hero__sub {
+    margin-top: clamp(1.5rem, 3vw, 2.2rem);
+    font-size: var(--fs-2);
+    color: var(--texto-2);
+    max-width: 44ch;
+    line-height: 1.55;
+  }
+  .hero__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: clamp(1.8rem, 3vw, 2.6rem);
+  }
+  .hero__fotos {
+    position: relative;
+    padding-bottom: 12%;
+  }
+  .hero__foto-a {
+    aspect-ratio: 4 / 5;
+    width: 82%;
+    margin-left: auto;
+  }
+  .hero__foto-b {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid var(--creme);
+  }
+  :global(.linha-mascara) {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  @media (max-width: 900px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+    }
+    .hero__titulo {
+      max-width: 14ch;
+    }
+    .hero__fotos {
+      max-width: 520px;
+    }
+  }
+
+  /* MARQUEE */
+  .marquee {
+    background: var(--marrom);
+    color: var(--creme);
+    overflow: hidden;
+    padding-block: 1.15rem;
+    border-block: 1px solid var(--marrom-escuro);
+  }
+  .marquee__trilho {
+    display: flex;
+    width: max-content;
+    animation: marquee 38s linear infinite;
+  }
+  .marquee:hover .marquee__trilho,
+  .marquee.is-pausado .marquee__trilho {
+    animation-play-state: paused;
+  }
+  .marquee ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .marquee li {
+    font-family: var(--serif);
+    font-size: var(--fs-2);
+    white-space: nowrap;
+    padding-inline: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+  .marquee li::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--dourado);
+    margin-left: 2rem;
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+
+  /* APRESENTAÇÃO */
+  .apresenta__grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 2rem;
+  }
+  .apresenta__texto {
+    font-family: var(--serif);
+    font-size: var(--fs-4);
+    line-height: 1.12;
+    max-width: 24ch;
+  }
+  @media (max-width: 760px) {
+    .apresenta__grid { grid-template-columns: 1fr; gap: 0; }
+  }
+
+  /* CABEÇALHO DE SEÇÃO */
+  .cabeca {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .cabeca .titulo {
+    max-width: 16ch;
+  }
+
+  /* ÁREAS */
+  .areas {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2.5rem, 4vw, 3.5rem) clamp(1.25rem, 2.5vw, 2.25rem);
+  }
+  .area {
+    display: block;
+    text-decoration: none;
+    transform-style: preserve-3d;
+  }
+  .area__foto {
+    aspect-ratio: 4 / 5;
+    margin-bottom: 1.4rem;
+  }
+  .area__foto :global(img) {
+    transition: transform 1.2s var(--ease), filter 0.8s var(--ease);
+    filter: saturate(0.92);
+  }
+  .area:hover .area__foto :global(img) {
+    transform: scale(1.06);
+    filter: saturate(1);
+  }
+  .area__titulo {
+    font-size: var(--fs-3);
+    line-height: 1.08;
+  }
+  .area__resumo {
+    color: var(--texto-2);
+    margin-top: 0.7rem;
+    font-size: 0.97rem;
+  }
+  .area__mais {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--linha);
+    padding-bottom: 0.2rem;
+    transition: border-color 0.4s, gap 0.4s var(--ease);
+  }
+  .area__mais :global(svg) { width: 1rem; height: 1rem; }
+  .area:hover .area__mais { border-color: var(--texto); gap: 0.8rem; }
+  @media (max-width: 1000px) {
+    .areas { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .areas { grid-template-columns: 1fr; }
+  }
+
+  /* SOBRE */
+  .sobre__grid {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: center;
+  }
+  .sobre__foto {
+    aspect-ratio: 3 / 4;
+    max-width: 460px;
+  }
+  .sobre__foto :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .sobre__crn {
+    margin: 0.9rem 0 1.8rem;
+    color: var(--dourado);
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  .sobre__link {
+    display: inline-block;
+    margin-top: 2rem;
+    font-weight: 600;
+  }
+  @media (max-width: 900px) {
+    .sobre__grid { grid-template-columns: 1fr; }
+    .sobre__foto { max-width: 380px; }
+  }
+
+  /* ETAPAS */
+  .etapas {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: grid;
+    gap: clamp(3rem, 6vw, 5.5rem);
+  }
+  .etapas__linha {
+    position: absolute;
+    left: clamp(2.2rem, 4vw, 3.4rem);
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: var(--linha);
+  }
+  .etapas__linha-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--marrom);
+    transform-origin: top;
+  }
+  .etapa {
+    display: grid;
+    grid-template-columns: clamp(4.4rem, 8vw, 6.8rem) 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+  .etapa__n {
+    position: relative;
+    z-index: 1;
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 2rem + 2.5vw, 4.4rem);
+    line-height: 1;
+    color: var(--dourado);
+    background: var(--bege);
+    padding-block: 0.3rem;
+    text-align: center;
+    transition: color 0.6s var(--ease);
+  }
+  .etapa.is-ativa .etapa__n { color: var(--marrom); }
+  .etapa__titulo {
+    font-size: var(--fs-4);
+    margin-bottom: 1rem;
+  }
+  .etapa__corpo p { max-width: 40ch; }
+  .etapa__foto { aspect-ratio: 3 / 2; }
+  @media (max-width: 900px) {
+    .etapa { grid-template-columns: clamp(4.4rem, 14vw, 5rem) 1fr; }
+    .etapa__foto { grid-column: 2; }
+  }
+
+  /* FAIXA HORIZONTAL */
+  .faixa {
+    overflow: hidden;
+    padding-block: var(--sec);
+  }
+  .faixa__trilho {
+    display: flex;
+    gap: clamp(1.25rem, 2.5vw, 2.5rem);
+    padding-inline: var(--gutter);
+    align-items: center;
+    width: max-content;
+    will-change: transform;
+  }
+  .faixa__intro {
+    width: min(30rem, 80vw);
+    flex: none;
+    padding-right: 2rem;
+  }
+  .faixa__intro .titulo { margin-bottom: 1.4rem; }
+  .faixa__item {
+    margin: 0;
+    flex: none;
+    width: clamp(15rem, 22vw, 21rem);
+  }
+  .faixa__item[data-par='impar'] { margin-top: clamp(3rem, 8vw, 7rem); }
+  .faixa__item[data-par='par'] { margin-bottom: clamp(3rem, 8vw, 7rem); }
+  .faixa__foto {
+    aspect-ratio: 3 / 4;
+    background: var(--marrom-escuro);
+  }
+  .faixa__foto :global(img) {
+    width: 116%;
+    max-width: none;
+    margin-left: -8%;
+  }
+  .faixa figcaption {
+    font-family: var(--serif);
+    font-size: var(--fs-2);
+    margin-top: 0.9rem;
+    color: var(--creme);
+  }
+  @media (max-width: 899px) {
+    .faixa { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .faixa__item { scroll-snap-align: start; width: 68vw; }
+    .faixa__item[data-par] { margin: 0; }
+    .faixa__intro { scroll-snap-align: start; }
+    .faixa__foto :global(img) { width: 100%; margin-left: 0; }
+  }
+
+  /* DICAS */
+  .dicas {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2rem, 3vw, 3rem);
+  }
+  .dica__foto { aspect-ratio: 3 / 2; margin-bottom: 1.3rem; }
+  .dica__titulo { font-size: var(--fs-3); margin-bottom: 0.7rem; }
+  .dica p { font-size: 0.97rem; }
+  @media (max-width: 860px) {
+    .dicas { grid-template-columns: 1fr; max-width: 560px; }
+  }
+
+  /* FAQ */
+  .faq {
+    display: grid;
+    grid-template-columns: 4fr 7fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .faq__cabeca { position: sticky; top: calc(var(--header-h) + 2rem); }
+  .faq__cabeca .sub { margin-top: 1.4rem; }
+  .faq__item { border-top: 1px solid var(--linha); }
+  .faq__item:last-child { border-bottom: 1px solid var(--linha); }
+  .faq__item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.45rem 0;
+    font-family: var(--serif);
+    font-size: var(--fs-2);
+    line-height: 1.3;
+    transition: color 0.3s;
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary:hover { color: var(--marrom-medio); }
+  :global(.faq__icone) {
+    width: 1.3rem;
+    height: 1.3rem;
+    flex: none;
+    transition: transform 0.5s var(--ease);
+  }
+  .faq__item[open] :global(.faq__icone) { transform: rotate(45deg); }
+  .faq__resp { overflow: hidden; }
+  .faq__resp p {
+    padding-bottom: 1.6rem;
+    color: var(--texto-2);
+    max-width: 60ch;
+  }
+  @media (max-width: 860px) {
+    .faq { grid-template-columns: 1fr; }
+    .faq__cabeca { position: static; }
+  }
+
+  /* CONTATO */
+  .contato__grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(2.5rem, 6vw, 6rem);
+    align-items: end;
+  }
+  .contato__titulo {
+    font-size: var(--fs-5);
+    line-height: 0.98;
+    max-width: 13ch;
+  }
+  .contato__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+  .contato__dados {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.1rem;
+    color: rgba(248, 246, 242, 0.8);
+  }
+  .contato__dados li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--linha-clara);
+  }
+  .contato__dados :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--dourado);
+    flex: none;
+  }
+  @media (max-width: 860px) {
+    .contato__grid { grid-template-columns: 1fr; }
+  }
+</style>

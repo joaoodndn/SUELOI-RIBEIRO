@@ -1,0 +1,39 @@
+---
+import { urlFoto, type Foto } from '../data/fotos';
+
+interface Props {
+  foto: Foto;
+  /** proporção largura/altura do recorte, ex.: 4/5 */
+  ratio: number;
+  sizes: string;
+  larguras?: number[];
+  prioridade?: boolean;
+  class?: string;
+  alt?: string;
+}
+const {
+  foto,
+  ratio,
+  sizes,
+  larguras = [480, 720, 960, 1280, 1600],
+  prioridade = false,
+  class: cls,
+  alt,
+} = Astro.props;
+const h = (w: number) => Math.round(w / ratio);
+const srcset = larguras.map((w) => `${urlFoto(foto, w, h(w))} ${w}w`).join(', ');
+const base = larguras[Math.min(2, larguras.length - 1)];
+---
+<img
+  class={cls}
+  src={urlFoto(foto, base, h(base))}
+  srcset={srcset}
+  sizes={sizes}
+  width={base}
+  height={h(base)}
+  alt={alt ?? foto.alt}
+  loading={prioridade ? 'eager' : 'lazy'}
+  decoding={prioridade ? 'sync' : 'async'}
+  fetchpriority={prioridade ? 'high' : undefined}
+  style={foto.foco ? `object-position:${foto.foco}` : undefined}
+/>

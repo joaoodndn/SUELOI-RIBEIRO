@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+import { Image } from 'astro:assets';
+import { CONFIG, linkAgendamento, preenchido, localTexto } from '../config';
+import { AREAS } from '../data/areas';
+import retrato from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
+import '../styles/interna.css';
+const formacao = CONFIG.formacao;
+---
+<Base titulo="Sobre" descricao={`Conheça ${CONFIG.nome}, nutricionista clínica em ${CONFIG.estado} (${CONFIG.crn}).`}>
+  <section class="int-hero">
+    <div class="wrap int-hero__grid">
+      <div>
+        <nav class="migalha" aria-label="Você está em" data-anim="sobe"><a href="/">Início</a><span aria-hidden="true">/</span><span>Sobre</span></nav>
+        <h1 data-titulo>{CONFIG.nome}</h1>
+        <p class="sub" data-anim="sobe">Nutricionista clínica · {CONFIG.crn} · {localTexto()}</p>
+      </div>
+      <div class="foto foto--arco int-hero__foto" data-anim="mascara">
+        <Image src={retrato} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 860px) 92vw, 40vw" loading="eager" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%" />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--bege">
+    <div class="wrap blocos">
+      <div class="bloco" data-anim="sobe">
+        <h2>Como eu trabalho</h2>
+        <div class="prosa">
+          <p>Meu trabalho é nutrição clínica: entender o que está acontecendo com a sua saúde e traduzir isso em uma alimentação que caiba na sua vida. Isso passa por exames, composição corporal, sintomas, sono, treino e rotina.</p>
+          <p>Não trabalho com dietas prontas nem com restrições sem motivo. O plano é construído com você e revisado a cada retorno. Quando o caso pede, converso com o médico que acompanha você.</p>
+        </div>
+      </div>
+      <div class="bloco" data-anim="sobe">
+        <h2>Áreas de atuação</h2>
+        <ul class="lista-fina">{AREAS.map((a) => <li><a class="link" href={`/areas/${a.slug}`}>{a.titulo}</a></li>)}</ul>
+      </div>
+      <div class="bloco" data-anim="sobe">
+        <h2>Formação</h2>
+        <ul class="lista-fina">
+          {formacao.map((f) => (
+            <li>{f.titulo}{preenchido(f.instituicao) && ` · ${f.instituicao}`}{preenchido(f.ano) && ` · ${f.ano}`}</li>
+          ))}
+          <li>Registro no Conselho Regional de Nutricionistas: {CONFIG.crn}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap cta-faixa">
+      <h2 data-titulo>Vamos conversar sobre o seu caso?</h2>
+      <a class="btn" data-magnetico href={linkAgendamento()} target="_blank" rel="noopener">Agendar consulta <Icone nome="seta" /></a>
+    </div>
+  </section>
+</Base>
