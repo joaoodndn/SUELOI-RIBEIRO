@@ -9,7 +9,7 @@ import { FAQ, DICAS, AVALIACOES } from '../data/conteudo';
 import Calculadoras from '../components/Calculadoras.astro';
 import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto, nomeFormal } from '../config';
 import retratoHero from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
-import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
+import avatarGrande from '../assets/img/sueli-rosto-1-avatar-ampliado.jpg';
 
 const confianca = [
   CONFIG.crn,
@@ -128,12 +128,9 @@ const etapas = [
   <section class="sec sobre" id="sobre">
     <div class="wrap sobre__grid">
       <div class="sobre__foto-col">
-        <div class="foto foto--arco sobre__foto" data-anim="mascara" data-img-parallax>
-          <Image src={retratoHero} alt={`${nomeFormal} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 900px) 80vw, 34vw" class="sobre__retrato" />
+        <div class="foto foto--arco sobre__foto" data-anim="mascara">
+          <Image src={avatarGrande} alt={`${nomeFormal} no consultório, sentada à mesa com um tablet`} width={600} height={600} class="sobre__retrato" />
         </div>
-        <figure class="sobre__avatar" data-anim="sobe">
-          <Foto foto={FOTOS.sobre} ratio={1} sizes="150px" larguras={[200, 300]} />
-        </figure>
       </div>
       <div class="sobre__texto">
         <span class="rotulo" data-traco>Sobre</span>
@@ -553,11 +550,10 @@ const etapas = [
   }
   .sobre__foto-col {
     position: relative;
-    padding-bottom: 3rem;
   }
   .sobre__foto {
-    aspect-ratio: 3 / 4;
-    max-width: 440px;
+    aspect-ratio: 1;
+    max-width: 340px;
   }
   .sobre__avatar {
     position: absolute;
@@ -575,7 +571,7 @@ const etapas = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 45%;
+    object-position: 50% 50%;
   }
   .sobre__avatar :global(img) {
     width: 100%;
