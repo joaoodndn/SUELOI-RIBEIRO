@@ -4,17 +4,20 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  --marrom: #392820;
-  --marrom-escuro: #2f221c;
-  --creme: #f8f6f2;
-  --bege: #eee8e1;
-  --marrom-medio: #705843;
-  --dourado: #987b68;
+  /* Paleta clara: creme, areia e palha, com marrom só nos botões e no texto */
+  --creme: #faf7f1;
+  --bege: #f3eadc;
+  --areia: #e8d9bf;
+  --palha: #d9c3a0;
+  --marrom: #7a5d45;
+  --marrom-escuro: #5e4634;
+  --marrom-medio: #8c6e52;
+  --dourado: #a88763;
   --texto: #34251f;
-  --texto-2: #76665c;
+  --texto-2: #6e5a4c;
   --branco: #ffffff;
   --linha: rgba(52, 37, 31, 0.14);
-  --linha-clara: rgba(248, 246, 242, 0.18);
+  --linha-clara: rgba(52, 37, 31, 0.16);
 
   --serif: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
   --sans: 'Manrope Variable', 'Manrope', system-ui, sans-serif;
@@ -86,8 +89,8 @@ p {
   text-wrap: pretty;
 }
 ::selection {
-  background: var(--marrom);
-  color: var(--creme);
+  background: var(--palha);
+  color: var(--texto);
 }
 :focus-visible {
   outline: 2px solid var(--dourado);
@@ -130,12 +133,12 @@ p {
   background: var(--bege);
 }
 .sec--escura {
-  background: var(--marrom);
-  color: var(--creme);
+  background: var(--areia);
+  color: var(--texto);
 }
 .sec--escura .sub,
 .sec--escura .texto-2 {
-  color: rgba(248, 246, 242, 0.72);
+  color: var(--texto-2);
 }
 .rotulo {
   font-family: var(--serif);
@@ -190,7 +193,7 @@ p {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--dourado);
+  background: var(--marrom-escuro);
   transform: translateY(101%);
   border-radius: inherit;
   transition: transform 0.55s var(--ease);
@@ -200,7 +203,7 @@ p {
   transform: translateY(0);
 }
 .btn:hover {
-  border-color: var(--dourado);
+  border-color: var(--marrom-escuro);
 }
 .btn svg {
   width: 1rem;
@@ -212,8 +215,8 @@ p {
   transform: translateX(3px);
 }
 .btn--claro {
-  --bg: var(--creme);
-  --fg: var(--marrom);
+  --bg: var(--marrom);
+  --fg: var(--creme);
 }
 .btn--linha {
   --bg: transparent;
@@ -228,14 +231,7 @@ p {
   border-color: var(--marrom);
 }
 .sec--escura .btn--linha {
-  --fg: var(--creme);
-  border-color: var(--linha-clara);
-}
-.sec--escura .btn--linha::before {
-  background: var(--creme);
-}
-.sec--escura .btn--linha:hover {
-  color: var(--marrom);
+  border-color: rgba(52, 37, 31, 0.22);
 }
 .link {
   text-decoration: none;
@@ -257,7 +253,7 @@ p {
   transition: transform 0.6s var(--ease), background-color 0.4s, box-shadow 0.4s;
 }
 .header.is-solido {
-  background: rgba(248, 246, 242, 0.92);
+  background: rgba(250, 247, 241, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--linha);
@@ -379,8 +375,8 @@ p {
     position: fixed;
     inset: 0;
     z-index: 2;
-    background: var(--marrom);
-    color: var(--creme);
+    background: var(--areia);
+    color: var(--texto);
     padding: calc(var(--header-h) + 2rem) var(--gutter) 2.5rem;
     clip-path: circle(0% at calc(100% - 2.6rem) 2.4rem);
     visibility: hidden;
@@ -392,17 +388,11 @@ p {
     transition: clip-path 0.8s var(--ease), visibility 0s;
   }
   .menu-aberto .header {
-    color: var(--creme);
     background: transparent;
     box-shadow: none;
     backdrop-filter: none;
   }
-  .menu-aberto .marca__sr {
-    color: var(--creme);
-  }
-  .menu-aberto .marca__prof {
-    color: rgba(248, 246, 242, 0.7);
-  }
+
   .menu-mobile ul {
     list-style: none;
     margin: 0;
@@ -432,7 +422,7 @@ p {
     display: grid;
     gap: 1rem;
     font-size: 0.9rem;
-    color: rgba(248, 246, 242, 0.7);
+    color: var(--texto-2);
   }
 }
 
@@ -463,13 +453,12 @@ p {
   gap: 0.6rem;
   padding: 0.85rem 1.15rem 0.85rem 0.95rem;
   border-radius: 999px;
-  background: var(--marrom);
-  color: var(--creme);
+  background: #25d366;
+  color: #fff;
   text-decoration: none;
   font-size: 0.88rem;
-  font-weight: 600;
-  border: 1px solid rgba(248, 246, 242, 0.22);
-  box-shadow: 0 10px 30px -12px rgba(47, 34, 28, 0.6);
+  font-weight: 700;
+  box-shadow: 0 12px 30px -10px rgba(37, 211, 102, 0.55);
   transform: translateY(150%);
   transition: transform 0.6s var(--ease), background-color 0.3s;
 }
@@ -477,7 +466,7 @@ p {
   transform: none;
 }
 .flutuante:hover {
-  background: var(--marrom-medio);
+  background: #1ebe5b;
 }
 .flutuante svg {
   width: 1.3rem;
@@ -486,8 +475,8 @@ p {
 
 /* ---------- Rodapé ---------- */
 .rodape {
-  background: var(--marrom-escuro);
-  color: rgba(248, 246, 242, 0.75);
+  background: var(--palha);
+  color: var(--texto-2);
   padding-block: clamp(4rem, 8vw, 6.5rem) 2rem;
   font-size: 0.92rem;
 }
@@ -495,7 +484,7 @@ p {
   text-decoration: none;
 }
 .rodape a:hover {
-  color: var(--creme);
+  color: var(--texto);
 }
 .rodape__topo {
   display: grid;
@@ -507,7 +496,7 @@ p {
 .rodape__marca {
   font-family: var(--serif);
   font-size: var(--fs-3);
-  color: var(--creme);
+  color: var(--texto);
   line-height: 1.1;
 }
 .rodape h2 {
@@ -515,7 +504,7 @@ p {
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.06em;
-  color: var(--dourado);
+  color: var(--marrom);
   margin-bottom: 1rem;
 }
 .rodape ul {
@@ -532,7 +521,7 @@ p {
   justify-content: space-between;
   gap: 1rem;
   font-size: 0.8rem;
-  color: rgba(248, 246, 242, 0.55);
+  color: var(--texto-2);
 }
 @media (max-width: 760px) {
   .rodape__topo {
@@ -548,7 +537,7 @@ p {
   z-index: 100;
   display: grid;
   place-items: center;
-  color: var(--creme);
+  color: var(--texto);
   pointer-events: none;
 }
 .intro__metade {
@@ -556,7 +545,7 @@ p {
   left: 0;
   right: 0;
   height: 50.5%;
-  background: var(--marrom-escuro);
+  background: var(--areia);
   pointer-events: auto;
 }
 .intro__metade--a { top: 0; }
@@ -572,7 +561,7 @@ p {
 .intro__sr {
   width: clamp(5rem, 12vw, 7.5rem);
   height: auto;
-  color: var(--dourado);
+  color: var(--marrom);
 }
 .intro__nome {
   font-family: var(--serif);
@@ -595,7 +584,7 @@ p {
   bottom: 2rem;
   background: none;
   border: 1px solid var(--linha-clara);
-  color: var(--creme);
+  color: var(--texto);
   font: 500 0.82rem var(--sans);
   padding: 0.6rem 1rem;
   border-radius: 999px;
@@ -714,54 +703,132 @@ html.js .rotulo[data-traco].is-visivel::before {
   transform: scaleX(1);
 }
 
-/* ---------- Cursor personalizado (desktop) ---------- */
-.cursor {
+/* ---------- Cursor: ponto + anel que mostra o quanto da página já foi lido ---------- */
+.cursor-ponto,
+.cursor-anel {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 90;
-  width: 10px;
-  height: 10px;
-  margin: -5px 0 0 -5px;
-  border-radius: 50%;
-  background: var(--marrom);
+  z-index: 95;
   pointer-events: none;
   display: none;
-  place-items: center;
-  transition: width 0.45s var(--ease), height 0.45s var(--ease), margin 0.45s var(--ease), background-color 0.3s, opacity 0.3s;
+  --cursor-cor: var(--marrom);
 }
-html.tem-cursor .cursor {
+html.tem-cursor .cursor-ponto,
+html.tem-cursor .cursor-anel {
+  display: block;
+}
+html.tem-cursor,
+html.tem-cursor * {
+  cursor: none !important;
+}
+html.tem-cursor :is(input, textarea, select) {
+  cursor: auto !important;
+}
+.cursor-ponto {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--cursor-cor);
+  transition: transform 0.35s var(--ease), background-color 0.5s, opacity 0.3s;
+}
+.cursor-anel {
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  display: none;
+  place-items: center;
+  transition: width 0.5s var(--ease), height 0.5s var(--ease), margin 0.5s var(--ease), opacity 0.3s;
+}
+html.tem-cursor .cursor-anel {
   display: grid;
 }
-.cursor.is-link {
-  width: 42px;
-  height: 42px;
-  margin: -21px 0 0 -21px;
-  background: rgba(152, 123, 104, 0.25);
+.cursor-anel svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
 }
-.cursor.is-rotulo {
-  width: 88px;
-  height: 88px;
-  margin: -44px 0 0 -44px;
-  background: var(--marrom);
+.cursor-anel circle {
+  fill: none;
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.5s, fill 0.5s;
 }
-.cursor__rotulo {
+.cursor-anel__trilha {
+  stroke: var(--cursor-cor);
+  opacity: 0.18;
+}
+.cursor-anel__prog {
+  stroke: var(--cursor-cor);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  stroke-linecap: round;
+}
+.cursor-anel__rotulo {
+  position: relative;
   color: var(--creme);
-  font: 600 0.78rem var(--sans);
+  font: 700 0.74rem/1.1 var(--sans);
+  text-align: center;
   opacity: 0;
-  transition: opacity 0.3s;
+  transform: scale(0.6);
+  transition: opacity 0.3s, transform 0.5s var(--ease);
 }
-.cursor.is-rotulo .cursor__rotulo {
+/* Em cima de links e botões: o anel abre e o ponto some */
+.cursor-anel.is-link {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+}
+.cursor-ponto.is-link {
+  transform: scale(0);
+}
+/* Em cima dos cartões: o anel vira um disco com texto */
+.cursor-anel.is-rotulo {
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+}
+.cursor-anel.is-rotulo .cursor-anel__trilha {
+  fill: var(--cursor-cor);
+  opacity: 0.92;
+}
+.cursor-anel.is-rotulo .cursor-anel__rotulo {
   opacity: 1;
+  transform: none;
 }
-.cursor.is-escuro {
-  background: var(--creme);
+.cursor-ponto.is-rotulo {
+  transform: scale(0);
 }
-.cursor.is-escuro .cursor__rotulo {
-  color: var(--marrom);
+/* Ao clicar */
+.cursor-ponto.is-clique {
+  transform: scale(2.2);
 }
-.cursor.is-escuro.is-rotulo {
-  background: var(--creme);
+/* Em cima de texto corrido: vira um traço fino */
+.cursor-ponto.is-texto {
+  width: 2px;
+  height: 22px;
+  margin: -11px 0 0 -1px;
+  border-radius: 1px;
+}
+
+/* ---------- Barra de progresso de leitura ---------- */
+.progresso {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 70;
+  pointer-events: none;
+}
+.progresso span {
+  display: block;
+  height: 100%;
+  background: var(--marrom);
+  transform-origin: left;
+  transform: scaleX(0);
 }
 
 /* ---------- Letreiro que acompanha a rolagem ---------- */
@@ -780,13 +847,13 @@ html.tem-cursor .cursor {
   line-height: 1;
   letter-spacing: -0.03em;
   white-space: nowrap;
-  color: var(--marrom);
+  color: var(--texto);
   will-change: transform;
 }
 .letreiro__linha + .letreiro__linha {
   margin-top: 0.15em;
   color: transparent;
-  -webkit-text-stroke: 1px var(--dourado);
+  -webkit-text-stroke: 1px var(--marrom-medio);
 }
 .letreiro__linha span {
   display: inline-flex;

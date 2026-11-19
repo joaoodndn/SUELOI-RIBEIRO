@@ -16,7 +16,7 @@ const formacao = CONFIG.formacao;
         <h1 data-titulo>{CONFIG.nome}</h1>
         <p class="sub" data-anim="sobe">Nutricionista clínica · {CONFIG.crn} · {localTexto()}</p>
       </div>
-      <div class="foto foto--arco int-hero__foto" data-anim="mascara">
+      <div class="foto foto--arco int-hero__foto sobre-retrato" data-anim="mascara">
         <Image src={retrato} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 860px) 92vw, 40vw" loading="eager" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%" />
       </div>
     </div>
@@ -54,3 +54,6 @@ const formacao = CONFIG.formacao;
     </div>
   </section>
 </Base>
+<style>
+  .sobre-retrato { aspect-ratio: 3 / 4; max-width: 380px; }
+</style>

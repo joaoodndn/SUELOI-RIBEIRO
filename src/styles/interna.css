@@ -19,7 +19,10 @@
   max-width: 46ch;
 }
 .int-hero__foto {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1;
+  max-width: 520px;
+  justify-self: end;
+  width: 100%;
 }
 .migalha {
   font-size: 0.85rem;

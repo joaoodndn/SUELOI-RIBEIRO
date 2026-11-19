@@ -56,7 +56,13 @@ $$<HTMLDetailsElement>('details.faq__item').forEach((d) => {
 const header = document.querySelector<HTMLElement>('.header');
 const flutuante = document.querySelector<HTMLElement>('.flutuante');
 let ultimoY = 0;
+const barra = document.querySelector<HTMLElement>('.progresso span');
+const anelProg = document.querySelector<SVGCircleElement>('.cursor-anel__prog');
 const aoRolar = (y: number) => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const p = total > 0 ? Math.min(1, Math.max(0, y / total)) : 0;
+  if (barra) barra.style.transform = `scaleX(${p})`;
+  if (anelProg) anelProg.style.strokeDashoffset = String(100 - p * 100);
   header?.classList.toggle('is-solido', y > 40);
   if (!root.classList.contains('menu-aberto')) header?.classList.toggle('is-oculto', y > 400 && y > ultimoY);
   flutuante?.classList.toggle('is-visivel', y > window.innerHeight * 0.6);
@@ -107,8 +113,17 @@ function introSuave() {
 function iniciarMovimento() {
   gsap.registerPlugin(ScrollTrigger);
 
-  lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
-  lenis.on('scroll', (e: { scroll: number }) => { ScrollTrigger.update(); aoRolar(e.scroll); });
+  lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.95 });
+  // Fotos inclinam levemente conforme a velocidade da rolagem e voltam ao parar
+  const inclinaveis = $$('.area__foto, .dica__foto, .faixa__foto, .etapa__foto');
+  const inclina = { v: 0 };
+  const aplicaInclinacao = () => inclinaveis.forEach((el) => (el.style.transform = `skewY(${inclina.v}deg)`));
+  lenis.on('scroll', (e: { scroll: number; velocity: number }) => {
+    ScrollTrigger.update();
+    aoRolar(e.scroll);
+    const alvo = gsap.utils.clamp(-2.2, 2.2, e.velocity * 0.12);
+    gsap.to(inclina, { v: alvo, duration: 0.5, ease: 'power3.out', overwrite: true, onUpdate: aplicaInclinacao });
+  });
   gsap.ticker.add((t) => lenis!.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
   aoRolar(window.scrollY);
@@ -207,7 +222,10 @@ function iniciarMovimento() {
       const tl = gsap.timeline({ scrollTrigger: { trigger: item, start: 'top 88%', once: true }, delay: (idx % cols) * 0.12 });
       gsap.set(item, { opacity: 1 });
       if (foto) tl.fromTo(foto, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'expo.inOut' });
-      if (img) tl.fromTo(img, { scale: 1.35 }, { scale: 1, duration: 1.8, ease: 'expo.out' }, 0.05);
+      if (img) {
+        tl.fromTo(img, { scale: 1.35 }, { scale: 1.08, duration: 1.8, ease: 'expo.out' }, 0.05);
+        gsap.fromTo(img, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: item, start: 'top bottom', end: 'bottom top', scrub: true } });
+      }
       tl.fromTo(textos, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.07 }, 0.55);
     });
   });
@@ -311,23 +329,44 @@ function iniciarMovimento() {
     });
     hero?.addEventListener('pointerleave', () => camadas.forEach((c) => { c.x(0); c.y(0); }));
 
-    // ---------- Cursor personalizado ----------
-    const cursor = document.querySelector<HTMLElement>('.cursor');
-    if (cursor) {
+    // ---------- Cursor: ponto rápido + anel com atraso (o anel mostra o progresso da página) ----------
+    const ponto = document.querySelector<HTMLElement>('.cursor-ponto');
+    const anel = document.querySelector<HTMLElement>('.cursor-anel');
+    if (ponto && anel) {
       root.classList.add('tem-cursor');
-      const rotulo = cursor.querySelector<HTMLElement>('.cursor__rotulo')!;
-      const cx = gsap.quickTo(cursor, 'x', { duration: 0.35, ease: 'power3.out' });
-      const cy = gsap.quickTo(cursor, 'y', { duration: 0.35, ease: 'power3.out' });
-      gsap.set(cursor, { opacity: 0 });
-      window.addEventListener('pointermove', (e) => { gsap.to(cursor, { opacity: 1, duration: 0.3, overwrite: 'auto' }); cx(e.clientX); cy(e.clientY); });
-      document.addEventListener('pointerleave', () => gsap.to(cursor, { opacity: 0, duration: 0.3 }));
+      const rotulo = anel.querySelector<HTMLElement>('.cursor-anel__rotulo')!;
+      const px = gsap.quickTo(ponto, 'x', { duration: 0.12, ease: 'power3.out' });
+      const py = gsap.quickTo(ponto, 'y', { duration: 0.12, ease: 'power3.out' });
+      const ax = gsap.quickTo(anel, 'x', { duration: 0.55, ease: 'power3.out' });
+      const ay = gsap.quickTo(anel, 'y', { duration: 0.55, ease: 'power3.out' });
+      gsap.set([ponto, anel], { opacity: 0 });
+      window.addEventListener('pointermove', (e) => {
+        gsap.to([ponto, anel], { opacity: 1, duration: 0.3, overwrite: 'auto' });
+        px(e.clientX); py(e.clientY); ax(e.clientX); ay(e.clientY);
+      });
+      document.documentElement.addEventListener('pointerleave', () => gsap.to([ponto, anel], { opacity: 0, duration: 0.3 }));
+      window.addEventListener('pointerdown', () => ponto.classList.add('is-clique'));
+      window.addEventListener('pointerup', () => ponto.classList.remove('is-clique'));
+
+      const corFundo = (el: HTMLElement) => {
+        if (el.closest('.foto')) return 'var(--creme)';
+        if (el.closest('.sec--escura, .marquee, .rodape, .menu-mobile, .letreiro')) return 'var(--texto)';
+        return 'var(--marrom)';
+      };
       document.addEventListener('pointerover', (e) => {
         const alvo = e.target as HTMLElement;
         const comRotulo = alvo.closest<HTMLElement>('[data-cursor]');
-        cursor.classList.toggle('is-rotulo', !!comRotulo);
+        const link = !comRotulo && !!alvo.closest('a, button, summary, [role="button"]');
+        const texto = !comRotulo && !link && !!alvo.closest('p, li, h1, h2, h3, blockquote, figcaption');
+        anel.classList.toggle('is-rotulo', !!comRotulo);
+        ponto.classList.toggle('is-rotulo', !!comRotulo);
+        anel.classList.toggle('is-link', link);
+        ponto.classList.toggle('is-link', link);
+        ponto.classList.toggle('is-texto', texto);
         rotulo.textContent = comRotulo?.dataset.cursor ?? '';
-        cursor.classList.toggle('is-link', !comRotulo && !!alvo.closest('a, button, summary'));
-        cursor.classList.toggle('is-escuro', !!alvo.closest('[data-cursor-escuro], .rodape, .marquee, .menu-mobile'));
+        const cor = comRotulo ? 'var(--marrom)' : corFundo(alvo);
+        ponto.style.setProperty('--cursor-cor', cor);
+        anel.style.setProperty('--cursor-cor', cor);
       });
     }
 

@@ -166,7 +166,12 @@ const jsonLd = {
       <span>Agendar</span>
     </a>
 
-    <div class="cursor" aria-hidden="true"><span class="cursor__rotulo"></span></div>
+    <div class="progresso" aria-hidden="true"><span></span></div>
+    <div class="cursor-anel" aria-hidden="true">
+      <svg viewBox="0 0 60 60"><circle class="cursor-anel__trilha" cx="30" cy="30" r="27" /><circle class="cursor-anel__prog" cx="30" cy="30" r="27" pathLength="100" /></svg>
+      <span class="cursor-anel__rotulo"></span>
+    </div>
+    <div class="cursor-ponto" aria-hidden="true"></div>
 
     <script>
       import '../scripts/motion.ts';

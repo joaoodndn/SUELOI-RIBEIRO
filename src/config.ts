@@ -20,7 +20,7 @@ export const CONFIG = {
    * Enquanto estiver 'PREENCHER', os botões de agendamento abrem o
    * Direct do Instagram.
    */
-  whatsapp: PENDENTE,
+  whatsapp: '5569992074571',
   mensagemWhatsapp: 'Olá, Sueli! Vim pelo site e gostaria de agendar uma consulta.',
 
   instagram: 'nutri.sueliribeiro',

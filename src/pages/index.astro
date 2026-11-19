@@ -7,8 +7,8 @@ import { AREAS } from '../data/areas';
 import { FOTOS, FAIXA } from '../data/fotos';
 import { FAQ, DICAS } from '../data/conteudo';
 import { CONFIG, linkAgendamento, canalAgendamento, instagramUrl, preenchido, localTexto } from '../config';
+import selo from '../assets/img/sueli-rosto-2-recorte-selo.jpg';
 import avatar from '../assets/img/sueli-rosto-1-avatar-perfil.jpg';
-import retrato from '../assets/img/sueli-rosto-2-perfil-sorrindo-mesa.jpg';
 
 const confianca = [
   CONFIG.crn,
@@ -50,12 +50,12 @@ const etapas = [
     <div class="wrap hero__grid">
       <div class="hero__texto">
         <p class="hero__selo" data-hero="sobe">
-          <Image src={avatar} alt="" width={44} height={44} class="hero__avatar" />
+          <Image src={selo} alt={`Foto de ${CONFIG.nome}`} width={128} height={128} class="hero__avatar" loading="eager" />
           <span><strong>{CONFIG.nome}</strong><br />Nutricionista · {CONFIG.crn}</span>
         </p>
-        <h1 class="hero__titulo" data-titulo="hero">Nutrição clínica em {CONFIG.estado}, do exame ao prato.</h1>
+        <h1 class="hero__titulo" data-titulo="hero">Ciência e estratégia para uma nutrição individualizada</h1>
         <p class="hero__sub" data-hero="sobe">
-          Acompanhamento individualizado para emagrecimento, composição corporal, hipertrofia e saúde metabólica e intestinal. Cada plano parte da sua rotina, dos seus exames e do que você gosta de comer.
+          Nutricionista clínica em {CONFIG.estado}. Acompanhamento para emagrecimento, composição corporal, hipertrofia e saúde metabólica e intestinal, com um plano que parte da sua rotina, dos seus exames e do que você gosta de comer.
         </p>
         <div class="hero__acoes" data-hero="sobe">
           <a class="btn" data-magnetico href={linkAgendamento()} target="_blank" rel="noopener">
@@ -111,7 +111,7 @@ const etapas = [
           <li>
             <a class="area" href={`/areas/${a.slug}`} data-tilt data-cursor="Ver área">
               <div class="foto area__foto">
-                <Foto foto={a.foto} ratio={4 / 5} sizes="(max-width: 640px) 92vw, (max-width: 1000px) 45vw, 30vw" larguras={[400, 600, 800]} />
+                <Foto foto={a.foto} ratio={4 / 3} sizes="(max-width: 640px) 92vw, (max-width: 1000px) 45vw, 30vw" larguras={[400, 600, 800]} />
               </div>
               <h3 class="area__titulo">{a.titulo}</h3>
               <p class="area__resumo">{a.resumo}</p>
@@ -128,8 +128,11 @@ const etapas = [
     <div class="wrap sobre__grid">
       <div class="sobre__foto-col">
         <div class="foto foto--arco sobre__foto" data-anim="mascara" data-img-parallax>
-          <Image src={retrato} alt={`${CONFIG.nome} sorrindo, sentada à mesa do consultório`} widths={[480, 720, 959]} sizes="(max-width: 900px) 80vw, 34vw" />
+          <Foto foto={FOTOS.sobre} ratio={3 / 4} sizes="(max-width: 900px) 80vw, 34vw" larguras={[400, 600, 800]} />
         </div>
+        <figure class="sobre__avatar" data-anim="sobe">
+          <Image src={avatar} alt={`${CONFIG.nome} atendendo no consultório`} width={150} height={150} />
+        </figure>
       </div>
       <div class="sobre__texto">
         <span class="rotulo" data-traco>Quem atende</span>
@@ -180,9 +183,9 @@ const etapas = [
         <p class="sub">Sono, treino, hidratação, exames, intestino, rotina de compras. Tudo isso pesa no resultado e entra na conversa.</p>
       </div>
       {FAIXA.map((f, i) => (
-        <figure class="faixa__item" data-par={i % 2 === 0 ? 'par' : 'impar'}>
+        <figure class={`faixa__item ${f.r > 1 ? 'faixa__item--larga' : ''}`} data-par={i % 2 === 0 ? 'par' : 'impar'}>
           <div class="foto faixa__foto">
-            <Foto foto={f} ratio={3 / 4} sizes="(max-width: 900px) 70vw, 24vw" larguras={[360, 540, 720]} />
+            <Foto foto={f} ratio={f.r > 1 ? 4 / 3 : 3 / 4} sizes={f.r > 1 ? '(max-width: 900px) 85vw, 34vw' : '(max-width: 900px) 68vw, 24vw'} larguras={[360, 540, 720, 960]} />
           </div>
           <figcaption>{f.legenda}</figcaption>
         </figure>
@@ -300,16 +303,16 @@ const etapas = [
     font-weight: 600;
   }
   .hero__avatar {
-    width: 44px;
-    height: 44px;
+    width: 62px;
+    height: 62px;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 0 0 1px var(--linha), 0 0 0 4px var(--creme), 0 0 0 5px var(--dourado);
   }
   .hero__titulo {
-    font-size: clamp(2.6rem, 1.5rem + 4vw, 5.4rem);
-    line-height: 1.02;
-    max-width: 13ch;
+    font-size: clamp(2.35rem, 1.45rem + 3.3vw, 4.7rem);
+    line-height: 1.04;
+    max-width: 15ch;
   }
   .hero__sub {
     margin-top: clamp(1.5rem, 3vw, 2.2rem);
@@ -362,11 +365,10 @@ const etapas = [
 
   /* MARQUEE */
   .marquee {
-    background: var(--marrom);
-    color: var(--creme);
+    background: var(--palha);
+    color: var(--texto);
     overflow: hidden;
     padding-block: 1.15rem;
-    border-block: 1px solid var(--marrom-escuro);
   }
   .marquee__trilho {
     display: flex;
@@ -397,7 +399,7 @@ const etapas = [
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--dourado);
+    background: var(--marrom);
     margin-left: 2rem;
   }
   @keyframes marquee {
@@ -449,7 +451,7 @@ const etapas = [
     transform-style: preserve-3d;
   }
   .area__foto {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 4 / 3;
     margin-bottom: 1.4rem;
   }
   .area__foto :global(img) {
@@ -496,9 +498,30 @@ const etapas = [
     gap: clamp(2.5rem, 7vw, 7rem);
     align-items: center;
   }
+  .sobre__foto-col {
+    position: relative;
+    padding-bottom: 3rem;
+  }
   .sobre__foto {
     aspect-ratio: 3 / 4;
-    max-width: 460px;
+    max-width: 440px;
+  }
+  .sobre__avatar {
+    position: absolute;
+    right: clamp(0rem, 4vw, 3rem);
+    bottom: 0;
+    margin: 0;
+    width: clamp(120px, 12vw, 150px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid var(--creme);
+    box-shadow: 0 0 0 1px var(--dourado), 0 18px 40px -20px rgba(52, 37, 31, 0.45);
+  }
+  .sobre__avatar :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .sobre__foto :global(img) {
     width: 100%;
@@ -601,27 +624,32 @@ const etapas = [
   }
   .faixa__item[data-par='impar'] { margin-top: clamp(3rem, 8vw, 7rem); }
   .faixa__item[data-par='par'] { margin-bottom: clamp(3rem, 8vw, 7rem); }
+  .faixa__item--larga {
+    width: clamp(20rem, 32vw, 30rem);
+  }
   .faixa__foto {
     aspect-ratio: 3 / 4;
-    background: var(--marrom-escuro);
+    background: var(--palha);
+  }
+  .faixa__item--larga .faixa__foto {
+    aspect-ratio: 4 / 3;
   }
   .faixa__foto :global(img) {
-    width: 116%;
-    max-width: none;
-    margin-left: -8%;
+    transform: scale(1.12);
   }
   .faixa figcaption {
     font-family: var(--serif);
     font-size: var(--fs-2);
     margin-top: 0.9rem;
-    color: var(--creme);
+    color: var(--texto);
   }
   @media (max-width: 899px) {
     .faixa { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
     .faixa__item { scroll-snap-align: start; width: 68vw; }
+    .faixa__item--larga { width: 85vw; }
     .faixa__item[data-par] { margin: 0; }
     .faixa__intro { scroll-snap-align: start; }
-    .faixa__foto :global(img) { width: 100%; margin-left: 0; }
+    .faixa__foto :global(img) { transform: none; }
   }
 
   /* DICAS */
@@ -708,7 +736,7 @@ const etapas = [
     padding: 0;
     display: grid;
     gap: 1.1rem;
-    color: rgba(248, 246, 242, 0.8);
+    color: var(--texto);
   }
   .contato__dados li {
     display: flex;
@@ -720,7 +748,7 @@ const etapas = [
   .contato__dados :global(svg) {
     width: 1.25rem;
     height: 1.25rem;
-    color: var(--dourado);
+    color: var(--marrom);
     flex: none;
   }
   @media (max-width: 860px) {
