@@ -642,7 +642,7 @@ const etapas = [
   }
   .etapa {
     display: grid;
-    grid-template-columns: clamp(4.4rem, 8vw, 6.8rem) 1fr 1fr;
+    grid-template-columns: clamp(4rem, 6vw, 5.6rem) 1.6fr 1fr;
     gap: clamp(1.5rem, 4vw, 4rem);
     align-items: start;
   }
@@ -660,19 +660,19 @@ const etapas = [
   }
   .etapa.is-ativa .etapa__n { color: var(--marrom); }
   .etapa__titulo {
-    font-size: clamp(1.9rem, 1.2rem + 2vw, 3.2rem);
-    margin-bottom: 1rem;
+    font-size: clamp(1.7rem, 1.1rem + 1.6vw, 2.7rem);
+    margin-bottom: 0.8rem;
     overflow-wrap: anywhere;
   }
-  .etapa__corpo p { max-width: 46ch; }
+  .etapa__corpo p { max-width: 56ch; font-size: 0.98rem; }
   .etapa__lista {
     list-style: none;
     margin: 1.1rem 0 0;
     padding: 0;
     display: grid;
     gap: 0.55rem;
-    max-width: 48ch;
-    font-size: 0.92rem;
+    max-width: 58ch;
+    font-size: 0.9rem;
     color: var(--texto);
   }
   .etapa__lista li {
@@ -703,8 +703,8 @@ const etapas = [
   /* ETAPAS: palco com índice lateral */
   .etapas__palco {
     display: grid;
-    grid-template-columns: 12rem 1fr;
-    gap: clamp(2rem, 5vw, 4rem);
+    grid-template-columns: 11rem 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
     align-items: start;
   }
   .etapas__indice {
